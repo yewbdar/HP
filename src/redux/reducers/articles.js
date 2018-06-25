@@ -1,27 +1,11 @@
+import * as actions from '../actions/actionType';
 const initialState = {
-    articles: [],
-    article: {}
+    articles: []
 }
 export default (state=initialState, action) => {
     switch (action.type) {
-        case 'LOAD_ARTICLES' :
-        return {
-            ...state,
-            articles: action.articles
-        }
-        case 'VIEW_ARTICLE':
-        return {
-            ...state,
-            article: action.article
-        }
-        case 'CLAP_ARTICLE':
-        let article = Object.assign({}, state.article)
-        article.claps++
-        console.log(article)
-        return {
-            ...state,
-            article: article
-        }
+        case actions.GET_ARTICLES :
+            return {...state,articles: action.articles};
         default:
             return state
     }

@@ -1,22 +1,14 @@
 /** require dependencies */
-const express = require("express")
-const routes = require('./routes/')
-const mongoose = require('mongoose')
-const cors = require('cors')
-const bodyParser = require('body-parser')
-const helmet = require('helmet')
-const cloudinary = require('cloudinary')
+const express = require("express");
+const routes = require('./routes/');
+const mongoose = require('mongoose');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const helmet = require('helmet');
 
-const app = express()
-const router = express.Router()
-const url = process.env.MONGODB_URI || "mongodb://localhost:27017/medium"
-
-/** configure cloudinary */
-cloudinary.config({
-    cloud_name: 'chidumennamdi',
-    api_key: '392481138676646',
-    api_secret: '6vN978wHnfEr21pKrysWuu7_0UI'
-})
+const app = express();
+const router = express.Router();
+const url = process.env.MONGODB_URI || "mongodb://localhost:27017/hp";
 
 /** connect to MongoDB datastore */
 try {
@@ -27,20 +19,20 @@ try {
     
 }
 
-let port = 5000 || process.env.PORT
+let port = 5000 || process.env.PORT;
 
 /** set up routes {API Endpoints} */
-routes(router)
+routes(router);
 
 /** set up middlewares */
-app.use(cors())
-app.use(bodyParser.json())
-app.use(helmet())
+app.use(cors());
+app.use(bodyParser.json());
+app.use(helmet());
 //app.use('/static',express.static(path.join(__dirname,'static')))
 
-app.use('/api', router)
+app.use('/hp-api', router);
 
 /** start server */
 app.listen(port, () => {
-    console.log(`Server started at port: ${port}`);
+    console.log(`HP-Server started at port: ${port} Lets get the party going`);
 });
