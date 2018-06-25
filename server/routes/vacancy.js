@@ -9,16 +9,16 @@ module.exports = (router) => {
     //maches with "/hp-api/vacancy
     router
         .route('/vacancy')
-        .get(vacancycontroller.findAll)
-        .post(vacancycontroller.create);
+        .get(vacancycontroller.findAll);
+        // .post(vacancycontroller.create);
 
 
 
-    // maches with "/hp-api/vacancy/:id"
-    router.route('/vacancy/:id')
-        .get(vacancycontroller.findById)
-        .put(vacancycontroller.update)
-        .delete(vacancycontroller.remove)
-
+    // // maches with "/hp-api/vacancy/:id"
+    // router.route('/vacancy/:id')
+    //     .get(vacancycontroller.findById)
+    //     .put(vacancycontroller.update)
+    //     .delete(vacancycontroller.remove)
+    //
 
 }
