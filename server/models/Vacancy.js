@@ -2,12 +2,12 @@ const mongoose = require('mongoose');
 
 let VacancySchema = new mongoose.Schema(
     {
-        vacancyId:   String,
+        vacancyId: String,
         jobTitle: String,
         hub: String,
         summary: String,
         qualification: String,
-        additionalTechnicalSkill: string
+        additionalTechnicalSkill: String
     }
 );
-module.exports = mongoose.model('vacancy', VacancySchema);
+module.exports = mongoose.model('vac', VacancySchema);

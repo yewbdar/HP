@@ -1,18 +1,17 @@
 /** */
-const Candidate = require(' ./../models/Candidate');
+const Candidate = require('./../models/Candidate');
 
 module.exports = {
-    //get all Candidate
-
-    findAll:function(req,res){
-        Candidate.find({})
-            .then((data) =>{
-                console.log(data);
-                res.json(data)
-            }).catch((err )=>{
-            res.status(422).json(err);
+    getAll: (req, res) => {
+        Candidate.find({},'',function(err,docs){
+            if(err)
+                console.log("Error:", err);
+            else
+                res.send(docs);
         });
-    },
+    }
+
+
 
     //get all Candidate by id
 

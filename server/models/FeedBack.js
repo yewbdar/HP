@@ -7,7 +7,7 @@ let FeedBackSchema= new mongoose.Schema(
         hub: String,
         interviewSchedule: String,
         feedBack: String,
-        seggestion: Boolean
+        seggestion: String
     }
 );
 module.exports = mongoose.model('feedback', FeedBackSchema);

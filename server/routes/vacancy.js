@@ -1,4 +1,4 @@
-const vacancycontroller = require('./../controllers/vacancy.ctrl');
+ const vacancycontroller = require('./../controllers/vacancy.ctrl');
 
 
 module.exports = (router) => {
@@ -9,8 +9,7 @@ module.exports = (router) => {
     //maches with "/hp-api/vacancy
     router
         .route('/vacancy')
-        .get(vacancycontroller.findAll);
-        // .post(vacancycontroller.create);
+        .get(vacancycontroller.getAll);
 
 
 

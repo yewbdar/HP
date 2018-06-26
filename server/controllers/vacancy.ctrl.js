@@ -1,18 +1,16 @@
 /** */
-const Vacancy = require('./../models/Vacancy');
+const Vacancy = require('../models/Vacancy');
 
 module.exports = {
     //get all vacancy
-
-    findAll:function(req,res){
-        Vacancy.find({})
-            .then((data) =>{
-                console.log(data);
-                res.json(data)
-            }).catch((err )=>{
-            res.status(422).json(err);
+    getAll: (req, res) => {
+        Vacancy.find({},'',function(err,docs){
+            if(err)
+                console.log("Error:", err);
+            else
+                res.send(docs);
         });
-    },
+    }
 
     //get all vacancy by id
     // findById:function(req,res){
