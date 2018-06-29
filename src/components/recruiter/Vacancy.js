@@ -1,7 +1,7 @@
 import React ,{Component } from 'react';
 import ReactDOM from 'react-dom';
 import addButton from '../common/Button';
-import DataTable from './Form'
+import DataTable from './Vacancy'
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -10,7 +10,13 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
 import FormHelperText from '@material-ui/core/FormHelperText';
-class  Form extends Component {
+import { connect } from 'react-redux';
+import { getArticles } from '../../redux/actions/actions';
+import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
+
+import Grid  from '../common/Grid';
+class  Vacancy extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -18,7 +24,7 @@ class  Form extends Component {
             txtSummary:"",
             txtQualification:"",
             txtAdditionalTechnicalSkills:"",
-
+            article:{},
             person : {
             age: '',
             name: 'hai',
@@ -26,14 +32,36 @@ class  Form extends Component {
         };
 
     }
+
     handleChange =(event)=>{
         const {name, value} = event.target;
         this.setState({[name] : value});
 
     }
+    componentDidMount() {
+        //after component loads bring data
+        this.props.getArticles();
 
 
+    }
+    handleOpen=(articleId)=>{
+        console.log(articleId);
+    };
+    handleGiveReview=(event)=>{
 
+    };
+    handleAction=(event) =>{
+        let clicked = event.target.getAttribute("name");
+        let articleId = event.target.getAttribute("data-article-id");
+        switch (clicked) {
+            case "Open" :
+                this.handleOpen(articleId);
+                break;
+            default :
+                break;
+        };
+
+    }
 
     render() {
 
@@ -74,7 +102,7 @@ class  Form extends Component {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-lg-4 col-md-6 col-sm-12" >
+                    <div className="col-lg-4 col-md-6 col-sm-12 align-self-end" >
                         <TextField
                             id="summary"
                             label="Summary"
@@ -84,7 +112,8 @@ class  Form extends Component {
                             name="txtSummary"
                             type="Multi-line"
                             fullWidth
-                        /> </div>
+                        />
+                    </div>
                 </div>
                 <div className="row">
                     <div className="col-lg-4 col-md-6 col-sm-12" >
@@ -114,19 +143,45 @@ class  Form extends Component {
                 <div className="row">
                     <div class="col-lg-4 col-md-6 col-sm-12" >
                         <Button variant="outlined" color="primary" >
-                            Primary
+                            Submit
                         </Button>
                     </div>
                 </div>
 
-            </div>
+                {/*<pre>{JSON.stringify(this.props.articles.articles, null, 2) }</pre>*/}
 
+                 <Grid
+
+                  dataset={this.props.articles.articles}
+                   header={["ID#","Title","Text","Action"]}
+                    headerMapping={["id","title","text"]}
+                    actionNames={["view", "Activate ","Deactivate","Edit"]}
+                   handleAction = {this.handleAction}
+                />
+            </div >
+
+
+        // {this is for displaying data in Pretty format of json , WE CANT show Object in one JSX Node}
+        //
 
         )
     }
 }
 
-export default Form;
+// export default Vacancy;
+Vacancy.propTypes = {
+    articles: PropTypes.object
+};
+function mapStateToProps(state) {
+    return { articles : state.articles }
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ getArticles }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Vacancy)
+
 
 
 

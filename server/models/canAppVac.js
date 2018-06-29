@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 
 let CandidateApplayVacancySchema= new mongoose.Schema(
     {
-        candidateId:   String,
+        candidateId: String,
         vacancyId: String,
 
     }
 );
-module.exports = mongoose.model('candidateApplayVacancy', CandidateApplayVacancySchema);
+module.exports = mongoose.model('canAppVac', CandidateApplayVacancySchema);

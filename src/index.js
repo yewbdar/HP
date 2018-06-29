@@ -10,7 +10,7 @@ import App from './App.js';
 import registerServiceWorker from './registerServiceWorker';
 
 import { store, history } from './redux/store';
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 if(localStorage.Auth) {
