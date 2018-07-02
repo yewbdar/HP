@@ -42,7 +42,7 @@ class  Grid extends Component {
                     <TableBody>
                        {this.props.dataset.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(row => {
                             return (
-                                <TableRow key={row.id}>
+                                <TableRow key={row._id}>
                                      {
                                          this.props.headerMapping.map(header =>
                                              {return <TableCell>{row[header]}</TableCell>  }
@@ -51,7 +51,7 @@ class  Grid extends Component {
                                     <TableCell>
                                         <GridAction actionNames = {this.props.actionNames}
                                                     handleAction = {this.props.handleAction}
-                                                    articleId={row.id}
+                                                    actionId={row._id}
                                         />
                                     </TableCell>
                                 </TableRow>

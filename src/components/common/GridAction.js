@@ -14,7 +14,7 @@ class  GridAction extends Component {
              <div>
                  {this.props.actionNames.map((actionName,i) => {{
                      return(
-                            <span color="primary" data-article-id={this.props.articleId} onClick={this.props.handleAction} name={actionName}>
+                            <span color="primary" data-article-id={this.props.actionId} onClick={this.props.handleAction} name={actionName}>
                                     {actionName}
                                     {this.props.actionNames.length - 1 !== i && "  |  " }
                             </span>

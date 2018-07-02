@@ -9,13 +9,15 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import  APIProfile  from '../../redux/actions/candidateProfileAction';
 // import DatePicker from 'material-ui/DatePicker'
 // import TimePicker from 'material-ui/TimePicker';
-
+import  APICandidate  from '../../redux/actions/candidateProfileAction';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 class  CandidateProfile extends Component {
     constructor(props) {
         super(props);
         this.state = {
 
-            dataForSave: {
+            candidate: {
             firstName: "",
             lastName: "",
             DOB: "",
@@ -42,8 +44,10 @@ class  CandidateProfile extends Component {
     }
     handleChange =(event)=>{
         const {name, value} = event.target;
-        this.setState({[name] : value});
-        console.log(value)
+        let candidate =  this.state.candidate;
+        candidate[name] = value;
+        this.setState({candidate: candidate});
+        // console.log(value)
 
  }
     componentDidMount() {
@@ -82,8 +86,8 @@ class  CandidateProfile extends Component {
         //         // coverPage: this.state.txtCoverPage
         //     }
         // }),() => {
-
-            APIProfile.postProfile(this.state.dataForSave);
+        console.log(this.state.candidate);
+        this.props.postCandidate(this.state.candidate);
 
             // this.props.getVacancy();
             // console.log(this.state.dataForSave)
@@ -94,15 +98,17 @@ class  CandidateProfile extends Component {
     }
 
     render() {
-
+        var margin  = {
+            margin : "2rem"
+        };
         return (
-            <div>
+            <div style={margin}>
                 <div className="row">
                     <div className="col-lg-4 col-md-6 col-sm-12 float-left" >
                         <TextField
                             id="firstName"
                             label="First Name"
-                            value={this.state.txtFirstName}
+                            value={this.state.candidate.firstName}
                             onChange={this.handleChange}
                             margin="normal"
                             name="firstName"
@@ -115,7 +121,7 @@ class  CandidateProfile extends Component {
                         <TextField
                             id="lastName"
                             label="Last Name"
-                            value={this.state.txtLastName}
+                            value={this.state.candidate.lastName}
                             onChange={this.handleChange}
                             margin="normal"
                             name="lastName"
@@ -128,7 +134,7 @@ class  CandidateProfile extends Component {
                         <TextField
                             id="DOB"
                             label="DOB"
-                            value={this.state.txtDOB}
+                            value={this.state.candidate.DOB}
                             onChange={this.handleChange}
                             margin="normal"
                             name="DOB"
@@ -140,31 +146,31 @@ class  CandidateProfile extends Component {
                         <TextField
                             id="image"
                             label="Image"
-                            value={this.state.txtImage}
+                            value={this.state.candidate.image}
                             onChange={this.handleChange}
                             margin="normal"
                             name="image"
                             fullWidth
                         /> </div>
                 </div>
-                <div className="row">
-                    <div className="col-lg-4 col-md-6 col-sm-12" >
-                        <TextField
-                            id="resume"
-                            label="Resume"
-                            value={this.state.txtResume}
-                            onChange={this.handleChange}
-                            margin="normal"
-                            name="resume"
-                            fullWidth
-                        /> </div>
-                </div>
+                {/*<div className="row">*/}
+                    {/*<div className="col-lg-4 col-md-6 col-sm-12" >*/}
+                        {/*<TextField*/}
+                            {/*id="resume"*/}
+                            {/*label="Resume"*/}
+                            {/*value={this.state.candidate.resume}*/}
+                            {/*onChange={this.handleChange}*/}
+                            {/*margin="normal"*/}
+                            {/*name="resume"*/}
+                            {/*fullWidth*/}
+                        {/*/> </div>*/}
+                {/*</div>*/}
                 <div className="row">
                     <div className="col-lg-4 col-md-6 col-sm-12" >
                         <TextField
                             id="coverPage"
                             label="Cover Page(Optional)"
-                            value={this.state.txtCoverPage}
+                            value={this.state.candidate.coverPage}
                             onChange={this.handleChange}
                             margin="normal"
                             name="CoverPage"
@@ -176,7 +182,7 @@ class  CandidateProfile extends Component {
                         <TextField
                             id="resume"
                             label="resume"
-                            value={this.state.resume}
+                            value={this.state.candidate.resume}
                             onChange={this.handleChange}
                             margin="normal"
                             name="resume"
@@ -188,7 +194,7 @@ class  CandidateProfile extends Component {
                         <TextField
                             id="skills"
                             label="Skills"
-                            value={this.state.skills}
+                            value={this.state.candidate.skills}
                             onChange={this.handleChange}
                             margin="normal"
                             name="skills"
@@ -200,7 +206,7 @@ class  CandidateProfile extends Component {
                         <TextField
                             id="yearsOfExperiance"
                             label="Years Of Experiance"
-                            value={this.state.yearsOfExperiance}
+                            value={this.state.candidate.yearsOfExperiance}
                             onChange={this.handleChange}
                             margin="normal"
                             name="yearsOfExperiance"
@@ -212,7 +218,7 @@ class  CandidateProfile extends Component {
                         <TextField
                             id="telephone"
                             label="Telephone"
-                            value={this.state.telephone}
+                            value={this.state.candidate.telephone}
                             onChange={this.handleChange}
                             margin="normal"
                             name="telephone"
@@ -224,7 +230,7 @@ class  CandidateProfile extends Component {
                         <TextField
                             id="email"
                             label="Email"
-                            value={this.state.email}
+                            value={this.state.candidate.email}
                             onChange={this.handleChange}
                             margin="normal"
                             name="email"
@@ -236,7 +242,7 @@ class  CandidateProfile extends Component {
                         <TextField
                             id="street"
                             label="Street"
-                            value={this.state.street}
+                            value={this.state.candidate.street}
                             onChange={this.handleChange}
                             margin="normal"
                             name="street"
@@ -248,7 +254,7 @@ class  CandidateProfile extends Component {
                         <TextField
                             id="city"
                             label="City"
-                            value={this.state.city}
+                            value={this.state.candidate.city}
                             onChange={this.handleChange}
                             margin="normal"
                             name="city"
@@ -260,7 +266,7 @@ class  CandidateProfile extends Component {
                         <TextField
                             id="country"
                             label="Country"
-                            value={this.state.country}
+                            value={this.state.candidate.country}
                             onChange={this.handleChange}
                             margin="normal"
                             name="country"
@@ -272,7 +278,7 @@ class  CandidateProfile extends Component {
                     <TextField
                         id="zip"
                         label="Zip"
-                        value={this.state.zip}
+                        value={this.state.candidate.zip}
                         onChange={this.handleChange}
                         margin="normal"
                         name="zip"
@@ -284,7 +290,7 @@ class  CandidateProfile extends Component {
                     <TextField
                         id="userName"
                         label="userName"
-                        value={this.state.userName}
+                        value={this.state.candidate.userName}
                         onChange={this.handleChange}
                         margin="normal"
                         name="userName"
@@ -296,7 +302,7 @@ class  CandidateProfile extends Component {
                         <TextField
                             id="password"
                             label="Password"
-                            value={this.state.password}
+                            value={this.state.candidate.password}
                             onChange={this.handleChange}
                             margin="normal"
                             name="password"
@@ -308,7 +314,7 @@ class  CandidateProfile extends Component {
                         <TextField
                             id="conformPassword"
                             label="Conform Password"
-                            value={this.state.conformPassword}
+                            value={this.state.candidate.conformPassword}
                             onChange={this.handleChange}
                             margin="normal"
                             name="conformPassword"
@@ -343,9 +349,24 @@ class  CandidateProfile extends Component {
     }
 }
 
-export default CandidateProfile;
+function mapStateToProps(state) {
+    return {
 
+        candidate : state.candidateReduicer.candidate ,
+        // isGettingVacancy: state.positionReduicer.isGettingPosition,
+        error : state.positionReduicer.error
+    }
+}
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+        // getPosition:APIPosition.getPosition ,
+        // getQualification:APIQualification.getQualification,
+        // postPosition:APIPosition.postPosition,
+        postCandidate:APICandidate.postProfile
+    }, dispatch)
+}
 
+export default connect(mapStateToProps, mapDispatchToProps)(CandidateProfile)
 
 
 

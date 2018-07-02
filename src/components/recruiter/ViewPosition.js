@@ -11,7 +11,16 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 class ViewPosition extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            open:"Open"
+
+        };
+
+    }
     componentDidMount() {
+
         //after component loads bring data
          this.props.getPosition();
         // APIVacancy.getPosition();
@@ -23,17 +32,28 @@ class ViewPosition extends Component {
         }
     }
     handleOpen=(articleId)=>{
+       this.setState({open:"Close"})
         console.log(articleId);
     };
-    handleGiveReview=(event)=>{
+
+    handleUpdate=(event)=>{
+
+    };
+    handleRemove=(event)=>{
 
     };
     handleAction=(event) =>{
         let clicked = event.target.getAttribute("name");
-        let articleId = event.target.getAttribute("data-article-id");
+        let postionId = event.target.getAttribute("data-article-id");
         switch (clicked) {
             case "Open" :
-                this.handleOpen(articleId);
+                this.handleOpen(postionId);
+                break;
+            case "Update":
+                this.handleUpdate(postionId)
+                break;
+            case "Remove":
+                this.handleRemove(postionId)
                 break;
             default :
                 break;
@@ -51,13 +71,13 @@ class ViewPosition extends Component {
 
                 { this.props.isGettingPosition && <LinearProgress />}
                 {/* this is for displaying data in Pretty format of json , WE CANT show Object in one JSX Node*/}
-                {/*<pre>{JSON.stringify(this.props.vacancy, null, 2) }</pre>*/}
+                <pre>{JSON.stringify(this.props.position, null, 2) }</pre>
                 <Grid
 
                     dataset={this.props.position}
-                    header={["ID", "Title","Skill","Summary","Active","Action"]}
-                    headerMapping={["_id","title","skill","summary","isActive"]}
-                    actionNames={["Open","Download"]}
+                    header={["ID", "Title","Skill","qualifications","Summary","Active","Action"]}
+                    headerMapping={["_id","title","skill","name","summary","isActive"]}
+                    actionNames={[this.state.open,"Update","Remove"]}
                     handleAction = {this.handleAction}
 
                 />
@@ -74,7 +94,7 @@ function mapStateToProps(state) {
         }
 }
 function mapDispatchToProps(dispatch) {
-     return bindActionCreators({ getPosition:APIVacancy.getPosition}, dispatch)
+     return bindActionCreators({ getPosition:APIVacancy.getPosition }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ViewPosition)

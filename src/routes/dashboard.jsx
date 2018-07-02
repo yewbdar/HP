@@ -7,6 +7,8 @@ import Maps from "../views/Maps/Maps";
 import Notifications from "../views/Notifications/Notifications";
 import Upgrade from "../views/Upgrade/Upgrade";
 import PositionPage from "../views/Recruiter/PositionPage";
+import CandidatePage from "../views/Recruiter/CandidatePage";
+
 const dashboardRoutes = [
   {
     path: "/home",
@@ -21,10 +23,10 @@ const dashboardRoutes = [
     component: PositionPage
   },
   {
-    path: "/position",
-    name: "Position",
+    path: "/Candidate",
+    name: "Candidate",
     icon: "pe-7s-user",
-    component: PositionPage
+    component: CandidatePage
   },
   {
     path: "/user",
