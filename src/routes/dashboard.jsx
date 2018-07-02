@@ -21,6 +21,12 @@ const dashboardRoutes = [
     component: PositionPage
   },
   {
+    path: "/position",
+    name: "Position",
+    icon: "pe-7s-user",
+    component: PositionPage
+  },
+  {
     path: "/user",
     name: "User Profile",
     icon: "pe-7s-user",

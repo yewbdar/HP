@@ -6,7 +6,7 @@ let PositionSchema = new mongoose.Schema(
         title : String,
         qualifications : [  { type: mongoose.Schema.Types.ObjectId, ref: 'qualification' } ] ,
         skill : String,
-        isActive : String,
+        isActive : Boolean,
         createdOn : String,
         summary  : String
     }

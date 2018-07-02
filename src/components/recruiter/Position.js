@@ -9,7 +9,10 @@ import Input from '@material-ui/core/Input';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import { connect } from 'react-redux';
 import  APIPosition  from '../../redux/actions/positionActions';
+import  APIQualification  from '../../redux/actions/qualificationAction';
 
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 
@@ -18,28 +21,37 @@ class  Position extends Component {
     constructor(props){
         super(props);
         this.state = {
-            dataForSave:{},
-            txtJobTitle:"",
-            txtSummary:"",
-            txthub:"ecx",
-            txtQualification:"",
-            txtAdditionalTechnicalSkills:"",
+            position : {
+                title: "",
+                qualification:"",
+                skill: "",
+                summary: "",
+                isActive: false,
+        }
+
         };
 
     }
 
     handleChange =(event)=>{
+
         const {name, value} = event.target;
-        this.setState({[name] : value});
-        console.log(value)
+        let position =  this.state.position;
+         position[name] = value;
+        this.setState({position: position});
+        // console.log(value)
 
     }
+    toggleIsActive = () => {
+        let position =  this.state.position;
+        position.isActive = !position.isActive;
+        this.setState({ position  : position });
+    };
+
     componentDidMount() {
         //after component loads bring data
         this.props.getPosition();
-
-
-
+        this.props.getQualification();
     }
 
     handleOpen=(articleId)=>{
@@ -61,54 +73,65 @@ class  Position extends Component {
 
     }
     handleSubmitButton=(event)=> {
-        event.preventDefault();
-        this.setState((state) =>({
-            ...state,
-            dataForSave: {
-                jobTitle: this.state.txtJobTitle,
-                hub: "ecx",//this.state.txthub,
-                summary: this.state.txtSummary,
-                qualification: this.state.txtQualification,
-                additionalTechnicalSkill: this.state.txtAdditionalTechnicalSkills
-
-            }
-        }),() => {
-
-            APIPosition.postPosition(this.state.dataForSave);
-
-                    this.props.getPosition();
-            // console.log(this.state.dataForSave)
-            // this.props.getVacancy();
-
+        const { title, qualification, skill , summary , isActive } = this.state.position;
+        this.props.postPosition({
+            title,
+            qualifications : [qualification],
+            skill ,
+            summary ,
+            isActive
         });
     }
 
     render() {
 
+        var margin  = {
+            margin : "2rem"
+        };
         return (
-            <div>
+            <div style={margin}>
                 <div className="row">
                         <div className="col-lg-12 col-md-12 col-sm-12" >
                             <TextField
-                                        id="jobTitle"
                                         label="Job Title"
-                                        value={this.state.txtJobTitle}
+                                        value={this.state.position.title}
                                         onChange={this.handleChange}
                                         margin="normal"
-                                        name="txtJobTitle"
+                                        name="title"
                                         fullWidth
                             /> </div>
                 </div>
 
+
+                <div className="row">
+                    <div className="col-lg-12 col-md-12 col-sm-12 " >
+                    <InputLabel >qualification</InputLabel>
+                        <Select
+                            value={this.state.position.qualification}
+                            onChange={this.handleChange}
+                            input={<Input name="qualification"  />}
+                            fullWidth
+                            name="qualification"
+                        >
+                            <MenuItem value="">
+                                <em>None</em>
+                            </MenuItem>
+                            { this.props.qualification.map( item => {
+                                return (<MenuItem value={item["_id"]}>{item.name}</MenuItem>)
+                            })}
+                        </Select>
+
+                </div>
+                    </div>
                 <div className="row">
                     <div className="col-lg-12 col-md-12 col-sm-12 align-self-end" >
                         <TextField
-                            id="summary"
-                            label="Summary"
-                            value={this.state.txtSummary}
+                            id="skill"
+                            label="Skill"
+                            value={this.state.position.skill}
                             onChange={this.handleChange}
                             margin="normal"
-                            name="txtSummary"
+                            name="skill"
                             type="Multi-line"
                             fullWidth
                         />
@@ -116,46 +139,37 @@ class  Position extends Component {
                 </div>
                 <div className="row">
                     <div className="col-lg-12 col-md-12 col-sm-12 align-self-end" >
-                    <InputLabel htmlFor="age-helper">Age</InputLabel>
-                    <Select
-                        value={this.state.age}
-                        onChange={this.handleChange}
-                        input={<Input name="age" id="age-helper" />}
-                    >
-                        <MenuItem value="">
-                            <em>None</em>
-                        </MenuItem>
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
-                    </Select>
-
-                </div>
+                        <TextField
+                            id="summary"
+                            label="Summary"
+                            value={this.state.position.summary}
+                            onChange={this.handleChange}
+                            margin="normal"
+                            name="summary"
+                            type="Multi-line"
+                            fullWidth
+                        />
                     </div>
-                <div className="row">
-                    <div className="col-lg-12 col-md-12 col-sm-12" >
-                        <TextField
-                            id="qualification"
-                            label="Qualification"
-                            value={this.state.txtQualification}
-                            onChange={this.handleChange}
-                            margin="normal"
-                            name="txtQualification"
-                            fullWidth
-                        /> </div>
                 </div>
+
                 <div className="row">
-                    <div className="col-lg-12 col-md-12 col-sm-12" >
-                        <TextField
-                            id="additionalTechnicalSkills"
-                            label="Additional Technical skills"
-                            value={this.state.txtAdditionalTechnicalSkills}
-                            onChange={this.handleChange}
-                            margin="normal"
-                            name="txtAdditionalTechnicalSkills"
-                            fullWidth
-                        /> </div>
+                    <div className="col-lg-12 col-md-12 col-sm-12 align-self-end" >
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                checked={this.state.position.isActive}
+                                onChange={this.toggleIsActive}
+                                value="isActive"
+                                color="primary"
+                                label="Custom color"
+
+                            />
+                        }
+                        label="Active"
+                    />
+                        </div>
                 </div>
+
 
                 <div className="row">
                     <div class="col-lg-12 col-md-6 col-sm-12" >
@@ -165,36 +179,31 @@ class  Position extends Component {
                     </div>
                 </div>
 
-                {/*<pre>{JSON.stringify(this.props.Position, null, 2) }</pre>*/}
+                {/*<pre>{JSON.stringify(this.props.qualification, null, 2) }</pre>*/}
 
-                {/* <Grid
 
-                  dataset={this.props.Position}
-                  header={["ID","job Title","hub","summary","qualification","additionalTechnicalSkill","Action"]}
-                  headerMapping={["vacancyId","jobTitle","hub","summary","qualification","additionalTechnicalSkill"]}
-                  actionNames={["view", "Activate ","Deactivate","Edit"]}
-                   handleAction = {this.handleAction}
-                />*/}
             </div >
 
 
-        // {this is for displaying data in Pretty format of json , WE CANT show Object in one JSX Node}
-        //
 
         )
     }
 }
 
-// export default Vacancy;
+// export default Postion;
 function mapStateToProps(state) {
     return {
         Position : state.positionReduicer.position ,
+        qualification:state.qualificationReduicer.qualification,
         isGettingVacancy: state.positionReduicer.isGettingPosition,
         error : state.positionReduicer.error
     }
 }
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ getPosition:APIPosition.getPosition }, dispatch)
+    return bindActionCreators({ getPosition:APIPosition.getPosition ,
+                                getQualification:APIQualification.getQualification,
+                                postPosition:APIPosition.postPosition
+                                }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Position)

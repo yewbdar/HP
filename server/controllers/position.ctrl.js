@@ -9,6 +9,7 @@ module.exports = {
         });
     },
     create: function(req, res) {
+        console.log(req.body);
         Position
             .create(req.body)
             .then(dbModel => res.json(dbModel))

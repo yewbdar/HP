@@ -4,6 +4,7 @@ import authUser from './reducers/authUser';
 import common from './reducers/common';
 import candidateReduicer from './reducers/candidateReduicer';
 import positionReduicer from './reducers/positionReduicer';
+import qualificationReduicer from './reducers/qualficationReduicer';
 
 import { routerReducer } from 'react-router-redux';
 
@@ -13,6 +14,7 @@ export default combineReducers({
   common,
   candidateReduicer,
   positionReduicer,
+  qualificationReduicer,
 
   router: routerReducer
 });

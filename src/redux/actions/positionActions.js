@@ -27,16 +27,14 @@ export default {
     postPosition:function(data) {
         console.log(data);
         console.log("_>>>posting position . . .");
-        // return (dispatch)=>{
-        //     dispatch(beginPostVacancy());
-        axios.post(`${url}/position-save`, data)
-        // .then((res)=>{
-        // dispatch(postVacancySuccess(res.data))
-        //  console.log("saved data");
-        // }).catch((err)=>{postVacancyFailure(err)
-        //     console.log(err);
-        // });
-        // }
+        return (dispatch)=>{
+             // dispatch(beginPostVacancy());
+                axios.post(`${url}/position`, data)
+                .then((res)=>{
+                    // dispatch(postVacancySuccess(res.data))
+                      console.log("saved data");
+                }).catch((err)=>{ console.log(err);});
+         }
 
     }
 }
