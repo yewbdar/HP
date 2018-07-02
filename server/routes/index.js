@@ -1,18 +1,20 @@
 const user = require('./user')
 const article = require('./article');
-const vacancy=require('./vacancy');
+const position=require('./position');
 const sample=require('./sample');
 const feedBack=require('./feedBack');
 const candidate=require('./candidate');
 const canInterBys=require('./canInterBy');
-const canAppVac=require('./canAppVac');
+const employee = require('./employee');
+const qualification = require("./qualification");
 module.exports = (router) => {
     user(router);
     article(router);
-    vacancy(router);
+    position(router);
     sample(router);
     feedBack(router);
     candidate(router);
     canInterBys(router);
-    canAppVac(router);
-}
+    employee(router);
+    qualification(router);
+};

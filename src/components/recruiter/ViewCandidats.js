@@ -9,7 +9,7 @@ import Grid from '../../components/common/Grid';
 class ViewCandidats extends Component {
     componentDidMount() {
         //after component loads bring data
-         this.props.getArticles();
+         this.props.getArticl();
     }
     handleOpen=(articleId)=>{
         console.log(articleId);

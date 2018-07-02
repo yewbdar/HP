@@ -10,11 +10,11 @@ module.exports = (router) => {
         CandidateController.getById(req,res);
     });
 
-    router.post("/candidate-save", (req, res) => {
+    router.post("/candidate", (req, res) => {
         console.log("api save");
         console.log(req.body);
         //res.status(200).json();
-        CandidateController.save(req, res);
+        CandidateController.create(req, res);
     });
 
     router.delete('/candidate/:id',(req,res)=>{
@@ -26,5 +26,8 @@ module.exports = (router) => {
         console.log("api update");
         CandidateController.update(req,res);
     });
+    router.route('/candidate/:candidateId/appliedPositions')
+        .get(CandidateController.getAppliedPositions)
+        .post(CandidateController.newCandidateApplication)
 
 }

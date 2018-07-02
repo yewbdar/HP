@@ -1,7 +1,7 @@
 import React ,{Component } from 'react';
 import ReactDOM from 'react-dom';
 import addButton from '../common/Button';
-import DataTable from './Vacancy'
+import DataTable from './Position'
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -10,7 +10,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
 import FormHelperText from '@material-ui/core/FormHelperText';
-// import { getArticles } from '../../redux/actions';
+import  APIFeedBack  from '../../redux/actions/feedBackAction';
 import Grid  from '../common/Grid';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
@@ -19,13 +19,13 @@ class  FeedBack extends Component {
     constructor(props){
         super(props);
         this.state = {
+            dataForSave:{},
             txtInterview:"",
             txtCandidateName:"",
             txtHub:"",
             txtInterviewSchedule:"",
             txtFeedBack:"",
-
-
+            txtSeggestion:"",
             article:{},
             person : {
                 age: '',
@@ -38,6 +38,7 @@ class  FeedBack extends Component {
     handleChange =(event)=>{
         const {name, value} = event.target;
         this.setState({[name] : value});
+        console.log(value)
 
     }
     componentDidMount() {
@@ -64,6 +65,29 @@ class  FeedBack extends Component {
         };
 
     }
+    handleSubmitButton=(event)=> {
+        event.preventDefault();
+        this.setState((state) =>({
+            ...state,
+            dataForSave: {
+                candidateName: this.state.txtCandidateName,
+                hub: "ecx",//this.state.txthub,
+                interviewSchedule: this.state.txtInterviewSchedule,
+                feedBack: this.state.txtFeedBack,
+                seggestion: this.state.txtSeggestion
+
+            }
+        }),() => {
+            APIFeedBack.postFeedBack(this.state.dataForSave);
+
+            // this.props.getVacancy();
+            // console.log(this.state.dataForSave)
+            // this.props.getVacancy();
+
+
+        });
+    }
+
 
     render() {
 
@@ -136,7 +160,7 @@ class  FeedBack extends Component {
                  </div>
                 <div className="row">
                     <div class="col-lg-4 col-md-6 col-sm-12" >
-                        <Button variant="outlined" color="primary" >
+                        <Button variant="outlined" color="primary" onClick={this.handleSubmitButton}>
                             Submit feed back
                         </Button>
                     </div>

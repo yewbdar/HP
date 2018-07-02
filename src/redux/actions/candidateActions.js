@@ -13,7 +13,7 @@ export function getCandidates() {
     console.log("_>>>getting Candidates . . .");
     return (dispatch) => {
         dispatch(beginGetCandidates());
-        axios.get(`${url}/candidate`)
+        axios.get(`${url}/candidates`)
             .then((res) => {
                 dispatch(getCandidatesSuccess(res.data));
             }).catch((err) => {

@@ -53,7 +53,7 @@ class ViewCandidate extends Component {
                 { this.props.isGettingCandidates && <LinearProgress />}
                 <Grid 
                     dataset={this.props.candidates} 
-                    header={["ID#","First Name","Last Name","Date of Birth"]} 
+                    header={["ID#","First Name","Last Name","Date of Birth","Action"]} 
                     headerMapping={["candidateId","firstName","lastName","dob"]} 
                     actionNames={["view"]} 
                     handleAction = {this.handleAction}  
@@ -76,13 +76,6 @@ function mapStateToProps(state) {
         error : state.candidateReduicer.error
     }
 }
-
-// const mapStateToProps = state => ({
-//         candidates : state.candidates ,
-//         isGettingCandidates: state.isGettingCandidates,
-//         error : state.error
-//
-// });
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({ getCandidates }, dispatch)
