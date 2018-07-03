@@ -15,38 +15,17 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
+import ListItemText from '@material-ui/core/ListItemText';
+
+
+
 
 import Grid  from '../common/Grid';
 class  Position extends Component {
     constructor(props){
         super(props);
-        this.state = {
-            position : {
-                title: "",
-                qualification:"",
-                skill: "",
-                summary: "",
-                isActive: false,
-        }
-
         };
 
-    }
-
-    handleChange =(event)=>{
-
-        const {name, value} = event.target;
-        let position =  this.state.position;
-         position[name] = value;
-        this.setState({position: position});
-        // console.log(value)
-
-    }
-    toggleIsActive = () => {
-        let position =  this.state.position;
-        position.isActive = !position.isActive;
-        this.setState({ position  : position });
-    };
 
     componentDidMount() {
         //after component loads bring data
@@ -73,16 +52,29 @@ class  Position extends Component {
 
     }
     handleSubmitButton=(event)=> {
-        const { title, qualification, skill , summary , isActive } = this.state.position;
-        this.props.postPosition({
-            title,
-            qualifications : [qualification],
-            skill ,
-            summary ,
-            isActive
-        });
-    }
+        if(this.props.action === "Create") {
+            this.props.postPosition({
+                title: this.props.title,
+                qualifications: [this.props.selectedQualifications],
+                skill: this.props.skill,
+                summary: this.props.summary,
+                isActive: this.props.isActive
+            });
 
+        } else if (this.props.action === "Update") {
+
+            this.props.setAction("Create");
+        }
+    }
+    handleSelectedQualifications(selected){
+        let selectedQualificationForDisplay = [];
+        this.props.qualifications.map(qualification => {
+            if(selected.indexOf(qualification["_id"]) !== -1 ){
+                selectedQualificationForDisplay.push(qualification.name);
+            }
+        });
+        return selectedQualificationForDisplay.join(" , ");
+    }
     render() {
 
         var margin  = {
@@ -94,8 +86,8 @@ class  Position extends Component {
                         <div className="col-lg-12 col-md-12 col-sm-12" >
                             <TextField
                                         label="Job Title"
-                                        value={this.state.position.title}
-                                        onChange={this.handleChange}
+                                        value={this.props.title}
+                                        onChange={this.props.handleChange}
                                         margin="normal"
                                         name="title"
                                         fullWidth
@@ -106,21 +98,25 @@ class  Position extends Component {
                 <div className="row">
                     <div className="col-lg-12 col-md-12 col-sm-12 " >
                     <InputLabel >qualification</InputLabel>
-                        <Select
-                            value={this.state.position.qualification}
-                            onChange={this.handleChange}
-                            input={<Input name="qualification"  />}
-                            fullWidth
-                            name="qualification"
-                        >
-                            <MenuItem value="">
-                                <em>None</em>
-                            </MenuItem>
-                            { this.props.qualification.map( item => {
-                                return (<MenuItem value={item["_id"]}>{item.name}</MenuItem>)
-                            })}
-                        </Select>
 
+
+                        <FormControl fullWidth >
+                            <Select
+
+                                multiple
+                                value={this.props.selectedQualifications}
+                                onChange={this.props.handleQualificationChange}
+                                input={<Input id="select-multiple-checkbox" />}
+                                renderValue={selected => this.handleSelectedQualifications(selected)}
+                            >
+                                {this.props.qualifications.map(qualification => (
+                                    <MenuItem key={qualification["_id"]} value={qualification["_id"]}>
+                                        <Checkbox checked={this.props.selectedQualifications.indexOf(qualification["_id"]) > -1} />
+                                        <ListItemText primary={qualification.name} />
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
                 </div>
                     </div>
                 <div className="row">
@@ -128,8 +124,8 @@ class  Position extends Component {
                         <TextField
                             id="skill"
                             label="Skill"
-                            value={this.state.position.skill}
-                            onChange={this.handleChange}
+                            value={this.props.skill}
+                            onChange={this.props.handleChange}
                             margin="normal"
                             name="skill"
                             type="Multi-line"
@@ -142,8 +138,8 @@ class  Position extends Component {
                         <TextField
                             id="summary"
                             label="Summary"
-                            value={this.state.position.summary}
-                            onChange={this.handleChange}
+                            value={this.props.summary}
+                            onChange={this.props.handleChange}
                             margin="normal"
                             name="summary"
                             type="Multi-line"
@@ -157,8 +153,8 @@ class  Position extends Component {
                     <FormControlLabel
                         control={
                             <Checkbox
-                                checked={this.state.position.isActive}
-                                onChange={this.toggleIsActive}
+                                checked={this.props.isActive}
+                                onChange={this.props.toggleIsActive}
                                 value="isActive"
                                 color="primary"
                                 label="Custom color"
@@ -173,8 +169,8 @@ class  Position extends Component {
 
                 <div className="row">
                     <div class="col-lg-12 col-md-6 col-sm-12" >
-                        <Button className="pull-right" variant="outlined" color="primary" onClick={this.handleSubmitButton}>
-                            Submit
+                        <Button className="pull-right" variant="outlined" data-action={this.props.action} color="primary" onClick={this.handleSubmitButton}>
+                            {this.props.action}
                         </Button>
                     </div>
                 </div>
@@ -193,8 +189,8 @@ class  Position extends Component {
 // export default Postion;
 function mapStateToProps(state) {
     return {
-        Position : state.positionReduicer.position ,
-        qualification:state.qualificationReduicer.qualification,
+        positions : state.positionReduicer.position ,
+        qualifications:state.qualificationReduicer.qualification,
         isGettingVacancy: state.positionReduicer.isGettingPosition,
         error : state.positionReduicer.error
     }

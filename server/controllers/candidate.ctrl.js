@@ -8,7 +8,7 @@ const Candidate = require('./../models/Candidate');
 module.exports = {
     getAll:function(req,res){
         Candidate.find({})
-            .populate('appliedPositions')
+             //.populate('appliedPositions')
                  .then((result) =>{ res.json(result) }).catch((err )=>{
                                     res.status(422).json(err);
                                  });

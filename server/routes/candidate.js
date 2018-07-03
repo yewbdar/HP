@@ -1,7 +1,7 @@
 const CandidateController = require('./../controllers/candidate.ctrl');
 module.exports = (router) => {
 
-    router.get('/candidate',(req,res)=>{
+    router.get('/candidates',(req,res)=>{
         CandidateController.getAll(req,res);
     });
 

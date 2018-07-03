@@ -1,12 +1,86 @@
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+
+import PropTypes from 'prop-types';
+
 import React, { Component } from "react";
 import { Grid, Row, Col, Table } from "react-bootstrap";
 
 import Card from "../../components/Card/Card.jsx";
 import Position from "../../components/recruiter/Position";
 import ViewPosition from "../../components/recruiter/ViewPosition";
+import  APIQualification  from '../../redux/actions/qualificationAction';
+
+
+
 
 
 class PositionPage extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+                id :"",
+                title: "",
+                selectedQualifications :[],
+                skill: "",
+                summary: "",
+                isActive: false,
+                action:"Create"
+
+
+        };
+
+    }
+    handleChange =(event)=>{
+        const {name, value} = event.target;
+        this.setState({ [name] :  value} );
+
+    };
+    toggleIsActive = () => {
+        this.setState({ isActive : !this.state.isActive });
+    };
+    handleEdit =  (data)=>{
+        /**
+         * This populates Create Form
+         */
+        const {id, title,  qualifications, skill, summary,isActive } = data;
+        this.setState({
+            id,
+            title,
+            qualifications,
+            skill,
+            summary,
+            isActive
+        });
+        /**
+         * Change the action to update
+         */
+        this.setAction("Update");
+
+    };
+    setAction=(action)=>{
+        this.setState({
+            action:action
+        });
+
+    }
+    resetForm(){
+        this.setState({
+            id:"",
+            title: "",
+            selectedQualifications :[],
+            skill:"",
+            summary:"",
+            isActive:false
+        });
+
+        this.setAction("Create");
+    }
+
+    handleQualificationChange = event => {
+        this.setState({ selectedQualifications: event.target.value });
+    };
+
     render() {
         var space = {
             marginTop : "2rem"
@@ -23,9 +97,19 @@ class PositionPage extends Component {
                                 ctTableResponsive
                                 content={
                                     <div >
-                                        <Position />
+                                        <Position title={this.state.title}
+                                                  selectedQualifications={this.state.selectedQualifications}
+                                                  skill={this.state.skill}
+                                                  summary={this.state.summary}
+                                                  isActive={this.state.isActive}
+                                                  handleChange = {this.handleChange}
+                                                  toggleIsActive = {this.toggleIsActive}
+                                                  action={this.state.action}
+                                                  setAction={this.setAction}
+                                                  handleQualificationChange = {this.handleQualificationChange}
+                                        />
                                         <div style={space}>
-                                            <ViewPosition />
+                                            <ViewPosition  handleEdit={this.handleEdit}/>
                                         </div>
                                     </div>
                                 }
@@ -39,4 +123,15 @@ class PositionPage extends Component {
     }
 }
 
-export default PositionPage;
+
+function mapStateToProps(state) {
+    return {
+        qualifications:state.qualificationReduicer.qualification,
+    }
+}
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ getQualification:APIQualification.getQualification}, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PositionPage)
+

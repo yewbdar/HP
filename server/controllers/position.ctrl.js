@@ -26,8 +26,8 @@ module.exports = {
 
     update: function(req, res) {
         Position
-            .findOneAndUpdate({ _id: req.params.id }, req.body)
-            .then(data => res.json(data))
+            .findOneAndUpdate({ _id: req.body.id }, req.body)
+            .then(data => {res.json(data)})
             .catch(err => res.status(422).json(err));
     },
 

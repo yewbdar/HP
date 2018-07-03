@@ -9,21 +9,22 @@ const url = process.env.NODE_ENV === 'production' ? "/api/" : "http://localhost:
  * Get Candidates Begin >>
  * @returns {function(*)}
  */
-export function getCandidates() {
-    console.log("_>>>getting Candidates . . .");
-    return (dispatch) => {
-        dispatch(beginGetCandidates());
-        axios.get(`${url}/candidates`)
-            .then((res) => {
-                dispatch(getCandidatesSuccess(res.data));
-            }).catch((err) => {
+export default {
+    getCandidates: function()  {
+        console.log("_>>>getting Candidates . . .");
+        return (dispatch) => {
+            dispatch(beginGetCandidates());
+            axios.get(`${url}/candidates`)
+                .then((res) => {
+                    dispatch(getCandidatesSuccess(res.data));
+                }).catch((err) => {
                 dispatch(getCandidatesFailure(err));
                 console.log(err)
-        })
+            })
+        }
     }
+
 }
-
-
 function beginGetCandidates (){ return { type: types.BEGIN_GET_CANDIDATE } }
 
 function getCandidatesSuccess (candidates){

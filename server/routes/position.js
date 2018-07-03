@@ -21,7 +21,7 @@ module.exports = (router) => {
         positioncontroller.remove(req,res);
     });
 
-    router.put('/position/:id',(req,res)=>{
+    router.put('/position',(req,res)=>{
         console.log("api update");
         positioncontroller.update(req,res);
     });

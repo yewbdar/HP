@@ -36,7 +36,24 @@ export default {
                 }).catch((err)=>{ console.log(err);});
          }
 
+    },
+
+    updatePosition:function(data) {
+        console.log(data);
+        console.log("_>>>updating  position . . .");
+        return (dispatch)=>{
+            // dispatch(beginPostVacancy());
+            axios.put(`${url}/position` , data)
+                .then((res)=>{
+                    // dispatch(postVacancySuccess(res.data))
+                    console.log("update data");
+                }).catch((err)=>{ console.log(err);});
+        }
+
     }
+
+
+
 }
 function beginPostPosition (){
     console.log("beginPostPosition")

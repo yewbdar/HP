@@ -8,6 +8,7 @@ import Notifications from "../views/Notifications/Notifications";
 import Upgrade from "../views/Upgrade/Upgrade";
 import PositionPage from "../views/Recruiter/PositionPage";
 import CandidatePage from "../views/Recruiter/CandidatePage";
+import viewCandidateForRecruiter from "../views/Recruiter/viewCandidateforRecruter";
 
 const dashboardRoutes = [
   {
@@ -27,6 +28,12 @@ const dashboardRoutes = [
     name: "Candidate",
     icon: "pe-7s-user",
     component: CandidatePage
+  },
+  {
+    path: "/viewCandidate",
+    name: "view Candidate for Recruiter ",
+    icon: "pe-7s-user",
+    component: viewCandidateForRecruiter
   },
   {
     path: "/user",

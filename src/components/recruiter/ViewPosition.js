@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
- import  APIVacancy  from '../../redux/actions/positionActions';
+ import  APIPostion  from '../../redux/actions/positionActions';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import Grid from '../../components/common/Grid';
@@ -14,8 +14,11 @@ class ViewPosition extends Component {
     constructor(props){
         super(props);
         this.state = {
-            open:"Open"
-
+            dataForUpdate: {
+                open: "Open",
+                "isActive": "",
+                _id: ""
+            }
         };
 
     }
@@ -31,12 +34,25 @@ class ViewPosition extends Component {
             this.notify(nextProps.error);
         }
     }
-    handleOpen=(articleId)=>{
-       this.setState({open:"Close"})
-        console.log(articleId);
+    handleOpen = (articleId) => {
+
+                this.props.updatePosition({  id : articleId ,
+                                             isActive : true
+                                           });
+
+    };
+    handleClose=(articleId)=>{
+        this.props.updatePosition({ id : articleId ,
+            isActive : false
+        });
+
     };
 
     handleUpdate=(event)=>{
+        let item = this.props.positions.find(function(element){return element._id === event})
+
+        this.props.handleEdit(item);
+
 
     };
     handleRemove=(event)=>{
@@ -49,11 +65,14 @@ class ViewPosition extends Component {
             case "Open" :
                 this.handleOpen(postionId);
                 break;
+            case "Close" :
+                this.handleClose(postionId);
+                break;
             case "Update":
-                this.handleUpdate(postionId)
+                this.handleUpdate(postionId);
                 break;
             case "Remove":
-                this.handleRemove(postionId)
+                this.handleRemove(postionId);
                 break;
             default :
                 break;
@@ -71,13 +90,22 @@ class ViewPosition extends Component {
 
                 { this.props.isGettingPosition && <LinearProgress />}
                 {/* this is for displaying data in Pretty format of json , WE CANT show Object in one JSX Node*/}
-                <pre>{JSON.stringify(this.props.position, null, 2) }</pre>
+                {/*<pre>{JSON.stringify(this.props.position, null, 2) }</pre>*/}
                 <Grid
-
-                    dataset={this.props.position}
-                    header={["ID", "Title","Skill","qualifications","Summary","Active","Action"]}
-                    headerMapping={["_id","title","skill","name","summary","isActive"]}
-                    actionNames={[this.state.open,"Update","Remove"]}
+                    dataset={this.props.positions.map(positionItem => {
+                          positionItem.isActive = positionItem.isActive === true ? "Yes" : "No";
+                          if (positionItem.hasOwnProperty("qualifications")  ) {
+                              positionItem.qualificationNames = positionItem.qualifications.map(qualification => {
+                                  return qualification.name;
+                              }).join(", ");
+                          } else {
+                              positionItem.qualificationNames = "N/A"
+                          }
+                        return (positionItem);
+                    })}
+                    header={["ID", "Title","Skill","Qualifications","Summary","Active","Action"]}
+                    headerMapping={["_id","title","skill","qualificationNames","summary","isActive"]}
+                    actionNames={["Open","Close","Update","Remove"]}
                     handleAction = {this.handleAction}
 
                 />
@@ -88,13 +116,14 @@ class ViewPosition extends Component {
 
 function mapStateToProps(state) {
     return {
-      position : state.positionReduicer.position ,
+      positions : state.positionReduicer.position ,
       isGettingPosition: state.positionReduicer.isGettingPosition,
       error : state.positionReduicer.error
         }
 }
 function mapDispatchToProps(dispatch) {
-     return bindActionCreators({ getPosition:APIVacancy.getPosition }, dispatch)
+     return bindActionCreators({ getPosition:APIPostion.getPosition,
+                                  updatePosition:APIPostion.updatePosition}, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ViewPosition)
