@@ -1,22 +1,20 @@
 /** */
 const mongoose = require('mongoose');
 const Candidate = require('./../models/Candidate');
-//const Position = require('./../models/Position');
-
-// const Position = require.model('Position');
 
 module.exports = {
     getAll:function(req,res){
         Candidate.find({})
-             //.populate('appliedPositions')
-                 .then((result) =>{ res.json(result) }).catch((err )=>{
+                 .populate('appliedPositions.position')
+                 .populate('profile.qualifications')
+                 .populate('appliedPositions.interview.interviewedBy')
+                 .then((result) =>{ res.json(result) })
+                 .catch((err )=>{
                                     res.status(422).json(err);
                                  });
     },
 
     create: function(req, res) {
-        // const { candidateId, firstName,lastName, dob ,resume , profile , appliedPositions} = req.body;
-        console.log(req.body);
         Candidate
             .create(req.body )
             .then(dbModel => res.json(dbModel))

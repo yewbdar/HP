@@ -50,10 +50,21 @@ export default {
                 }).catch((err)=>{ console.log(err);});
         }
 
-    }
+    },
 
+    deletePosition:function(id) {
+        console.log(id);
+        console.log("_>>>updating  position . . .");
+        return (dispatch)=>{
+            // dispatch(beginPostVacancy());
+            axios.delete(`${url}/position/` + id)
+                // .then((res)=>{
+                    // dispatch(postVacancySuccess(res.data))
+                    console.log("update data");
+                // }).catch((err)=>{ console.log(err);});
+        }
 
-
+    },
 }
 function beginPostPosition (){
     console.log("beginPostPosition")

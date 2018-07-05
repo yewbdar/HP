@@ -8,16 +8,17 @@ class  GridAction extends Component {
         super(props);
      }
 
+    // this.props.handleAction
 
     render(){
          return(
              <div>
                  {this.props.actionNames.map((actionName,i) => {{
                      return(
-                            <span color="primary" data-article-id={this.props.actionId} onClick={this.props.handleAction} name={actionName}>
+                            <a href="#" color="primary" data-article-id={this.props.actionId} onClick={this.props.handleAction} name={actionName}>
                                     {actionName}
                                     {this.props.actionNames.length - 1 !== i && "  |  " }
-                            </span>
+                            </a>
                             )
                     }
                  }

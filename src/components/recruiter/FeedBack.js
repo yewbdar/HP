@@ -1,28 +1,29 @@
 import React ,{Component } from 'react';
-import ReactDOM from 'react-dom';
-import addButton from '../common/Button';
-import DataTable from './Position'
+
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import Input from '@material-ui/core/Input';
-import FormHelperText from '@material-ui/core/FormHelperText';
+
 import  APIFeedBack  from '../../redux/actions/feedBackAction';
 import Grid  from '../common/Grid';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import FormLabel from '@material-ui/core/FormLabel';
+
 class  FeedBack extends Component {
     constructor(props){
         super(props);
         this.state = {
+            selectedPositionForFeedback:"",
             dataForSave:{},
             txtInterview:"",
             txtCandidateName:"",
-            txtHub:"",
+            txtPosition:"",
             txtInterviewSchedule:"",
             txtFeedBack:"",
             txtSeggestion:"",
@@ -30,7 +31,8 @@ class  FeedBack extends Component {
             person : {
                 age: '',
                 name: 'hai',
-            }
+            },
+            feedbackResult:""
         };
 
     }
@@ -46,6 +48,9 @@ class  FeedBack extends Component {
         // this.setState({article:getArticles()})
 
 
+    }
+    handleFeedbackChange = (event)=>{
+        this.setState({ feedbackResult: event.target.value});
     }
     handleOpen=(articleId)=>{
         console.log(articleId);
@@ -71,7 +76,7 @@ class  FeedBack extends Component {
             ...state,
             dataForSave: {
                 candidateName: this.state.txtCandidateName,
-                hub: "ecx",//this.state.txthub,
+                position: this.state.txtPosition,
                 interviewSchedule: this.state.txtInterviewSchedule,
                 feedBack: this.state.txtFeedBack,
                 seggestion: this.state.txtSeggestion
@@ -86,7 +91,13 @@ class  FeedBack extends Component {
 
 
         });
-    }
+    };
+    handlePositionChange = (event) => {
+        this.setState({
+            selectedPositionForFeedback:event.target.value
+        })
+    };
+
 
 
     render() {
@@ -94,11 +105,11 @@ class  FeedBack extends Component {
         return (
             <div>
                 <div className="row">
-                    <div className="col-lg-4 col-md-6 col-sm-12" >
+                    <div className="col-lg-12 col-md-6 col-sm-12" >
                         <TextField
                             id="interview"
                             label="Interview#"
-                            value={this.state.txtInterview}
+                            value={this.props.txtInterview}
                             onChange={this.handleChange}
                             margin="normal"
                             name="txtInterview"
@@ -106,11 +117,11 @@ class  FeedBack extends Component {
                         /> </div>
                 </div>
                 <div className="row">
-                    <div className="col-lg-4 col-md-6 col-sm-12 align-self-end" >
+                    <div className="col-lg-12 col-md-6 col-sm-12 align-self-end" >
                         <TextField
                             id="candidateName"
                             label="Candidate Name"
-                            value={this.state.txtCandidateName}
+                            value={this.props.fullName}
                             onChange={this.handleChange}
                             margin="normal"
                             name="txtCandidateName"
@@ -119,20 +130,34 @@ class  FeedBack extends Component {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-lg-4 col-md-6 col-sm-12" >
-                        <TextField
-                            id="hub"
-                            label="Hub"
-                            value={this.state.txtHub}
-                            onChange={this.handleChange}
-                            margin="normal"
-                            name="txtHub"
-                            fullWidth
-                        /> </div>
+                    <div className="col-lg-12 col-md-6 col-sm-12" >
+                        {/*<pre>Positions : {JSON.stringify(this.props.positions, null, 2) }</pre>*/}
+                        <FormControl fullWidth >
+                                <InputLabel htmlFor="position">Position</InputLabel>
+
+                                <Select
+                                    value={this.state.selectedPositionForFeedback}
+                                    onChange={this.handlePositionChange}
+                                    input={<Input name="position" id="position" />}
+                                >
+                                    <MenuItem value="">
+                                        <em>None</em>
+                                    </MenuItem>
+                                    {this.props.positions.map(position => (
+                                        <MenuItem key={position._id} value={position.position._id}>
+                                           {position.position.title}
+                                        </MenuItem>
+                                    ))}
+
+                                </Select>
+                        </FormControl>
+                    </div>
                 </div>
                 <div className="row">
-                    <div className="col-lg-4 col-md-6 col-sm-12" >
+                    <div className="col-lg-12 col-md-6 col-sm-12" >
                         <TextField
+                            multiline
+                            rows="4"
                             id="feedBack"
                             label="Feed Back"
                             value={this.state.txtFeedBack}
@@ -143,26 +168,37 @@ class  FeedBack extends Component {
                         /> </div>
                 </div>
                 <div className="row">
-                    <div className="col-lg-4 col-md-6 col-sm-12" >
+                    <div className="col-lg-12 col-md-6 col-sm-12" >
+                        <FormControl component="fieldset" required >
 
-                        <RadioGroup
-                            aria-label="gender"
-                            name="gender1"
-                            value={this.state.value}
-                            onChange={this.handleChange}
-                        >
-                            <FormControlLabel value="female" control={<Radio />} label="Pass" />
-                            <FormControlLabel value="male" control={<Radio />} label="Fail" />
+                            <FormLabel component="legend">Result</FormLabel>
 
-                        </RadioGroup>
+                            <RadioGroup
+                                aria-label="Feedback Result"
+                                name="feedback-result"
+                                value={this.state.feedbackResult}
+                                onChange={this.handleFeedbackChange}
+                                style={{display:"inline"}}
+                            >
+                                <FormControlLabel value="Pass" control={<Radio  color="primary" />} label="Pass" />
+                                <FormControlLabel value="Fail" control={<Radio />} label="Fail" />
+
+                            </RadioGroup>
+                        </FormControl>
 
                     </div>
                  </div>
                 <div className="row">
-                    <div class="col-lg-4 col-md-6 col-sm-12" >
-                        <Button variant="outlined" color="primary" onClick={this.handleSubmitButton}>
+                    <div className="col-lg-12 col-md-6 col-sm-12 " >
+                        <Button style={{float:"right"}}  clasName="float-right" color="secondary" onClick={this.props.closeDialog}>
+                            Close
+                        </Button>
+
+                        <Button style={{float:"right"}} clasName="float-right" color="primary" onClick={this.handleSubmitButton}>
                             Submit feed back
                         </Button>
+
+
                     </div>
                 </div>
 

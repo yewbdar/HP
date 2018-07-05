@@ -4,25 +4,29 @@ import { getArticles } from '../../redux/actions/actions';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import Grid from '../../components/common/Grid';
-
+import  APIPostion  from '../../redux/actions/positionActions';
 
 class ViewOpenPosition extends Component {
     componentDidMount() {
         //after component loads bring data
-        this.props.getArticles();
+        this.props.getPosition();
     }
-    handleOpen=(articleId)=>{
-        console.log(articleId);
+    handleApply=(positionId)=>{
+        console.log(positionId);
     };
-    handleGiveReview=(event)=>{
 
-    };
+    handleViewdetail=(positionId)=>{
+        console.log(positionId);
+    }
     handleAction=(event) =>{
         let clicked = event.target.getAttribute("name");
-        let articleId = event.target.getAttribute("data-article-id");
+        let positionId = event.target.getAttribute("data-article-id");
         switch (clicked) {
-            case "Open" :
-                this.handleOpen(articleId);
+            case "Apply" :
+                this.handleApply(positionId);
+                break;
+            case "View detail" :
+                this.handleViewdetail(positionId);
                 break;
             default :
                 break;
@@ -34,28 +38,30 @@ class ViewOpenPosition extends Component {
         return (
             <div>
                 {/* this is for displaying data in Pretty format of json , WE CANT show Object in one JSX Node*/}
-                {/*<pre>{JSON.stringify(this.props.articles.articles, null, 2) }</pre>*/}
-                <Grid
-                    dataset={this.props.articles.articles}
+                <pre>{JSON.stringify(this.props.positions , null, 2) }</pre>
+                {/*<Grid
+                    dataset={this.props.position}
                     header={["ID#","Title","Text","Action"]}
                     headerMapping={["id","title","text"]}
-                    actionNames={["apply"]}
+                    actionNames={["Apply,"View detail"]}
                     handleAction = {this.handleAction}
 
-                />
+                />*/}
             </div>
         );
     }
 }
 
-ViewOpenPosition.propTypes = {
-    articles: PropTypes.object
-};
 function mapStateToProps(state) {
-    return { articles : state.articles }
+    return {
+        positions : state.positionReduicer.position ,
+        isGettingPosition: state.positionReduicer.isGettingPosition,
+        error : state.positionReduicer.error
+    }
 }
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ getArticles }, dispatch)
+    return bindActionCreators({ getPosition:APIPostion.getPosition
+       }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ViewOpenPosition)

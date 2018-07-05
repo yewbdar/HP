@@ -34,32 +34,34 @@ class ViewPosition extends Component {
             this.notify(nextProps.error);
         }
     }
-    handleOpen = (articleId) => {
+    handleOpen = (positionId) => {
 
-                this.props.updatePosition({  id : articleId ,
+                this.props.updatePosition({  id : positionId ,
                                              isActive : true
                                            });
-
+        this.props.getPosition();
     };
-    handleClose=(articleId)=>{
-        this.props.updatePosition({ id : articleId ,
+    handleClose=(positionId)=>{
+        this.props.updatePosition({ id : positionId ,
             isActive : false
         });
-
+        this.props.getPosition();
     };
 
     handleUpdate=(event)=>{
         let item = this.props.positions.find(function(element){return element._id === event})
-
         this.props.handleEdit(item);
-
-
-    };
-    handleRemove=(event)=>{
+        this.props.getPosition();
 
     };
+    handleRemove=(positionId)=>{
+        this.props.deletePosition(positionId);
+        this.props.getPosition();
+    };
+
     handleAction=(event) =>{
-        let clicked = event.target.getAttribute("name");
+
+        let clicked =event.target.getAttribute("name");
         let postionId = event.target.getAttribute("data-article-id");
         switch (clicked) {
             case "Open" :
@@ -76,9 +78,10 @@ class ViewPosition extends Component {
                 break;
             default :
                 break;
-        };
+        }
+      event.preventDefault();
 
-    }
+    };
     notify = (message) => toast(message);
 
     render() {
@@ -103,8 +106,8 @@ class ViewPosition extends Component {
                           }
                         return (positionItem);
                     })}
-                    header={["ID", "Title","Skill","Qualifications","Summary","Active","Action"]}
-                    headerMapping={["_id","title","skill","qualificationNames","summary","isActive"]}
+                    header={["Title","Skill","Qualifications","Summary","Active","Action"]}
+                    headerMapping={["title","skill","qualificationNames","summary","isActive"]}
                     actionNames={["Open","Close","Update","Remove"]}
                     handleAction = {this.handleAction}
 
@@ -123,7 +126,8 @@ function mapStateToProps(state) {
 }
 function mapDispatchToProps(dispatch) {
      return bindActionCreators({ getPosition:APIPostion.getPosition,
-                                  updatePosition:APIPostion.updatePosition}, dispatch)
+                                  updatePosition:APIPostion.updatePosition,
+                                   deletePosition:APIPostion.deletePosition}, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ViewPosition)

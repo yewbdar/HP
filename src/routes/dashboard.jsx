@@ -9,6 +9,7 @@ import Upgrade from "../views/Upgrade/Upgrade";
 import PositionPage from "../views/Recruiter/PositionPage";
 import CandidatePage from "../views/Recruiter/CandidatePage";
 import viewCandidateForRecruiter from "../views/Recruiter/viewCandidateforRecruter";
+import viewOpenPosition from "../views/Candidate/viewOpenPosition";
 
 const dashboardRoutes = [
   {
@@ -22,6 +23,12 @@ const dashboardRoutes = [
     name: "Position",
     icon: "pe-7s-user",
     component: PositionPage
+  },
+  {
+    path: "/viewOpenPosition",
+    name: "view open Position",
+    icon: "pe-7s-user",
+    component: viewOpenPosition
   },
   {
     path: "/Candidate",

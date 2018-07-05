@@ -5,19 +5,12 @@ const Employee = require('./../models/Employee');
 module.exports = {
     getAll:function(req,res){
         Employee.find({})
-                .then((result) =>{
-                                    console.log("DB",result);
-                                    res.json(result)
-                                 }).catch((err )=>{
-                                                     res.status(422).json(err);
-                                                  });
+                .then((result) =>{res.json(result)})
+                .catch((err )=>{ res.status(422).json(err);});
     },
-
     create: function(req, res) {
         const {firstName ,lastName , position , account : { userName  , password  } }  = req.body;
-
         console.log("recieved Employee",req.body);
-
         Employee
                 .create({ firstName ,lastName , position , account : { userName  , password  } } )
                 .then(dbModel => res.json(dbModel))

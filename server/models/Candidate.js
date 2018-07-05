@@ -28,16 +28,18 @@ let CandidateSchema = new mongoose.Schema(
 
         },
         appliedPositions: [
-            {type: mongoose.Schema.Types.ObjectId, ref: 'position'},
-            [
-                {
-                    interviewedBy: {type: mongoose.Schema.Types.ObjectId, ref: 'employee'},
-                    interviewedOn: Date,
-                    comment: String,
-                    passed: Boolean,
-                    interviewType: String
-                }
-            ]
+            {
+                position : {type: mongoose.Schema.Types.ObjectId, ref: 'position'},
+                interview :[
+                    {
+                        interviewedBy: {type: mongoose.Schema.Types.ObjectId, ref: 'employee'},
+                        interviewedOn: Date,
+                        comment: String,
+                        passed: Boolean,
+                        interviewType: String
+                    }
+               ]
+            }
         ],
 
         createdOn: Date

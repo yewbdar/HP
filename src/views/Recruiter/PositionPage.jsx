@@ -1,19 +1,11 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
-import PropTypes from 'prop-types';
-
 import React, { Component } from "react";
 import { Grid, Row, Col, Table } from "react-bootstrap";
-
 import Card from "../../components/Card/Card.jsx";
 import Position from "../../components/recruiter/Position";
 import ViewPosition from "../../components/recruiter/ViewPosition";
 import  APIQualification  from '../../redux/actions/qualificationAction';
-
-
-
-
 
 class PositionPage extends Component {
     constructor(props){
@@ -43,14 +35,15 @@ class PositionPage extends Component {
         /**
          * This populates Create Form
          */
-        const {id, title,  qualifications, skill, summary,isActive } = data;
+
+        const {_id, title,  qualifications, skill, summary,isActive } = data;
         this.setState({
-            id,
+            id:_id,
             title,
             qualifications,
             skill,
             summary,
-            isActive
+            isActive: isActive === "Yes"
         });
         /**
          * Change the action to update
@@ -97,7 +90,9 @@ class PositionPage extends Component {
                                 ctTableResponsive
                                 content={
                                     <div >
-                                        <Position title={this.state.title}
+                                        <Position
+                                                  id={this.state.id}
+                                                  title={this.state.title}
                                                   selectedQualifications={this.state.selectedQualifications}
                                                   skill={this.state.skill}
                                                   summary={this.state.summary}

@@ -55,7 +55,7 @@ class  Position extends Component {
         if(this.props.action === "Create") {
             this.props.postPosition({
                 title: this.props.title,
-                qualifications: [this.props.selectedQualifications],
+                qualifications: this.props.selectedQualifications,
                 skill: this.props.skill,
                 summary: this.props.summary,
                 isActive: this.props.isActive
@@ -63,7 +63,16 @@ class  Position extends Component {
 
         } else if (this.props.action === "Update") {
 
+            this.props.putPosition({
+                id:this.props.id,
+                title: this.props.title,
+                qualifications: this.props.selectedQualifications,
+                skill: this.props.skill,
+                summary: this.props.summary,
+                isActive: this.props.isActive
+            });
             this.props.setAction("Create");
+            this.props.getPosition();
         }
     }
     handleSelectedQualifications(selected){
@@ -198,7 +207,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({ getPosition:APIPosition.getPosition ,
                                 getQualification:APIQualification.getQualification,
-                                postPosition:APIPosition.postPosition
+                                postPosition:APIPosition.postPosition,
+                                putPosition:APIPosition.updatePosition,
                                 }, dispatch)
 }
 

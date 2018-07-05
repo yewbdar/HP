@@ -25,6 +25,26 @@ class  Grid extends Component {
     handleChangeRowsPerPage = event => {
         this.setState({ rowsPerPage: event.target.value });
     };
+    split=(row,header)=>{
+        if(header.indexOf('.') !== -1){
+            let nestedChildsCount = header.split('.').length ;
+            let nestedChildsLabelStr = header.split('.');
+            let i = 0;
+            let temp = row;
+
+            while(i < nestedChildsCount) {
+                if(temp !== null || temp !== "undefined" ) {
+                    console.log("Before",temp,nestedChildsLabelStr[i]);
+                    temp = temp[nestedChildsLabelStr[i]];
+                    console.log(temp,nestedChildsLabelStr[i]);
+                }
+                i++;
+            }
+            return temp;
+        } else {
+            return row[header];
+        }
+    }
     render (){
         const {page, rowsPerPage} = this.state;
         return(
@@ -44,7 +64,7 @@ class  Grid extends Component {
                             return (
                                 <TableRow key={row.id}>
                                      {
-                                         this.props.headerMapping.map(header =>{return <TableCell>{row[header]}</TableCell> })
+                                         this.props.headerMapping.map(header =>{return <TableCell>{this.split(row,header)}</TableCell> })
                                      }
                                     <TableCell>
                                         <GridAction actionNames = {this.props.actionNames}

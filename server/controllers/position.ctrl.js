@@ -25,6 +25,7 @@ module.exports = {
     },
 
     update: function(req, res) {
+        console.log(req.body)
         Position
             .findOneAndUpdate({ _id: req.body.id }, req.body)
             .then(data => {res.json(data)})
@@ -33,9 +34,10 @@ module.exports = {
 
     remove: function(req, res) {
         Position
-            .findById({ _id: req.params.id })
+            .findById({ _id: req.body.id })
             .then(data => data.remove())
             .then(data => res.json(data))
             .catch(err => res.status(422).json(err));
-    }
+    },
+
 };
