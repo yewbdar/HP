@@ -38,7 +38,20 @@ export default {
         // });
         // }
 
-    }
+    },
+    updateFeedBack:function(data) {
+        console.log(data);
+        console.log("_>>>updating  position . . .");
+        return (dispatch)=>{
+            // dispatch(beginPostVacancy());
+            axios.put(`${url}/feedback` , data)
+                .then((res)=>{
+                    // dispatch(postVacancySuccess(res.data))
+                    console.log("update data");
+                }).catch((err)=>{ console.log(err);});
+        }
+
+    },
 }
 function beginPostPosition (){
     console.log("beginPostPosition")

@@ -24,7 +24,7 @@ module.exports = (router) => {
         feedBackController.remove(req,res);
     });
 
-    router.put('/feedback/:id',(req,res)=>{
+    router.put('/feedback',(req,res)=>{
         console.log("api update");
         feedBackController.update(req,res);
     });

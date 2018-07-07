@@ -7,9 +7,11 @@ import Maps from "../views/Maps/Maps";
 import Notifications from "../views/Notifications/Notifications";
 import Upgrade from "../views/Upgrade/Upgrade";
 import PositionPage from "../views/Recruiter/PositionPage";
-import CandidatePage from "../views/Recruiter/CandidatePage";
+import Register from "../views/Candidate/register";
 import viewCandidateForRecruiter from "../views/Recruiter/viewCandidateforRecruter";
 import viewOpenPosition from "../views/Candidate/viewOpenPosition";
+import uploadFile from "../views/uploadFile";
+import loginPage from "../views/Common/login";
 
 const dashboardRoutes = [
   {
@@ -18,6 +20,13 @@ const dashboardRoutes = [
     icon: "pe-7s-graph",
     component: Dashboard
   },
+  {
+    path: "/login",
+    name: "Login",
+    icon: "pe-7s-graph",
+    component: loginPage
+  },
+
   {
     path: "/position",
     name: "Position",
@@ -31,16 +40,22 @@ const dashboardRoutes = [
     component: viewOpenPosition
   },
   {
-    path: "/Candidate",
-    name: "Candidate",
+    path: "/Register",
+    name: "Register",
     icon: "pe-7s-user",
-    component: CandidatePage
+    component: Register
   },
   {
     path: "/viewCandidate",
     name: "view Candidate for Recruiter ",
     icon: "pe-7s-user",
     component: viewCandidateForRecruiter
+  },
+  {
+    path: "/uploadFile",
+    name: "Upload File ",
+    icon: "pe-7s-user",
+    component: uploadFile
   },
   {
     path: "/user",

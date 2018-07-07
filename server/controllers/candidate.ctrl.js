@@ -1,6 +1,7 @@
 /** */
 const mongoose = require('mongoose');
 const Candidate = require('./../models/Candidate');
+const bcrypt = require('bcrypt');
 
 module.exports = {
     getAll:function(req,res){
@@ -13,7 +14,6 @@ module.exports = {
                                     res.status(422).json(err);
                                  });
     },
-
     create: function(req, res) {
         Candidate
             .create(req.body )
@@ -22,8 +22,6 @@ module.exports = {
                 return res.status(422).json(err)});
 
     },
-
-
     getById:function (req,res) {
         Candidate.findById(req.params.id)
             .then((data) =>{
@@ -69,8 +67,30 @@ module.exports = {
         await candidate.save();
         //201 Data Created
         res.status(201).json(candidate)
-        console.log('new Postions', newPosition);
+    },
+    registerAccount : async (req, res) => {
+        const {
+            account : {userName, password},
+            firstName, lastName, gender, dob,
+            contact: {telephone, email, address, street, city, country, zip}
+        } =  req.body;
+
+        // const saltPassword = bcrypt.hashSync("asdsa",128);
+        bcrypt.hash(password, 10, function (err, saltPassword) {
+            // Store hash in database
+            const candidateObj = {
+                account: {userName, password : saltPassword},
+                firstName, lastName, gender, dob,
+                contact: {telephone, email, address, street, city, country, zip}
+            };
+            Candidate
+                .create(candidateObj)
+                .then(dbModel => res.json(dbModel))
+                .catch(err => {
+                    res.status(422).json(err)
+                });
+        });
+
 
     }
-
 };

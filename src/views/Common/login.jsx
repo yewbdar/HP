@@ -3,9 +3,9 @@ import { Grid, Row, Col, Table } from "react-bootstrap";
 
 import Card from "../../components/Card/Card.jsx";
 import Position from "../../components/recruiter/Position";
-import Register from "../../components/candidate/Register";
-
-class Candidate extends Component {
+import ViewOpenPosition from "../../components/candidate/ViewOpenPosition";
+import Login from "../../components/common/login"
+class viewOpenPosition extends Component {
     render() {
         var space = {
             marginTop : "2rem"
@@ -16,13 +16,13 @@ class Candidate extends Component {
                     <Row>
                         <Col md={12}>
                             <Card
-                                title="Create Profile"
-                                category="Profile Registration"
+                                title="login"
+                                category="login"
                                 ctTableFullWidth
                                 ctTableResponsive
                                 content={
                                     <div >
-                                        <Register />
+                                        <Login />
                                     </div>
                                 }
                             />
@@ -35,4 +35,4 @@ class Candidate extends Component {
     }
 }
 
-export default Candidate;
+export default viewOpenPosition;

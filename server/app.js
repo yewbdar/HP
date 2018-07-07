@@ -10,6 +10,9 @@ const app = express();
 const router = express.Router();
 const url = process.env.MONGODB_URI || "mongodb://localhost:27017/hp";
 
+const session = require('express-session');
+
+
 /** connect to MongoDB datastore */
 try {
     mongoose.connect(url, {
@@ -32,6 +35,10 @@ app.use(helmet());
 
 app.use('/hp-api', router);
 
+/**
+ * Login and session
+ */
+app.use(session({secret:"myencryptionkey", resave:false, saveUninitalized : true}) );
 /** start server */
 app.listen(port, () => {
     console.log(`HP-Server started at port: ${port} Lets get the party going`);

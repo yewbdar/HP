@@ -26,6 +26,10 @@ module.exports = (router) => {
         console.log("api update");
         CandidateController.update(req,res);
     });
+
+    router.post('/candidate/register',(req,res)=>{
+        CandidateController.registerAccount(req,res);
+    });
     router.route('/candidate/:candidateId/appliedPositions')
         .get(CandidateController.getAppliedPositions)
         .post(CandidateController.newCandidateApplication)

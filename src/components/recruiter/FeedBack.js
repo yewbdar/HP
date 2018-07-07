@@ -14,24 +14,19 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import FormLabel from '@material-ui/core/FormLabel';
-
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 class  FeedBack extends Component {
     constructor(props){
         super(props);
         this.state = {
             selectedPositionForFeedback:"",
             dataForSave:{},
-            txtInterview:"",
-            txtCandidateName:"",
-            txtPosition:"",
+            interviewerId:"",
+            id:"",
+            positionId:"",
             txtInterviewSchedule:"",
-            txtFeedBack:"",
-            txtSeggestion:"",
-            article:{},
-            person : {
-                age: '',
-                name: 'hai',
-            },
+            feedBack:"",
             feedbackResult:""
         };
 
@@ -75,15 +70,16 @@ class  FeedBack extends Component {
         this.setState((state) =>({
             ...state,
             dataForSave: {
-                candidateName: this.state.txtCandidateName,
-                position: this.state.txtPosition,
+                id:this.props.id,
+                interviewerId: this.state.txtCandidateName,
+                positionId: this.state.txtPosition,
                 interviewSchedule: this.state.txtInterviewSchedule,
                 feedBack: this.state.txtFeedBack,
-                seggestion: this.state.txtSeggestion
+                feedbackResult: this.state.txtSeggestion
 
             }
         }),() => {
-            APIFeedBack.postFeedBack(this.state.dataForSave);
+            APIFeedBack.putFeedBack(this.state.dataForSave);
 
             // this.props.getVacancy();
             // console.log(this.state.dataForSave)
@@ -222,7 +218,23 @@ class  FeedBack extends Component {
     }
 }
 
-export default FeedBack;
+function mapStateToProps(state) {
+    return {
+        feedback : state.feedBackReduicer.feedBack ,
+        isGettingPosition: state.feedBackReduicer.isGettingPosition,
+        error : state.feedBackReduicer.error
+    }
+}
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ feedBack:APIFeedBack.getFeedBack ,
+
+        postFeedBack:APIFeedBack.postFeedBack,
+        putFeedBack:APIFeedBack.updateFeedBack,
+    }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(FeedBack)
+
 
 
 

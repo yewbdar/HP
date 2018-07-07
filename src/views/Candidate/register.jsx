@@ -5,6 +5,7 @@ import Card from "../../components/Card/Card.jsx";
 import Position from "../../components/recruiter/Position";
 import Register from "../../components/candidate/Register";
 
+
 class Candidate extends Component {
     render() {
         var space = {

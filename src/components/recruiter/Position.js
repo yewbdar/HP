@@ -7,12 +7,13 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import { connect } from 'react-redux';
+
 import  APIPosition  from '../../redux/actions/positionActions';
 import  APIQualification  from '../../redux/actions/qualificationAction';
 
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -200,7 +201,7 @@ function mapStateToProps(state) {
     return {
         positions : state.positionReduicer.position ,
         qualifications:state.qualificationReduicer.qualification,
-        isGettingVacancy: state.positionReduicer.isGettingPosition,
+        isGettingPosition: state.positionReduicer.isGettingPosition,
         error : state.positionReduicer.error
     }
 }

@@ -26,25 +26,7 @@ class  Login extends Component {
     }
     handleSubmitButton=(event)=> {
         event.preventDefault();
-        {/*this.setState((state) =>({*/}
-                {/*...state,*/}
-                {/*dataForSave: {*/}
-                    {/*candidateName: this.state.txtCandidateName,*/}
-                    {/*hub: "ecx",//this.state.txthub,*/}
-                    {/*interviewSchedule: this.state.txtInterviewSchedule,*/}
-                    {/*feedBack: this.state.txtFeedBack,*/}
-                    {/*seggestion: this.state.txtSeggestion*/}
 
-        //     }
-        // }),() => {
-        //     // APIFeedBack.postFeedBack(this.state.dataForSave);
-        //
-        //     // this.props.getVacancy();
-        //     // console.log(this.state.dataForSave)
-        //     // this.props.getVacancy();
-        //
-        //
-        // });
     }
     render() {
         return (
