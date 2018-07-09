@@ -20,14 +20,14 @@ class  FeedBack extends Component {
     constructor(props){
         super(props);
         this.state = {
-            selectedPositionForFeedback:"",
-            dataForSave:{},
-            interviewerId:"",
+            position:"",
+            interviewType:"Technical",
+            interviewedBy:"",
             id:"",
-            positionId:"",
-            txtInterviewSchedule:"",
-            feedBack:"",
-            feedbackResult:""
+            position:"",
+            comment:"",
+            passed:"",
+            interviewedOn:Date.now()
         };
 
     }
@@ -45,8 +45,9 @@ class  FeedBack extends Component {
 
     }
     handleFeedbackChange = (event)=>{
-        this.setState({ feedbackResult: event.target.value});
-        console.log(this.state.feedbackResult)
+        this.setState({ passed: event.target.value});
+
+        console.log(this.state.passed)
     }
     handleOpen=(articleId)=>{
         console.log(articleId);
@@ -72,11 +73,10 @@ class  FeedBack extends Component {
             ...state,
             dataForSave: {
                 id:this.props.id,
-                interviewerId: "5b3cfd4b410fa118837ba10d",
-                positionId:this.state.selectedPositionForFeedback,
-                interviewSchedule: this.state.txtInterviewSchedule,
-                feedBack: this.state.feedBack,
-                feedbackResult: this.state.feedbackResult
+                interviewedBy: "5b3cfd4b410fa118837ba10d",
+                position:this.state.position,
+                comment: this.state.comment,
+                passed: this.state.passed
 
             }
         }),() => {
@@ -91,9 +91,9 @@ class  FeedBack extends Component {
     };
     handlePositionChange = (event) => {
         this.setState({
-            selectedPositionForFeedback:event.target.value
+            position:event.target.value
         })
-        console.log(this.state.selectedPositionForFeedback)
+        console.log(this.state.position)
     };
 
 
@@ -134,7 +134,7 @@ class  FeedBack extends Component {
                                 <InputLabel htmlFor="position">Position</InputLabel>
 
                                 <Select
-                                    value={this.state.selectedPositionForFeedback}
+                                    value={this.state.position}
                                     onChange={this.handlePositionChange}
                                     input={<Input name="position" id="position" />}
                                 >
@@ -156,12 +156,12 @@ class  FeedBack extends Component {
                         <TextField
                             multiline
                             rows="4"
-                            id="feedBack"
+                            id="comment"
                             label="Feed Back"
                             value={this.state.txtFeedBack}
                             onChange={this.handleChange}
                             margin="normal"
-                            name="feedBack"
+                            name="comment"
                             fullWidth
                         /> </div>
                 </div>
@@ -174,7 +174,7 @@ class  FeedBack extends Component {
                             <RadioGroup
                                 aria-label="Feedback Result"
                                 name="feedback-result"
-                                value={this.state.feedbackResult}
+                                value={this.state.passed}
                                 onChange={this.handleFeedbackChange}
                                 style={{display:"inline"}}
                             >
