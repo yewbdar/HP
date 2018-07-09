@@ -393,7 +393,7 @@ class  CandidateProfile extends Component {
                         {activeStep === steps.length ? (
                             <div>
                                 <Typography >
-                                    All steps completed - you&quot;re finished
+                                    All steps completed - you &quot;re finished
                                 </Typography>
                                 <Button onClick={this.handleReset} >
                                     Reset

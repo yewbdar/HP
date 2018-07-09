@@ -22,7 +22,7 @@ module.exports = (router) => {
         CandidateController.remove(req,res);
     });
 
-    router.put('/candidate/:id',(req,res)=>{
+    router.put('/candidate' ,(req,res)=>{
         console.log("api update");
         CandidateController.update(req,res);
     });

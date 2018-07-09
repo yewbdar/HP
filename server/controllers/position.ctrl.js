@@ -8,6 +8,13 @@ module.exports = {
             .catch((err )=>{ res.status(422).json(err);
         });
     },
+    getActiveInActivePositions:function(req,res){
+        Position.find({ isActive:req.query.isActive })
+            .populate('qualifications')
+            .then((result) =>{  res.json(result)})
+            .catch((err )=>{ res.status(422).json(err);
+            });
+    },
     create: function(req, res) {
         console.log(req.body);
         Position

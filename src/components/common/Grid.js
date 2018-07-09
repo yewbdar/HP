@@ -9,6 +9,7 @@ import TableFooter from '@material-ui/core/TableFooter';
 import TablePagination from '@material-ui/core/TablePagination';
 import { withStyles } from '@material-ui/core/styles';
 import GridAction from './GridAction'
+import PropTypes from 'prop-types';
 
 class  Grid extends Component {
     constructor(props){
@@ -93,5 +94,11 @@ class  Grid extends Component {
             </Paper>
         )
     }
+};
+Grid.propTypes = {
+    dataset: PropTypes.array.isRequired,
+    headerMapping: PropTypes.array.isRequired,
+    header: PropTypes.array.isRequired,
+
 };
 export default Grid

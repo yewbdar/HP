@@ -7,13 +7,25 @@ import Grid from '../../components/common/Grid';
 import  APIPostion  from '../../redux/actions/positionActions';
 
 class ViewOpenPosition extends Component {
+    constructor () {
+        super();
+        this.state ={
+            newPosition:[]
+        }
+    }
+
     componentDidMount() {
         //after component loads bring data
-        this.props.getPosition();
+
+        this.props.getActivePosition();
     }
     handleApply=(positionId)=>{
         console.log(positionId);
-    };
+        this.props.updatePosition({
+            id:"5b3d05ef54cd7218c6064b79",
+            position: positionId
+        })
+    }
 
     handleViewdetail=(positionId)=>{
         console.log(positionId);
@@ -33,20 +45,25 @@ class ViewOpenPosition extends Component {
         };
 
     }
+    filterActivePositions=()=>{
+        this.setState({newPosition: this.props.positions.filter((ele)=>{ ele.isActive === true; }) });
+    };
 
     render() {
         return (
             <div>
                 {/* this is for displaying data in Pretty format of json , WE CANT show Object in one JSX Node*/}
-                <pre>{JSON.stringify(this.props.positions , null, 2) }</pre>
-                {/*<Grid
-                    dataset={this.props.position}
-                    header={["ID#","Title","Text","Action"]}
-                    headerMapping={["id","title","text"]}
-                    actionNames={["Apply,"View detail"]}
+                {/*<pre>{JSON.stringify(this.props.positions , null, 2) }</pre>*/}
+                <Grid
+                    dataset={this.props.positions}
+
+
+                    header={["Title","Skill","Summary","Action"]}
+                    headerMapping={["title","skill","summary"]}
+                    actionNames={["Apply","View detail"]}
                     handleAction = {this.handleAction}
 
-                />*/}
+                />
             </div>
         );
     }
@@ -54,13 +71,15 @@ class ViewOpenPosition extends Component {
 
 function mapStateToProps(state) {
     return {
-        positions : state.positionReduicer.position ,
+        positions:state.positionReduicer.position,
         isGettingPosition: state.positionReduicer.isGettingPosition,
         error : state.positionReduicer.error
     }
 }
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ getPosition:APIPostion.getPosition
+    return bindActionCreators({
+        getActivePosition:APIPostion.getActivePosition,
+        updatePosition:APIPostion.updatePosition
        }, dispatch)
 }
 

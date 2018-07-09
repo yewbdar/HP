@@ -24,10 +24,10 @@ module.exports = {
         /**
          * Check if the Session have a user object if not redirect to login
          */
-        if(!req.session.user) {
-            return res.status(401).send();
-        }
-        return res.status(200).send();
+        // if(!req.session.user) {
+        //     return res.status(401).send();
+        // }
+        // return res.status(200).send();
     }
 
 };

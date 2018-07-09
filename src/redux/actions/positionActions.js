@@ -24,6 +24,19 @@ export default {
             })
         }
     },
+    getActivePosition: function() {
+        console.log("_>>>getting positions . . .");
+        return (dispatch) => {
+            dispatch(beginGetActivePosition());
+            axios.get(`${url}/getActiveInActivePositions?isActive=true`)
+                .then((res) => {
+                    dispatch(getActivePositionSuccess(res.data));
+                }).catch((err) => {
+                dispatch(getActivePositionFailure(err));
+                console.log(err)
+            })
+        }
+    },
     postPosition:function(data) {
         console.log(data);
         console.log("_>>>posting position . . .");
@@ -94,6 +107,22 @@ function getPositionSuccess (position){
 function getPositionFailure (errMsg){
     return {
         type: types.GET_POSITION_FAILURE,
+        errMsg
+    }
+}
+function beginGetActivePosition (){ return { type: types.BEGIN_GET_ACTIVE_POSITION } }
+
+function getActivePositionSuccess (position){
+    return {
+        type : types.GET_ACTIVE__POSITION_SUCCESS,
+        position :position
+    }
+}
+
+
+function getActivePositionFailure (errMsg){
+    return {
+        type: types.GET_ACTIVE_POSITION_FAILURE,
         errMsg
     }
 }

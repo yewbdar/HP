@@ -46,6 +46,7 @@ class  FeedBack extends Component {
     }
     handleFeedbackChange = (event)=>{
         this.setState({ feedbackResult: event.target.value});
+        console.log(this.state.feedbackResult)
     }
     handleOpen=(articleId)=>{
         console.log(articleId);
@@ -71,11 +72,11 @@ class  FeedBack extends Component {
             ...state,
             dataForSave: {
                 id:this.props.id,
-                interviewerId: this.state.txtCandidateName,
-                positionId: this.state.txtPosition,
+                interviewerId: "5b3cfd4b410fa118837ba10d",
+                positionId:this.state.selectedPositionForFeedback,
                 interviewSchedule: this.state.txtInterviewSchedule,
-                feedBack: this.state.txtFeedBack,
-                feedbackResult: this.state.txtSeggestion
+                feedBack: this.state.feedBack,
+                feedbackResult: this.state.feedbackResult
 
             }
         }),() => {
@@ -92,6 +93,7 @@ class  FeedBack extends Component {
         this.setState({
             selectedPositionForFeedback:event.target.value
         })
+        console.log(this.state.selectedPositionForFeedback)
     };
 
 
@@ -159,7 +161,7 @@ class  FeedBack extends Component {
                             value={this.state.txtFeedBack}
                             onChange={this.handleChange}
                             margin="normal"
-                            name="txtFeedBack"
+                            name="feedBack"
                             fullWidth
                         /> </div>
                 </div>
