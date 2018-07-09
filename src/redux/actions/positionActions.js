@@ -52,8 +52,6 @@ export default {
     },
 
     updatePosition:function(data) {
-        console.log(data);
-        console.log("_>>>updating  position . . .");
         return (dispatch)=>{
             // dispatch(beginPostVacancy());
             axios.put(`${url}/position` , data)

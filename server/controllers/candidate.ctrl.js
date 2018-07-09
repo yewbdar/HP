@@ -38,6 +38,59 @@ module.exports = {
             .then(data => res.json(data))
             .catch(err => res.status(422).json(err));
     },
+    applyForPosition: function(req, res) {
+         const {id, positionId } = req.body;
+        Candidate.findOne({_id: id}, function (err, candidate) {
+
+            if(candidate && candidate.appliedPositions) {
+                let isAppliedfor = candidate.appliedPositions.find(
+                    (appliedPosition) => {
+                        return appliedPosition.position == positionId;
+                    });
+
+                if (!isAppliedfor) {
+                    //push and save
+                    candidate.appliedPositions.push({position: positionId});
+                    console.log(candidate);
+                    candidate.save(function (err) {
+                        if (err) {
+                            //TODO: error while saving
+                        } else {
+                            //TODO: saved
+                        }
+                    })
+
+
+                } else {
+                    //TODO: position is already applied for
+                }
+            } else  if (candidate){
+
+                candidate.appliedPositions = {position: positionId};
+                candidate.save(function (err) {
+                    if (err) {
+                        //TODO: error while saving
+                    } else {
+                        //TODO: saved
+                    }
+                })
+            } else {
+                //TODO: candidate not found
+            }
+
+            //
+            // user.save(function (err) {
+            //     if(err) {
+            //         console.error('ERROR!');
+            //     }
+            // });
+        });
+
+        // Candidate
+        //     .findOneAndUpdate({ _id: req.params.id }, req.body)
+        //     .then(data => res.json(data))
+        //     .catch(err => res.status(422).json(err));
+    },
 
     remove: function(req, res) {
         Candidate

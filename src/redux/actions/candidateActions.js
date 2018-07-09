@@ -10,11 +10,39 @@ const url = process.env.NODE_ENV === 'production' ? "/api/" : "http://localhost:
  * @returns {function(*)}
  */
 export default {
-    getCandidates: function()  {
+    getCandidates: function () {
         console.log("_>>>getting Candidates . . .");
         return (dispatch) => {
             dispatch(beginGetCandidates());
             axios.get(`${url}/candidates`)
+                .then((res) => {
+                    dispatch(getCandidatesSuccess(res.data));
+                }).catch((err) => {
+                dispatch(getCandidatesFailure(err));
+                console.log(err)
+            })
+        }
+    },
+
+        applyForPosition: function (data) {
+            console.log("_>>>updating  Candidates . . .",data);
+            return (dispatch) => {
+                dispatch(beginGetCandidates());
+                axios.put(`${url}/apply`, data)
+                    .then((res) => {
+                        dispatch(getCandidatesSuccess(res.data));
+                    }).catch((err) => {
+                    dispatch(getCandidatesFailure(err));
+                    console.log(err)
+                })
+            }
+        },
+
+    FeedbackForApplayedPosition: function (data) {
+        console.log("_>>>updating  Candidates . . .",data);
+        return (dispatch) => {
+            dispatch(beginGetCandidates());
+            axios.put(`${url}/addfeedback`, data)
                 .then((res) => {
                     dispatch(getCandidatesSuccess(res.data));
                 }).catch((err) => {

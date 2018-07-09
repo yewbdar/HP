@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import Grid from '../../components/common/Grid';
 import  APIPostion  from '../../redux/actions/positionActions';
-
+import  APICandidate  from '../../redux/actions/candidateActions';
 class ViewOpenPosition extends Component {
     constructor () {
         super();
@@ -20,12 +20,12 @@ class ViewOpenPosition extends Component {
         this.props.getActivePosition();
     }
     handleApply=(positionId)=>{
-        console.log(positionId);
-        this.props.updatePosition({
-            id:"5b3d05ef54cd7218c6064b79",
-            position: positionId
-        })
-    }
+
+        this.props.applyForPosition({
+                                            id:"5b3eb6aca6b737225e2a8ee5",
+                                            positionId : positionId
+                                    });
+    };
 
     handleViewdetail=(positionId)=>{
         console.log(positionId);
@@ -79,7 +79,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         getActivePosition:APIPostion.getActivePosition,
-        updatePosition:APIPostion.updatePosition
+        applyForPosition:APICandidate.applyForPosition
        }, dispatch)
 }
 

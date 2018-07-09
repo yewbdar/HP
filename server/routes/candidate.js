@@ -27,6 +27,17 @@ module.exports = (router) => {
         CandidateController.update(req,res);
     });
 
+
+    router.put('/addfeedback' ,(req,res)=>{
+        console.log("api update");
+        CandidateController.addFeedbackForPosition(req,res);
+    });
+    router.put('/apply' ,(req,res)=>{
+        console.log("api update");
+        CandidateController.applyForPosition(req,res);
+    });
+
+
     router.post('/candidate/register',(req,res)=>{
         CandidateController.registerAccount(req,res);
     });
