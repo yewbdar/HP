@@ -3,7 +3,8 @@ import React ,{Component } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
-import  APIFeedBack  from '../../redux/actions/feedBackAction';
+import  APICandidate from '../../redux/actions/candidateActions';
+
 import Grid  from '../common/Grid';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
@@ -20,6 +21,7 @@ class  FeedBack extends Component {
     constructor(props){
         super(props);
         this.state = {
+            dataForSave:{},
             position:"",
             interviewType:"Technical",
             interviewedBy:"",
@@ -45,7 +47,13 @@ class  FeedBack extends Component {
 
     }
     handleFeedbackChange = (event)=>{
+
         this.setState({ passed: event.target.value});
+        if(this.state.passed === "Pass"){
+            this.setState({ passed:true});
+        }else {
+            this.setState({ passed:false});
+        }
 
         console.log(this.state.passed)
     }
@@ -76,11 +84,12 @@ class  FeedBack extends Component {
                 interviewedBy: "5b3cfd4b410fa118837ba10d",
                 position:this.state.position,
                 comment: this.state.comment,
-                passed: this.state.passed
+                passed: this.state.passed,
+                interviewedOn:Date.now()
 
             }
         }),() => {
-            APIFeedBack.putFeedBack(this.state.dataForSave);
+            this.props.putFeedBack(this.state.dataForSave);
 
             // this.props.getVacancy();
             // console.log(this.state.dataForSave)
@@ -228,10 +237,11 @@ function mapStateToProps(state) {
     }
 }
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ feedBack:APIFeedBack.getFeedBack ,
+    return bindActionCreators({
+        // feedBack:APIFeedBack.getFeedBack ,
 
-        postFeedBack:APIFeedBack.postFeedBack,
-        putFeedBack:APIFeedBack.updateFeedBack,
+        // postFeedBack:APIFeedBack.postFeedBack,
+        putFeedBack:APICandidate.FeedbackForApplayedPosition
     }, dispatch)
 }
 

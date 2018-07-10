@@ -91,7 +91,67 @@ module.exports = {
         //     .then(data => res.json(data))
         //     .catch(err => res.status(422).json(err));
     },
+    addFeedbackForPosition: function(req, res) {
+        console.log("am here ");
+        const {id, position, interviewType} = req.body;
+        console.log(req.body);
+        Candidate.findOne({_id: id}, function (err, candidate) {
 
+            if(candidate && candidate.appliedPositions) {
+                console.log(" candidate && candidate.appliedPositions",candidate && candidate.appliedPositions);
+                let isAppliedfor = candidate.appliedPositions.find(
+                    (appliedPosition) => {
+                        return appliedPosition.position == position;
+                    });
+
+                if (isAppliedfor && candidate.appliedPositions.interview) {
+                    //push and save
+                    console.log("isAppliedfor && candidate.appliedPositions.interview",isAppliedfor && candidate.appliedPositions.interview);
+                    if(!candidate.appliedPositions.interview.interviewType === interviewType ) {
+
+                        candidate.appliedPositions.interview.push(req.body);
+                        console.log(candidate);
+                        candidate.save(function (err) {
+                            if (err) {
+                                //TODO: error while saving
+                            } else {
+                                //TODO: saved
+                            }
+                        })
+                    }else {
+
+                    //TODO:interview is already applied for
+                }
+                } else {
+                    //TODO: position not found
+                }
+            } else  if (candidate.appliedPositions){
+
+                candidate.appliedPositions.interview = req.body;
+                candidate.save(function (err) {
+                    if (err) {
+                        //TODO: error while saving
+                    } else {
+                        //TODO: saved
+                    }
+                })
+            } else {
+                //TODO: candidate.appliedPositions not found
+            }
+
+            //
+            // user.save(function (err) {
+            //     if(err) {
+            //         console.error('ERROR!');
+            //     }
+            // });
+        });
+
+        // Candidate
+        //     .findOneAndUpdate({ _id: req.params.id }, req.body)
+        //     .then(data => res.json(data))
+        //     .catch(err => res.status(422).json(err));
+    },
     remove: function(req, res) {
         Candidate
             .findById({ _id: req.params.id })
