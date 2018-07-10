@@ -24,7 +24,7 @@ export default {
         }
     },
 
-        applyForPosition: function (data) {
+     applyForPosition: function (data) {
             console.log("_>>>updating  Candidates . . .",data);
             return (dispatch) => {
                 dispatch(beginGetCandidates());
@@ -38,11 +38,11 @@ export default {
             }
         },
 
-    FeedbackForApplayedPosition: function (data) {
+    feedbackForApplyedPosition: function (data) {
         console.log("_>>>updating  Candidates . . .",data);
         return (dispatch) => {
             dispatch(beginGetCandidates());
-            axios.put(`${url}/addfeedback`, data)
+                axios.put(`${url}/addfeedback`, data)
                 .then((res) => {
                     dispatch(getCandidatesSuccess(res.data));
                 }).catch((err) => {

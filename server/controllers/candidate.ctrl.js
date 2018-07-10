@@ -93,24 +93,79 @@ module.exports = {
     },
     addFeedbackForPosition: function(req, res) {
         console.log("am here ");
-        const {id, position, interviewType} = req.body;
+        const { candidateId , positionId, interviewedBy, interviewedOn, comment, passed, interviewType } = req.body;
         console.log(req.body);
-        Candidate.findOne({_id: id}, function (err, candidate) {
+        Candidate.findOne({_id: candidateId }, function (err, candidate) {
 
             if(candidate && candidate.appliedPositions) {
-                console.log(" candidate && candidate.appliedPositions",candidate && candidate.appliedPositions);
+                let appliedPositionIndex = -1;
                 let isAppliedfor = candidate.appliedPositions.find(
-                    (appliedPosition) => {
-                        return appliedPosition.position == position;
+                    (appliedPosition, index) => {
+                        if( appliedPosition.position == positionId ){
+                            appliedPositionIndex = index;
+                            return true;
+                        }
                     });
 
-                if (isAppliedfor && candidate.appliedPositions.interview) {
+                console.log(candidate.appliedPositions[appliedPositionIndex], "<<");
+                if (isAppliedfor && candidate.appliedPositions[appliedPositionIndex].interview ) {
                     //push and save
-                    console.log("isAppliedfor && candidate.appliedPositions.interview",isAppliedfor && candidate.appliedPositions.interview);
-                    if(!candidate.appliedPositions.interview.interviewType === interviewType ) {
+                    let interviewIndex = -1;
+                    candidate.appliedPositions[appliedPositionIndex].interview.find( (interview, index) => {
+                        console.log(interview.interviewType == interviewType, interview.interviewType, interviewType);
 
-                        candidate.appliedPositions.interview.push(req.body);
-                        console.log(candidate);
+                        if (interview.interviewType == interviewType) {
+                            interviewIndex = index;
+                            return true;
+                        }
+                    });
+                    console.log(candidate.appliedPositions[appliedPositionIndex].interview.interviewType);
+                    if( interviewIndex === -1 ) {
+                        // this fed back doesnt exist so we add it, i.e. push
+                        candidate.appliedPositions[appliedPositionIndex].interview.push({
+                                                                                            interviewedBy,
+                                                                                            interviewedOn,
+                                                                                            comment,
+                                                                                            passed,
+                                                                                            interviewType
+                                                                                        });
+
+
+                    }else {
+                        candidate.appliedPositions[appliedPositionIndex].interview[interviewIndex] = {
+                                                                                                        interviewedBy,
+                                                                                                        interviewedOn,
+                                                                                                        comment,
+                                                                                                        passed,
+                                                                                                        interviewType
+                                                                                                    };
+
+
+
+                        console.log("Aleady commented for, try replacing that feedback");
+                    //TODO:interview is already commented for , but we can still can update with the same results
+                }
+                    //save in both cases
+                    candidate.save(function (err) {
+                        if (err) {
+                            //TODO: error while saving
+                        } else {
+                            //TODO: saved
+                        }
+                    })
+
+                }else {
+                    //TODO: applied Position interview  DOES NOT EXIST , create new one
+
+                    if(appliedPositionIndex !== -1) {
+                        candidate.appliedPositions[appliedPositionIndex].interview = [{
+                            interviewedBy,
+                            interviewedOn,
+                            comment,
+                            passed,
+                            interviewType
+                        }];
+
                         candidate.save(function (err) {
                             if (err) {
                                 //TODO: error while saving
@@ -118,26 +173,24 @@ module.exports = {
                                 //TODO: saved
                             }
                         })
-                    }else {
-
-                    //TODO:interview is already applied for
-                }
-                } else {
-                    //TODO: position not found
-                }
-            } else  if (candidate.appliedPositions){
-
-                candidate.appliedPositions.interview = req.body;
-                candidate.save(function (err) {
-                    if (err) {
-                        //TODO: error while saving
                     } else {
-                        //TODO: saved
+                        // not applied for this position and hence cannot give feedback
                     }
-                })
-            } else {
-                //TODO: candidate.appliedPositions not found
+                }
             }
+            // else  if (candidate.appliedPositions){
+
+                // candidate.appliedPositions.interview = req.body;
+                // candidate.save(function (err) {
+                //     if (err) {
+                        //TODO: error while saving
+                    // } else {
+                        //TODO: saved
+                    // }
+                // })
+            // } else {
+                //TODO: candidate.appliedPositions not found
+            // }
 
             //
             // user.save(function (err) {
@@ -205,5 +258,11 @@ module.exports = {
         });
 
 
-    }
+    },
+    getPassedCandidate:function(req,res){
+        Position.find({ isActive:req.query.isActive })
+            .then((result) =>{  res.json(result)})
+            .catch((err )=>{ res.status(422).json(err);
+            });
+    },
 };

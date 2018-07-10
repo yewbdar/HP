@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getCandidates } from '../../redux/actions/candidateActions';
+import  APICandidates  from '../../redux/actions/candidateActions';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import Grid from '../../components/common/Grid';
@@ -55,7 +55,7 @@ class ViewCandidate extends Component {
                     dataset={this.props.candidates} 
                     header={["ID#","First Name","Last Name","Date of Birth","Action"]} 
                     headerMapping={["candidateId","firstName","lastName","dob"]} 
-                    actionNames={["view"]} 
+                    actionNames={["view detail","Give feedBack"]} 
                     handleAction = {this.handleAction}  
                 />
 
@@ -67,8 +67,6 @@ class ViewCandidate extends Component {
     }
 }
 
-
-
 function mapStateToProps(state) {
     return {
         candidates : state.candidateReduicer.candidates ,
@@ -78,7 +76,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ getCandidates }, dispatch)
+    return bindActionCreators({ getCandidates:APICandidates.getCandidates }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ViewCandidate)

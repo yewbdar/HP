@@ -41,9 +41,10 @@ class uploadFile extends Component {
                                 content={
                                     <div >
 
-                                        <form onSubmit={this.handleUploadImage}>
+                                        <form onSubmit={this.handleUploadImage} encType="multipart/form-data">
                                             <div>
-                                                <input ref={(ref) => { this.uploadInput = ref; }} type="file" />
+                                                <input  type="file" name="file" id="file" class="custom-file-input" />
+                                                <label for="file" class="custom-file-label"> Choose File </label>
                                             </div>
                                             <div>
                                                 <input ref={(ref) => { this.fileName = ref; }} type="text" placeholder="Enter the desired name of file" />

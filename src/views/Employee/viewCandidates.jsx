@@ -3,7 +3,7 @@ import { Grid, Row, Col, Table } from "react-bootstrap";
 
 import Card from "../../components/Card/Card.jsx";
 
-import ViewCandidate from "../../components/employee/vi";
+import ViewCandidate from "../../components/employee/ViewCandidate";
 
 class Candidate extends Component {
     render() {

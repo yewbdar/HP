@@ -21,7 +21,6 @@ class  FeedBack extends Component {
     constructor(props){
         super(props);
         this.state = {
-            dataForSave:{},
             position:"",
             interviewType:"Technical",
             interviewedBy:"",
@@ -79,7 +78,6 @@ class  FeedBack extends Component {
         event.preventDefault();
         this.setState((state) =>({
             ...state,
-            dataForSave: {
                 id:this.props.id,
                 interviewedBy: "5b3cfd4b410fa118837ba10d",
                 position:this.state.position,
@@ -87,9 +85,16 @@ class  FeedBack extends Component {
                 passed: this.state.passed,
                 interviewedOn:Date.now()
 
-            }
+
         }),() => {
-            this.props.putFeedBack(this.state.dataForSave);
+            this.props.feedbackForApplyedPosition({
+                                                    id: this.props.id,
+                                                    interviewedBy: "5b3cfd4b410fa118837ba10d",
+                                                    position: this.state.position,
+                                                    comment: this.state.comment,
+                                                    passed: this.state.passed,
+                                                    interviewedOn: Date.now()
+                                                  });
 
             // this.props.getVacancy();
             // console.log(this.state.dataForSave)
@@ -241,7 +246,7 @@ function mapDispatchToProps(dispatch) {
         // feedBack:APIFeedBack.getFeedBack ,
 
         // postFeedBack:APIFeedBack.postFeedBack,
-        putFeedBack:APICandidate.FeedbackForApplayedPosition
+        feedbackForApplyedPosition:APICandidate.feedbackForApplyedPosition
     }, dispatch)
 }
 

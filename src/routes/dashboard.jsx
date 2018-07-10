@@ -9,6 +9,7 @@ import Upgrade from "../views/Upgrade/Upgrade";
 import PositionPage from "../views/Recruiter/PositionPage";
 import Register from "../views/Candidate/register";
 import viewCandidateForRecruiter from "../views/Recruiter/viewCandidateforRecruter";
+import viewCandidateForEmployee from "../views/Employee/viewCandidates";
 import viewOpenPosition from "../views/Candidate/viewOpenPosition";
 import uploadFile from "../views/uploadFile";
 import loginPage from "../views/Common/login";
@@ -50,6 +51,12 @@ const dashboardRoutes = [
     name: "view Candidate for Recruiter ",
     icon: "pe-7s-user",
     component: viewCandidateForRecruiter
+  },
+  {
+    path: "/viewCandidateForFEmployee",
+    name: "view Candidate for Employee ",
+    icon: "pe-7s-user",
+    component: viewCandidateForEmployee
   },
   {
     path: "/uploadFile",
