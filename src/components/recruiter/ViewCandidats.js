@@ -54,7 +54,7 @@ class ViewCandidats extends Component {
 
     componentDidMount() {
         //after component loads bring data
-         this.props.getCandidates();
+          this.props.getAllCandidate();
          this.props.getPositions();
     }
     handleOpen=(articleId)=>{
@@ -87,7 +87,12 @@ class ViewCandidats extends Component {
         this.setState({
             position:event.target.value
         })
-        console.log(this.state.position)
+        // setTimeout(function(){
+            this.props.getCandidates(event.target.value);
+        // }, 100)
+        // console.log(this.state.position);
+
+
     };
 
     render() {
@@ -98,7 +103,7 @@ class ViewCandidats extends Component {
 
                 <div className="row mb-5">
                     <div className="col-lg-12 col-md-6 col-sm-12" >
-                        {/*<pre>Positions : {JSON.stringify(this.props.positions, null, 2) }</pre>*/}
+                        {/*<pre>Positions : {JSON.stringify(this.props.candidates, null, 2) }</pre>*/}
 
                         <FormControl fullWidth >
                             <InputLabel htmlFor="position">Select Position</InputLabel>
@@ -124,7 +129,7 @@ class ViewCandidats extends Component {
 
 
 
-                <Grid
+                 <Grid
                     dataset={this.props.candidates}
                     header={["ID#","first Name","Last Name","Gender","DOB","Action"]}
                     headerMapping={["_id","firstName","lastName","gender","dob",]}
@@ -168,7 +173,8 @@ function mapStateToProps(state) {
     }
 }
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ getCandidates:getCandid.getCandidates,
+    return bindActionCreators({ getCandidates:getCandid.getCandidatesByPosition,
+                                getAllCandidate:getCandid.getCandidates,
                                 getPositions:APIPosition.getActivePosition
        }, dispatch)
 }

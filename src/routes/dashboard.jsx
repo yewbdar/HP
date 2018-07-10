@@ -14,6 +14,7 @@ import viewOpenPosition from "../views/Candidate/viewOpenPosition";
 import uploadFile from "../views/uploadFile";
 import loginPage from "../views/Common/login";
 
+import ViewFeedBack from "../views/Candidate/viewFeedBack";
 const dashboardRoutes = [
   {
     path: "/home",
@@ -39,6 +40,12 @@ const dashboardRoutes = [
     name: "view open Position",
     icon: "pe-7s-user",
     component: viewOpenPosition
+  },
+  {
+    path: "/ViewFeedBack",
+    name: "View FeedBack",
+    icon: "pe-7s-user",
+    component: ViewFeedBack
   },
   {
     path: "/Register",

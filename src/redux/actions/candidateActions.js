@@ -23,11 +23,25 @@ export default {
             })
         }
     },
-    getCandidatesByPosition: function () {
+    getCandidatesByPosition: function (data) {
         console.log("_>>>getting Candidates . . .");
         return (dispatch) => {
             dispatch(beginGetCandidates());
-            axios.get(`${url}/candidates`)
+            axios.get(`${url}/candidates-position?id=` + data)
+                .then((res) => {
+                    dispatch(getCandidatesSuccess(res.data));
+                }).catch((err) => {
+                dispatch(getCandidatesFailure(err));
+                console.log(err)
+            })
+        }
+    },
+    getById: function (data) {
+        console.log("_>>>getting Candidates . . .");
+        return (dispatch) => {
+            dispatch(beginGetCandidates());
+            console.log(data);
+            axios.get(`${url}/candidate?id=` + data)
                 .then((res) => {
                     dispatch(getCandidatesSuccess(res.data));
                 }).catch((err) => {

@@ -2,6 +2,7 @@
 const mongoose = require('mongoose');
 const Candidate = require('./../models/Candidate');
 const bcrypt = require('bcrypt');
+var ObjectId = mongoose.Types.ObjectId;
 
 module.exports = {
     getAll:function(req,res){
@@ -14,26 +15,42 @@ module.exports = {
                                     res.status(422).json(err);
                                  });
     },
-    getAllByPosition:function(req,res){
-        Candidate.find({position:req.params.id})
-            .populate('appliedPositions.position')
-            .populate('profile.qualifications')
-            .populate('appliedPositions.interview.interviewedBy')
-            .then((result) =>{ res.json(result) })
-            .catch((err )=>{
-                res.status(422).json(err);
-            });
+    getAllByPosition:function(req,res) {
+        console.log(req.query.id);
+        Candidate.find({})
+            .then((result) => {
+                let newRes = result.filter((candidate) => {
+                    if (candidate.appliedPositions) {
+                        return candidate.appliedPositions.find(appliedPosition => {
+                            console.log(appliedPosition.position, req.query.id, appliedPosition.position == req.query.id, "<<---")
+                            return appliedPosition.position == req.query.id;
+                        })
+                    } else {
+                        return false;
+                    }
+
+                });
+
+                return res.json(newRes);
+                })
+                .catch((err )=>{
+                    res.status(422).json(err);
+                });
     },
     create: function(req, res) {
         Candidate
-            .create(req.body )
+            .create(req.body)
             .then((result) => res.json(result))
             .catch(err => { console.log(err) ;
                 return res.status(422).json(err)});
 
     },
     getById:function (req,res) {
-        Candidate.findById(req.params.id)
+        console.log("getById cotroller");
+        Candidate.findById(req.query.id)
+            .populate('appliedPositions.position')
+            .populate('profile.qualifications')
+            .populate('appliedPositions.interview.interviewedBy')
             .then((result) =>{
                 console.log(result);
                 res.json(result)
@@ -44,7 +61,7 @@ module.exports = {
 
     update: function(req, res) {
         Candidate
-            .findOneAndUpdate({ _id: req.params.id }, req.body)
+            .findOneAndUpdate({ _id: req.body.id }, req.body)
             .then((result) => res.json(result))
             .catch(err => res.status(422).json(err));
     },
