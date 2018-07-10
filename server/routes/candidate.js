@@ -4,6 +4,9 @@ module.exports = (router) => {
     router.get('/candidates',(req,res)=>{
         CandidateController.getAll(req,res);
     });
+    router.get('/candidatespostion/:id',(req,res)=>{
+        CandidateController.getAllByPosition(req,res);
+    });
 
     router.get('/candidate/:id',(req,res)=>{
         console.log("api getById");

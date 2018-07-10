@@ -28,6 +28,7 @@ class  FeedBack extends Component {
             position:"",
             comment:"",
             passed:"",
+            result:"",
             interviewedOn:Date.now()
         };
 
@@ -47,8 +48,8 @@ class  FeedBack extends Component {
     }
     handleFeedbackChange = (event)=>{
 
-        this.setState({ passed: event.target.value});
-        if(this.state.passed === "Pass"){
+        this.setState({ result: event.target.value});
+        if(this.state.result === "Pass"){
             this.setState({ passed:true});
         }else {
             this.setState({ passed:false});
@@ -188,7 +189,7 @@ class  FeedBack extends Component {
                             <RadioGroup
                                 aria-label="Feedback Result"
                                 name="feedback-result"
-                                value={this.state.passed}
+                                value={this.state.result}
                                 onChange={this.handleFeedbackChange}
                                 style={{display:"inline"}}
                             >

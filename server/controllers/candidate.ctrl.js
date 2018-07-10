@@ -14,19 +14,29 @@ module.exports = {
                                     res.status(422).json(err);
                                  });
     },
+    getAllByPosition:function(req,res){
+        Candidate.find({position:req.params.id})
+            .populate('appliedPositions.position')
+            .populate('profile.qualifications')
+            .populate('appliedPositions.interview.interviewedBy')
+            .then((result) =>{ res.json(result) })
+            .catch((err )=>{
+                res.status(422).json(err);
+            });
+    },
     create: function(req, res) {
         Candidate
             .create(req.body )
-            .then(dbModel => res.json(dbModel))
+            .then((result) => res.json(result))
             .catch(err => { console.log(err) ;
                 return res.status(422).json(err)});
 
     },
     getById:function (req,res) {
         Candidate.findById(req.params.id)
-            .then((data) =>{
-                console.log(data);
-                res.json(data)
+            .then((result) =>{
+                console.log(result);
+                res.json(result)
             }).catch((err )=>{
             res.status(422).json(err);
         });
@@ -35,7 +45,7 @@ module.exports = {
     update: function(req, res) {
         Candidate
             .findOneAndUpdate({ _id: req.params.id }, req.body)
-            .then(data => res.json(data))
+            .then((result) => res.json(result))
             .catch(err => res.status(422).json(err));
     },
     applyForPosition: function(req, res) {
@@ -208,8 +218,8 @@ module.exports = {
     remove: function(req, res) {
         Candidate
             .findById({ _id: req.params.id })
-            .then(data => data.remove())
-            .then(data => res.json(data))
+            .then((result) => result.remove())
+            .then((result) => res.json(result))
             .catch(err => res.status(422).json(err));
     },
     getAppliedPositions: async(req,res,next) => {
@@ -251,18 +261,18 @@ module.exports = {
             };
             Candidate
                 .create(candidateObj)
-                .then(dbModel => res.json(dbModel))
+                .then((result) => res.json(result))
                 .catch(err => {
                     res.status(422).json(err)
                 });
         });
 
 
-    },
-    getPassedCandidate:function(req,res){
-        Position.find({ isActive:req.query.isActive })
-            .then((result) =>{  res.json(result)})
-            .catch((err )=>{ res.status(422).json(err);
-            });
-    },
+    }
+    // getPassedCandidate:function(req,res){
+    //     Position.find({ isActive:req.query.isActive })
+    //         .then((result) =>{  res.json(result)})
+    //         .catch((err )=>{ res.status(422).json(err);
+    //         });
+    // },
 };

@@ -12,9 +12,14 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
-import  APIPostion  from '../../redux/actions/positionActions';
+import  APIPosition  from '../../redux/actions/positionActions';
 import TextField from '@material-ui/core/TextField';
 
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 class ViewCandidats extends Component {
     constructor(props){
@@ -24,6 +29,7 @@ class ViewCandidats extends Component {
         selectedCandidateFullName:"",
         selectedCandidateAppliedPositions:[],
         open: false,
+        position:"",
     }
 };
 
@@ -49,6 +55,7 @@ class ViewCandidats extends Component {
     componentDidMount() {
         //after component loads bring data
          this.props.getCandidates();
+         this.props.getPositions();
     }
     handleOpen=(articleId)=>{
         console.log(articleId);
@@ -63,25 +70,60 @@ class ViewCandidats extends Component {
 };
     handleAction=(event) =>{
         let clicked = event.target.getAttribute("name");
-        let articleId = event.target.getAttribute("data-article-id");
+        let candidateId = event.target.getAttribute("data-article-id");
         switch (clicked) {
             case "Give Feedback" :
-                this.handleGiveFeedback(articleId);
+                this.handleGiveFeedback(candidateId);
                 break;
             case "view detail" :
-                this.handleviewdetail(articleId);
+                this.handleviewdetail(candidateId);
                 break;
             default :
                 break;
         };
 
-    }
+    };
+    handlePositionChange = (event) => {
+        this.setState({
+            position:event.target.value
+        })
+        console.log(this.state.position)
+    };
 
     render() {
         return (
             <div>
                 {/* this is for displaying data in Pretty format of json , WE CANT show Object in one JSX Node*/}
-                {/*<pre>{JSON.stringify(this.props.candidates, null, 2) }</pre>*/}
+                {/*<pre>{JSON.stringify(this.props.positions, null, 2) }</pre>*/}
+
+                <div className="row mb-5">
+                    <div className="col-lg-12 col-md-6 col-sm-12" >
+                        {/*<pre>Positions : {JSON.stringify(this.props.positions, null, 2) }</pre>*/}
+
+                        <FormControl fullWidth >
+                            <InputLabel htmlFor="position">Select Position</InputLabel>
+
+                            <Select
+                                value={this.state.position}
+                                onChange={this.handlePositionChange}
+                                input={<Input name="position" id="position" />}
+                            >
+                                <MenuItem value="">
+                                    <em>None</em>
+                                </MenuItem>
+                                {this.props.positions.map(position => (
+                                    <MenuItem key={position._id} value={position._id}>
+                                        {position.title}
+                                    </MenuItem>
+                                ))}
+
+                            </Select>
+                        </FormControl>
+                    </div>
+                </div>
+
+
+
                 <Grid
                     dataset={this.props.candidates}
                     header={["ID#","first Name","Last Name","Gender","DOB","Action"]}
@@ -127,7 +169,7 @@ function mapStateToProps(state) {
 }
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({ getCandidates:getCandid.getCandidates,
-                                getPositions:APIPostion.getPositions
+                                getPositions:APIPosition.getActivePosition
        }, dispatch)
 }
 
