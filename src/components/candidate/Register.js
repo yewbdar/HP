@@ -100,7 +100,7 @@ class  CandidateProfile extends Component {
         // });
     };
    getSteps = ()=> {
-        return ['Personal information', 'contact information ', 'Upload resume '];
+        return ['Personal information', 'create account','contact information ', 'Upload resume '];
      }
 
    getStepContent  = (step)=> {
@@ -110,6 +110,8 @@ class  CandidateProfile extends Component {
            case 1:
                return <ContactInfo/>;
            case 2:
+               return <UploadFile/>;
+           case 3:
                return <UploadFile/>;
            default:
                return 'Unknown step';
@@ -179,199 +181,6 @@ class  CandidateProfile extends Component {
         return (
             <div style={margin}>
 
-                {/*<div className="row">*/}
-                    {/*<div className="col-lg-4 col-md-6 col-sm-12" >*/}
-                        {/*<TextField*/}
-                            {/*id="image"*/}
-                            {/*label="Image"*/}
-                            {/*value={this.state.candidate.image}*/}
-                            {/*onChange={this.handleChange}*/}
-                            {/*margin="normal"*/}
-                            {/*name="image"*/}
-                            {/*fullWidth*/}
-                        {/*/> </div>*/}
-                {/*</div>*/}
-                {/*<div className="row">*/}
-                    {/*<div className="col-lg-4 col-md-6 col-sm-12" >*/}
-                        {/*<TextField*/}
-                            {/*id="resume"*/}
-                            {/*label="Resume"*/}
-                            {/*value={this.state.candidate.resume}*/}
-                            {/*onChange={this.handleChange}*/}
-                            {/*margin="normal"*/}
-                            {/*name="resume"*/}
-                            {/*fullWidth*/}
-                        {/*/> </div>*/}
-                {/*</div>*/}
-                {/*<div className="row">*/}
-                    {/*<div className="col-lg-4 col-md-6 col-sm-12" >*/}
-                        {/*<TextField*/}
-                            {/*id="coverPage"*/}
-                            {/*label="Cover Page(Optional)"*/}
-                            {/*value={this.state.candidate.coverPage}*/}
-                            {/*onChange={this.handleChange}*/}
-                            {/*margin="normal"*/}
-                            {/*name="CoverPage"*/}
-                            {/*fullWidth*/}
-                        {/*/> </div>*/}
-                {/*</div>*/}
-                {/*<div className="row">*/}
-                    {/*<div className="col-lg-4 col-md-6 col-sm-12" >*/}
-                        {/*<TextField*/}
-                            {/*id="resume"*/}
-                            {/*label="resume"*/}
-                            {/*value={this.state.candidate.resume}*/}
-                            {/*onChange={this.handleChange}*/}
-                            {/*margin="normal"*/}
-                            {/*name="resume"*/}
-                            {/*fullWidth*/}
-                        {/*/> </div>*/}
-                {/*</div>*/}
-                {/*<div className="row">*/}
-                    {/*<div className="col-lg-4 col-md-6 col-sm-12" >*/}
-                        {/*<TextField*/}
-                            {/*id="skills"*/}
-                            {/*label="Skills"*/}
-                            {/*value={this.state.candidate.skills}*/}
-                            {/*onChange={this.handleChange}*/}
-                            {/*margin="normal"*/}
-                            {/*name="skills"*/}
-                            {/*fullWidth*/}
-                        {/*/> </div>*/}
-                {/*</div>*/}
-                {/*<div className="row">*/}
-                    {/*<div className="col-lg-4 col-md-6 col-sm-12" >*/}
-                        {/*<TextField*/}
-                            {/*id="yearsOfExperiance"*/}
-                            {/*label="Years Of Experiance"*/}
-                            {/*value={this.state.candidate.yearsOfExperiance}*/}
-                            {/*onChange={this.handleChange}*/}
-                            {/*margin="normal"*/}
-                            {/*name="yearsOfExperiance"*/}
-                            {/*fullWidth*/}
-                        {/*/> </div>*/}
-                {/*</div>*/}
-                {/*<div className="row">*/}
-                    {/*<div className="col-lg-4 col-md-6 col-sm-12" >*/}
-                        {/*<TextField*/}
-                            {/*id="telephone"*/}
-                            {/*label="Telephone"*/}
-                            {/*value={this.state.candidate.telephone}*/}
-                            {/*onChange={this.handleChange}*/}
-                            {/*margin="normal"*/}
-                            {/*name="telephone"*/}
-                            {/*fullWidth*/}
-                        {/*/> </div>*/}
-                {/*</div>*/}
-                {/*<div className="row">*/}
-                    {/*<div className="col-lg-4 col-md-6 col-sm-12" >*/}
-                        {/*<TextField*/}
-                            {/*id="email"*/}
-                            {/*label="Email"*/}
-                            {/*value={this.state.candidate.email}*/}
-                            {/*onChange={this.handleChange}*/}
-                            {/*margin="normal"*/}
-                            {/*name="email"*/}
-                            {/*fullWidth*/}
-                        {/*/> </div>*/}
-                {/*</div>*/}
-                {/*<div className="row">*/}
-                    {/*<div className="col-lg-4 col-md-6 col-sm-12" >*/}
-                        {/*<TextField*/}
-                            {/*id="street"*/}
-                            {/*label="Street"*/}
-                            {/*value={this.state.candidate.street}*/}
-                            {/*onChange={this.handleChange}*/}
-                            {/*margin="normal"*/}
-                            {/*name="street"*/}
-
-                        {/*/> </div>*/}
-                {/*</div>*/}
-                {/*<div className="row">*/}
-                    {/*<div className="col-lg-4 col-md-6 col-sm-12" >*/}
-                        {/*<TextField*/}
-                            {/*id="city"*/}
-                            {/*label="City"*/}
-                            {/*value={this.state.candidate.city}*/}
-                            {/*onChange={this.handleChange}*/}
-                            {/*margin="normal"*/}
-                            {/*name="city"*/}
-
-                        {/*/> </div>*/}
-                {/*</div>*/}
-                {/*<div className="row">*/}
-                    {/*<div className="col-lg-4 col-md-6 col-sm-12" >*/}
-                        {/*<TextField*/}
-                            {/*id="country"*/}
-                            {/*label="Country"*/}
-                            {/*value={this.state.candidate.country}*/}
-                            {/*onChange={this.handleChange}*/}
-                            {/*margin="normal"*/}
-                            {/*name="country"*/}
-
-                        {/*/> </div>*/}
-                {/*</div>*/}
-                {/*<div className="row">*/}
-                {/*<div className="col-lg-4 col-md-6 col-sm-12" >*/}
-                    {/*<TextField*/}
-                        {/*id="zip"*/}
-                        {/*label="Zip"*/}
-                        {/*value={this.state.candidate.zip}*/}
-                        {/*onChange={this.handleChange}*/}
-                        {/*margin="normal"*/}
-                        {/*name="zip"*/}
-                        {/*type="number"*/}
-                    {/*/> </div>*/}
-            {/*</div>*/}
-                {/*<div className="row">*/}
-                {/*<div className="col-lg-4 col-md-6 col-sm-12" >*/}
-                    {/*<TextField*/}
-                        {/*id="userName"*/}
-                        {/*label="userName"*/}
-                        {/*value={this.state.candidate.userName}*/}
-                        {/*onChange={this.handleChange}*/}
-                        {/*margin="normal"*/}
-                        {/*name="userName"*/}
-
-                    {/*/> </div>*/}
-            {/*</div>*/}
-                {/*<div className="row">*/}
-                    {/*<div className="col-lg-4 col-md-6 col-sm-12" >*/}
-                        {/*<TextField*/}
-                            {/*id="password"*/}
-                            {/*label="Password"*/}
-                            {/*value={this.state.candidate.password}*/}
-                            {/*onChange={this.handleChange}*/}
-                            {/*margin="normal"*/}
-                            {/*name="password"*/}
-                            {/*type="password"*/}
-
-                        {/*/> </div>*/}
-                {/*</div>*/}
-                {/*<div className="row">*/}
-                    {/*<div className="col-lg-4 col-md-6 col-sm-12" >*/}
-                        {/*<TextField*/}
-                            {/*id="conformPassword"*/}
-                            {/*label="Conform Password"*/}
-                            {/*value={this.state.candidate.conformPassword}*/}
-                            {/*onChange={this.handleChange}*/}
-                            {/*margin="normal"*/}
-                            {/*name="conformPassword"*/}
-                            {/*type="password"*/}
-
-                        {/*/> </div>*/}
-                {/*</div>*/}
-                {/*<div className="row">*/}
-                    {/*<div class="col-lg-4 col-md-6 col-sm-12" >*/}
-                        {/*<Button variant="outlined" color="primary" onClick={this.handleSubmitButton} >*/}
-                            {/*Submit profile*/}
-                        {/*</Button>*/}
-                    {/*</div>*/}
-                {/*</div>*/}
-
-
-
-
                 <div >
                     <Stepper activeStep={activeStep}>
                         {steps.map((label, index) => {
@@ -394,7 +203,15 @@ class  CandidateProfile extends Component {
                         {activeStep === steps.length ? (
                             <div>
                                 <Typography >
-                                    All steps completed - you &quot;re finished
+                                    <div>
+                                        {/*<h1 className="align-center">*/}
+                                            {/*All steps completed ...*/}
+                                        {/*</h1>*/}
+                                        <h1 className="align-center">
+                                            Thank you for submitting !
+                                        </h1>
+                                    </div>
+
                                 </Typography>
                                 <Button onClick={this.handleReset} >
                                     Reset

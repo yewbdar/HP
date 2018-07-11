@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Grid, Row, Col, Table } from "react-bootstrap";
-
+import Button from '@material-ui/core/Button';
 import Card from "../../components/Card/Card.jsx";
 
 
@@ -51,7 +51,22 @@ class uploadFile extends Component {
                                             </div>
                                             <br />
                                             <div>
-                                                <button>Upload</button>
+
+                                                <div className="row">
+                                                <div class="col-lg-4 col-md-6 col-sm-12" >
+                                                <Button variant="outlined" color="primary" onClick={this.handleSubmitButton} >
+                                                    Upload
+                                                </Button>
+                                                </div>
+                                                </div>
+
+
+
+
+
+
+
+                                                {/*<button>Upload</button>*/}
                                             </div>
                                             <img src={this.state.imageURL} alt="img" />
                                         </form>
