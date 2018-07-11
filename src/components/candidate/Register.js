@@ -11,7 +11,7 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Typography from '@material-ui/core/Typography';
 import PersonalInfo from "../../views/Candidate/PersonalInfo";
 import ContactInfo from "../../views/Candidate/contactInfo";
-
+import UploadFile from "../../views/Candidate/uploadFile";
 
 class  CandidateProfile extends Component {
     constructor(props) {
@@ -110,7 +110,7 @@ class  CandidateProfile extends Component {
            case 1:
                return <ContactInfo/>;
            case 2:
-               return 'This is the bit I really care about!';
+               return <UploadFile/>;
            default:
                return 'Unknown step';
        }
@@ -251,123 +251,123 @@ class  CandidateProfile extends Component {
                             {/*fullWidth*/}
                         {/*/> </div>*/}
                 {/*</div>*/}
-                <div className="row">
-                    <div className="col-lg-4 col-md-6 col-sm-12" >
-                        <TextField
-                            id="telephone"
-                            label="Telephone"
-                            value={this.state.candidate.telephone}
-                            onChange={this.handleChange}
-                            margin="normal"
-                            name="telephone"
-                            fullWidth
-                        /> </div>
-                </div>
-                <div className="row">
-                    <div className="col-lg-4 col-md-6 col-sm-12" >
-                        <TextField
-                            id="email"
-                            label="Email"
-                            value={this.state.candidate.email}
-                            onChange={this.handleChange}
-                            margin="normal"
-                            name="email"
-                            fullWidth
-                        /> </div>
-                </div>
-                <div className="row">
-                    <div className="col-lg-4 col-md-6 col-sm-12" >
-                        <TextField
-                            id="street"
-                            label="Street"
-                            value={this.state.candidate.street}
-                            onChange={this.handleChange}
-                            margin="normal"
-                            name="street"
+                {/*<div className="row">*/}
+                    {/*<div className="col-lg-4 col-md-6 col-sm-12" >*/}
+                        {/*<TextField*/}
+                            {/*id="telephone"*/}
+                            {/*label="Telephone"*/}
+                            {/*value={this.state.candidate.telephone}*/}
+                            {/*onChange={this.handleChange}*/}
+                            {/*margin="normal"*/}
+                            {/*name="telephone"*/}
+                            {/*fullWidth*/}
+                        {/*/> </div>*/}
+                {/*</div>*/}
+                {/*<div className="row">*/}
+                    {/*<div className="col-lg-4 col-md-6 col-sm-12" >*/}
+                        {/*<TextField*/}
+                            {/*id="email"*/}
+                            {/*label="Email"*/}
+                            {/*value={this.state.candidate.email}*/}
+                            {/*onChange={this.handleChange}*/}
+                            {/*margin="normal"*/}
+                            {/*name="email"*/}
+                            {/*fullWidth*/}
+                        {/*/> </div>*/}
+                {/*</div>*/}
+                {/*<div className="row">*/}
+                    {/*<div className="col-lg-4 col-md-6 col-sm-12" >*/}
+                        {/*<TextField*/}
+                            {/*id="street"*/}
+                            {/*label="Street"*/}
+                            {/*value={this.state.candidate.street}*/}
+                            {/*onChange={this.handleChange}*/}
+                            {/*margin="normal"*/}
+                            {/*name="street"*/}
 
-                        /> </div>
-                </div>
-                <div className="row">
-                    <div className="col-lg-4 col-md-6 col-sm-12" >
-                        <TextField
-                            id="city"
-                            label="City"
-                            value={this.state.candidate.city}
-                            onChange={this.handleChange}
-                            margin="normal"
-                            name="city"
+                        {/*/> </div>*/}
+                {/*</div>*/}
+                {/*<div className="row">*/}
+                    {/*<div className="col-lg-4 col-md-6 col-sm-12" >*/}
+                        {/*<TextField*/}
+                            {/*id="city"*/}
+                            {/*label="City"*/}
+                            {/*value={this.state.candidate.city}*/}
+                            {/*onChange={this.handleChange}*/}
+                            {/*margin="normal"*/}
+                            {/*name="city"*/}
 
-                        /> </div>
-                </div>
-                <div className="row">
-                    <div className="col-lg-4 col-md-6 col-sm-12" >
-                        <TextField
-                            id="country"
-                            label="Country"
-                            value={this.state.candidate.country}
-                            onChange={this.handleChange}
-                            margin="normal"
-                            name="country"
+                        {/*/> </div>*/}
+                {/*</div>*/}
+                {/*<div className="row">*/}
+                    {/*<div className="col-lg-4 col-md-6 col-sm-12" >*/}
+                        {/*<TextField*/}
+                            {/*id="country"*/}
+                            {/*label="Country"*/}
+                            {/*value={this.state.candidate.country}*/}
+                            {/*onChange={this.handleChange}*/}
+                            {/*margin="normal"*/}
+                            {/*name="country"*/}
 
-                        /> </div>
-                </div>
-                <div className="row">
-                <div className="col-lg-4 col-md-6 col-sm-12" >
-                    <TextField
-                        id="zip"
-                        label="Zip"
-                        value={this.state.candidate.zip}
-                        onChange={this.handleChange}
-                        margin="normal"
-                        name="zip"
-                        type="number"
-                    /> </div>
-            </div>
-                <div className="row">
-                <div className="col-lg-4 col-md-6 col-sm-12" >
-                    <TextField
-                        id="userName"
-                        label="userName"
-                        value={this.state.candidate.userName}
-                        onChange={this.handleChange}
-                        margin="normal"
-                        name="userName"
+                        {/*/> </div>*/}
+                {/*</div>*/}
+                {/*<div className="row">*/}
+                {/*<div className="col-lg-4 col-md-6 col-sm-12" >*/}
+                    {/*<TextField*/}
+                        {/*id="zip"*/}
+                        {/*label="Zip"*/}
+                        {/*value={this.state.candidate.zip}*/}
+                        {/*onChange={this.handleChange}*/}
+                        {/*margin="normal"*/}
+                        {/*name="zip"*/}
+                        {/*type="number"*/}
+                    {/*/> </div>*/}
+            {/*</div>*/}
+                {/*<div className="row">*/}
+                {/*<div className="col-lg-4 col-md-6 col-sm-12" >*/}
+                    {/*<TextField*/}
+                        {/*id="userName"*/}
+                        {/*label="userName"*/}
+                        {/*value={this.state.candidate.userName}*/}
+                        {/*onChange={this.handleChange}*/}
+                        {/*margin="normal"*/}
+                        {/*name="userName"*/}
 
-                    /> </div>
-            </div>
-                <div className="row">
-                    <div className="col-lg-4 col-md-6 col-sm-12" >
-                        <TextField
-                            id="password"
-                            label="Password"
-                            value={this.state.candidate.password}
-                            onChange={this.handleChange}
-                            margin="normal"
-                            name="password"
-                            type="password"
+                    {/*/> </div>*/}
+            {/*</div>*/}
+                {/*<div className="row">*/}
+                    {/*<div className="col-lg-4 col-md-6 col-sm-12" >*/}
+                        {/*<TextField*/}
+                            {/*id="password"*/}
+                            {/*label="Password"*/}
+                            {/*value={this.state.candidate.password}*/}
+                            {/*onChange={this.handleChange}*/}
+                            {/*margin="normal"*/}
+                            {/*name="password"*/}
+                            {/*type="password"*/}
 
-                        /> </div>
-                </div>
-                <div className="row">
-                    <div className="col-lg-4 col-md-6 col-sm-12" >
-                        <TextField
-                            id="conformPassword"
-                            label="Conform Password"
-                            value={this.state.candidate.conformPassword}
-                            onChange={this.handleChange}
-                            margin="normal"
-                            name="conformPassword"
-                            type="password"
+                        {/*/> </div>*/}
+                {/*</div>*/}
+                {/*<div className="row">*/}
+                    {/*<div className="col-lg-4 col-md-6 col-sm-12" >*/}
+                        {/*<TextField*/}
+                            {/*id="conformPassword"*/}
+                            {/*label="Conform Password"*/}
+                            {/*value={this.state.candidate.conformPassword}*/}
+                            {/*onChange={this.handleChange}*/}
+                            {/*margin="normal"*/}
+                            {/*name="conformPassword"*/}
+                            {/*type="password"*/}
 
-                        /> </div>
-                </div>
-                <div className="row">
-                    <div class="col-lg-4 col-md-6 col-sm-12" >
-                        <Button variant="outlined" color="primary" onClick={this.handleSubmitButton} >
-                            Submit profile
-                        </Button>
-                    </div>
-                </div>
+                        {/*/> </div>*/}
+                {/*</div>*/}
+                {/*<div className="row">*/}
+                    {/*<div class="col-lg-4 col-md-6 col-sm-12" >*/}
+                        {/*<Button variant="outlined" color="primary" onClick={this.handleSubmitButton} >*/}
+                            {/*Submit profile*/}
+                        {/*</Button>*/}
+                    {/*</div>*/}
+                {/*</div>*/}
 
 
 
