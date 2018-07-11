@@ -4,6 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
 import  APICandidate from '../../redux/actions/candidateActions';
+import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 
 import Grid  from '../common/Grid';
 import Radio from '@material-ui/core/Radio';
@@ -21,7 +22,6 @@ class  FeedBack extends Component {
     constructor(props){
         super(props);
         this.state = {
-            position:"",
             interviewType:"Technical",
             interviewedBy:"",
             id:"",
@@ -116,6 +116,12 @@ class  FeedBack extends Component {
     render() {
 
         return (
+
+            <ValidatorForm
+
+                onSubmit={this.handleSubmitButton}
+            >
+
             <div>
                 <div className="row">
                     <div className="col-lg-12 col-md-6 col-sm-12" >
@@ -131,13 +137,15 @@ class  FeedBack extends Component {
                 </div>
                 <div className="row">
                     <div className="col-lg-12 col-md-6 col-sm-12 align-self-end" >
-                        <TextField
+                        <TextValidator
                             id="candidateName"
                             label="Candidate Name"
                             value={this.props.fullName}
                             onChange={this.handleChange}
                             margin="normal"
                             name="txtCandidateName"
+                            validators={['required']}
+                            errorMessages={['this field is required']}
                             fullWidth
                         />
                     </div>
@@ -168,7 +176,7 @@ class  FeedBack extends Component {
                 </div>
                 <div className="row">
                     <div className="col-lg-12 col-md-6 col-sm-12" >
-                        <TextField
+                        <TextValidator
                             multiline
                             rows="4"
                             id="comment"
@@ -177,6 +185,8 @@ class  FeedBack extends Component {
                             onChange={this.handleChange}
                             margin="normal"
                             name="comment"
+                            validators={['required']}
+                            errorMessages={['this field is required']}
                             fullWidth
                         /> </div>
                 </div>
@@ -203,30 +213,19 @@ class  FeedBack extends Component {
                  </div>
                 <div className="row">
                     <div className="col-lg-12 col-md-6 col-sm-12 " >
-                        <Button style={{float:"right"}}  clasName="float-right" color="secondary" onClick={this.props.closeDialog}>
+                        <Button  style={{float:"right"}}  clasName="float-right" color="secondary" onClick={this.props.closeDialog}>
                             Close
                         </Button>
 
-                        <Button style={{float:"right"}} clasName="float-right" color="primary" onClick={this.handleSubmitButton}>
+                        <Button type="Submit" style={{float:"right"}} clasName="float-right" color="primary" onClick={this.handleSubmitButton}>
                             Submit feed back
                         </Button>
 
 
                     </div>
                 </div>
-
-                {/*<pre>{JSON.stringify(this.props.articles.articles, null, 2) }</pre>
-
-                 <Grid
-
-                 dataset={this.props.articles.articles}
-                 header={["ID#","Title","Text","Action"]}
-                 headerMapping={["id","title","text"]}
-                 actionNames={["Open", "Give Review"]}
-                 handleAction = {this.handleAction}
-                 />*/}
             </div >
-
+            </ValidatorForm>
 
             // {this is for displaying data in Pretty format of json , WE CANT show Object in one JSX Node}
             //

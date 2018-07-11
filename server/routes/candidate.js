@@ -1,5 +1,13 @@
 const CandidateController = require('./../controllers/candidate.ctrl');
-
+const multer = require('multer');
+const storage = multer.memoryStorage();
+const upload = multer({
+    storage: storage,
+    limits: {
+        fileSize: 5000000,
+        files: 1
+    }
+})
 module.exports = (router) => {
 
     router.get('/candidates',(req,res)=>{
@@ -14,7 +22,7 @@ module.exports = (router) => {
         CandidateController.getById(req,res);
     });
 
-    router.post("/candidate", (req, res) => {
+    router.post("/candidate",upload.single('resume'), (req, res) => {
         console.log("api save");
         //res.status(200).json();
         CandidateController.create(req, res);

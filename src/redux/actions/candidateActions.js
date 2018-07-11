@@ -23,6 +23,44 @@ export default {
             })
         }
     },
+    getAppliedPositionsStatusForCandidate : function(candidateId){
+        return (dispatch) => {
+            dispatch(beginGetCandidateAppliedPositionStatus());
+            axios.get(`${url}/candidate?id=`+ candidateId)
+                .then((res) => {
+                    /**
+                     * Parsing data to this format
+                     * Candidate (Last, First Name), Applied Position Title , Behavioural Status , Technical Status
+                     */
+                    let parsedData = [];
+                        let lastFirstName =  res.data.lastName + ", " + res.data.firstName;
+                        if(res.data.appliedPositions){
+
+                            res.data.appliedPositions.map((appliedPosition , index) =>{
+
+                                let positionTitle = appliedPosition.position.title
+                                let interviewType = "";
+                                let result = "";
+                                let comment = "";
+                                if(appliedPosition.interview){
+                                    appliedPosition.interview.map(interview => {
+                                        interviewType = interview.interviewType;
+                                        comment = interview.comment;
+                                        result = interview.passed ? "Passed" : "Failed";
+                                        parsedData.push ({lastFirstName, positionTitle ,interviewType,result,comment });
+                                    });
+                                }
+
+                            });
+                    }
+                    dispatch(getCandidateSuccessAppliedPositionStatus(parsedData));
+                }).catch((err) => {
+                dispatch(getCandidateFailureAppliedPositionStatus(err));
+                console.log(err)
+            })
+        }
+
+    },
     getCandidatesByPosition: function (data) {
         console.log("_>>>getting Candidates . . .");
         return (dispatch) => {
@@ -33,6 +71,39 @@ export default {
                 }).catch((err) => {
                 dispatch(getCandidatesFailure(err));
                 console.log(err)
+            })
+        }
+    },
+    getCandidatesByPositionStatus: function (data) {
+        console.log("_>>>getting Candidates . . .");
+        return (dispatch) => {
+            dispatch(beginGetCandidates());
+            axios.get(`${url}/candidates-position-Status?id=` + data)
+                .then((res) => {
+                    let parsedData = [];
+                    let lastFirstName =  res.data.lastName + ", " + res.data.firstName;
+                    if(res.data.appliedPositions){
+
+                        res.data.appliedPositions.map((appliedPosition , index) =>{
+
+                            if(appliedPosition.interview){
+                                appliedPosition.interview.filter(interview => {
+                                    interview.passed ===true
+
+                                });
+                            }
+
+
+                        });
+                    }
+                    dispatch(getCandidateSuccessAppliedPositionStatus(parsedData));
+                }).catch((err) => {
+                dispatch(getCandidateFailureAppliedPositionStatus(err));
+                // console.log(err)
+                //     dispatch(getCandidatesSuccess(res.data));
+                // }).catch((err) => {
+                // dispatch(getCandidatesFailure(err));
+                // console.log(err)
             })
         }
     },
@@ -96,6 +167,25 @@ function getCandidatesFailure (errMsg){
         errMsg
     }
 }
+
+function beginGetCandidateAppliedPositionStatus (){ return { type: types.BEGIN_GET_CANDIDATE_APPLIED_POSITION_STATUS } }
+
+function getCandidateSuccessAppliedPositionStatus (candidateAppliedPositionStatus){
+    return {
+        type : types.GET_CANDIDATE_SUCCESS_APPLIED_POSITION_STATUS,
+        candidateAppliedPositionStatus :candidateAppliedPositionStatus
+    }
+}
+
+
+function getCandidateFailureAppliedPositionStatus (errMsg){
+    return {
+        type: types.GET_CANDIDATE_FAILURE_APPLIED_POSITION_STATUS,
+        errMsg
+    }
+}
+
+
 /**
  * Get Candidate Ends <<
  */

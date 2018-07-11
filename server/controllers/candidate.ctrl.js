@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const Candidate = require('./../models/Candidate');
 const bcrypt = require('bcrypt');
 var ObjectId = mongoose.Types.ObjectId;
+var fs = require('fs');
+
 
 module.exports = {
     getAll:function(req,res){
@@ -38,8 +40,18 @@ module.exports = {
                 });
     },
     create: function(req, res) {
+        let candidateObj  = req.body;
+        var imgPath = '/Users/Yoni/Documents/Lab5.pdf';
+
+        candidateObj.profile = {
+                                    resume : {
+                                                data : fs.readFileSync(imgPath) ,
+                                                contentType : 'application/pdf'
+                                              }
+                                };
+
         Candidate
-            .create(req.body)
+            .create(candidateObj)
             .then((result) => res.json(result))
             .catch(err => { console.log(err) ;
                 return res.status(422).json(err)});
@@ -52,8 +64,10 @@ module.exports = {
             .populate('profile.qualifications')
             .populate('appliedPositions.interview.interviewedBy')
             .then((result) =>{
-                console.log(result);
-                res.json(result)
+                res.contentType(result.profile.resume.contentType);
+                res.send(result.profile.resume.data);
+                // console.log(result);
+                // res.json(result)
             }).catch((err )=>{
             res.status(422).json(err);
         });

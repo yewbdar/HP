@@ -131,8 +131,8 @@ class ViewCandidats extends Component {
 
                  <Grid
                     dataset={this.props.candidates}
-                    header={["ID#","first Name","Last Name","Gender","DOB","Action"]}
-                    headerMapping={["_id","firstName","lastName","gender","dob",]}
+                    header={["first Name","Last Name","Gender","DOB","Action"]}
+                    headerMapping={["firstName","lastName","gender","dob",]}
                     actionNames={["View Detail","Give Feedback"]}
                     handleAction = {this.handleAction}
                 />

@@ -10,6 +10,7 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Typography from '@material-ui/core/Typography';
 import PersonalInfo from "../../views/Candidate/PersonalInfo";
+import ContactInfo from "../../views/Candidate/contactInfo";
 
 
 class  CandidateProfile extends Component {
@@ -99,7 +100,7 @@ class  CandidateProfile extends Component {
         // });
     };
    getSteps = ()=> {
-        return ['Select campaign settings', 'Create an ad group', 'Create an ad'];
+        return ['Personal information', 'contact information ', 'Upload resume '];
      }
 
    getStepContent  = (step)=> {
@@ -107,7 +108,7 @@ class  CandidateProfile extends Component {
            case 0:
                return <PersonalInfo />;
            case 1:
-               return 'What is an ad group anyways?';
+               return <ContactInfo/>;
            case 2:
                return 'This is the bit I really care about!';
            default:
