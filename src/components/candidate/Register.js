@@ -12,7 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import PersonalInfo from "../../views/Candidate/PersonalInfo";
 import ContactInfo from "../../views/Candidate/contactInfo";
 import UploadFile from "../../views/Candidate/uploadFile";
-
+import CreateAccount from "../../views/Candidate/createAccount";
 class  CandidateProfile extends Component {
     constructor(props) {
         super(props);
@@ -31,9 +31,7 @@ class  CandidateProfile extends Component {
             city:"",
             country:"",
             zip:"",
-            qualifications:"",
             skills:"",
-           yearsOfExperiance:"",
            userName:"",
            password:"",
            conformPassword:"",
@@ -108,9 +106,9 @@ class  CandidateProfile extends Component {
            case 0:
                return <PersonalInfo />;
            case 1:
-               return <ContactInfo/>;
+               return <CreateAccount/>;
            case 2:
-               return <UploadFile/>;
+               return <ContactInfo/>;
            case 3:
                return <UploadFile/>;
            default:
@@ -187,7 +185,7 @@ class  CandidateProfile extends Component {
                             const props = {};
                             const labelProps = {};
                             if (this.isStepOptional(index)) {
-                                labelProps.optional = <Typography variant="caption">Optional</Typography>;
+                                labelProps.optional = <Typography variant="caption"></Typography>;
                             }
                             if (this.isStepSkipped(index)) {
                                 props.completed = false;

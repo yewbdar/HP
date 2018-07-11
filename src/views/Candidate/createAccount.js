@@ -24,7 +24,7 @@ class  CreateAccount extends Component {
         return (
             <div>
                 <div className="row">
-                    <div className="col-lg-4 col-md-6 col-sm-12" >
+                    <div className="col-lg-12 col-md-6 col-sm-12 float-left" >
                         <TextField
                             id="userName"
                             label="User Name"
@@ -36,7 +36,7 @@ class  CreateAccount extends Component {
                         /> </div>
                 </div>
                 <div className="row">
-                    <div className="col-lg-4 col-md-6 col-sm-12 align-self-end" >
+                    <div className="col-lg-12 col-md-6 col-sm-12 float-left" >
                         <TextField
                             id="password"
                             label="Password"
@@ -49,7 +49,7 @@ class  CreateAccount extends Component {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-lg-4 col-md-6 col-sm-12 align-self-end" >
+                    <div className="col-lg-12 col-md-6 col-sm-12 float-left" >
                         <TextField
                             id="conformPassword"
                             label="conformPassword"
