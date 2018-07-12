@@ -21,6 +21,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
+import { Document, Page } from 'react-pdf';
+
 class ViewCandidats extends Component {
     constructor(props){
         super(props);
@@ -28,14 +30,18 @@ class ViewCandidats extends Component {
         selectedCandidateId:"",
         selectedCandidateFullName:"",
         selectedCandidateAppliedPositions:[],
-        open: false,
+        openFeedback: false,
+        openResume:false,
         position:"",
+        numPages: null,
+        pageNumber: 1,
+        file : null
     }
 };
 
     handleGiveFeedback = (candidateId) => {
 
-        this.setState({ open: true });
+        this.setState({ openFeedback: true });
         console.log(candidateId);
          let candidate = this.props.candidates.find(function(element){return element._id === candidateId})
         // let position = this.props.getPositions.find(function(element){return element._id === candidate.appliedPositions})
@@ -49,13 +55,15 @@ class ViewCandidats extends Component {
     };
 
     handleClose = () => {
-        this.setState({ open: false });
+        this.setState({ openFeedback: false ,openResume:false});
     };
 
     componentDidMount() {
         //after component loads bring data
           this.props.getAllCandidate();
-         this.props.getPositions();
+         this.props.getActivePosition();
+        this.loadResume();
+
     }
     handleOpen=(articleId)=>{
         console.log(articleId);
@@ -64,9 +72,10 @@ class ViewCandidats extends Component {
     //     console.log(data);
     //    // return( <FeedBack/>)
     // };
-    handleviewdetail=(data)=>{
-    console.log(data);
-    // return( <FeedBack/>)
+    handleViewResume=(candidateId)=>{
+        this.setState({ openResume: true });
+    console.log(candidateId);
+
 };
     handleAction=(event) =>{
         let clicked = event.target.getAttribute("name");
@@ -75,8 +84,8 @@ class ViewCandidats extends Component {
             case "Give Feedback" :
                 this.handleGiveFeedback(candidateId);
                 break;
-            case "view detail" :
-                this.handleviewdetail(candidateId);
+            case "View resume" :
+                this.handleViewResume(candidateId);
                 break;
             default :
                 break;
@@ -94,6 +103,11 @@ class ViewCandidats extends Component {
 
 
     };
+    loadResume=()=>{
+       this.props.getResumeById('5b475a00738cf202f0eecac8');
+
+    }
+
 
     render() {
         return (
@@ -127,35 +141,55 @@ class ViewCandidats extends Component {
                     </div>
                 </div>
 
-
-
                  <Grid
                     dataset={this.props.candidates}
                     header={["first Name","Last Name","Gender","DOB","Action"]}
                     headerMapping={["firstName","lastName","gender","dob",]}
-                    actionNames={["View Detail","Give Feedback"]}
+                    actionNames={["View resume","Give Feedback"]}
                     handleAction = {this.handleAction}
                 />
 
 
                 <Dialog
-                    open={this.state.open}
+                    open={this.state.openFeedback}
                     onClose={this.handleClose}
                     aria-labelledby="form-dialog-title"
                 >
-                    <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+                    <DialogTitle id="form-dialog-title">feedback</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
-                            To subscribe to this website, please enter your email address here. We will send
-                            updates occasionally.
+                            Giving a feedback is a good thing ! Giving a feedback is a good thing !
                         </DialogContentText>
-                        <FeedBack
-                            id = {this.state.selectedCandidateId}
-                            fullName = {this.state.selectedCandidateFullName}
-                            positions = {this.state.selectedCandidateAppliedPositions}
-                            closeDialog = {this.handleClose}
 
-                        />
+
+                    </DialogContent>
+
+                </Dialog>
+
+                <Dialog
+                    open={this.state.openResume}
+                    onClose={this.handleClose}
+                    aria-labelledby="form-dialog-title"
+                >
+                    <DialogTitle id="form-dialog-title">Resume</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText>
+                          Candidate Resume
+                        </DialogContentText>
+                        <Document
+
+                            file={ this.props.candidateResume}
+                            onLoadSuccess={this.onDocumentLoadSuccess}
+                        >
+                            <Page pageNumber={this.state.pageNumber} />
+                        </Document>
+                        {/*<FeedBack*/}
+                            {/*id = {this.state.selectedCandidateId}*/}
+                            {/*fullName = {this.state.selectedCandidateFullName}*/}
+                            {/*positions = {this.state.selectedCandidateAppliedPositions}*/}
+                            {/*closeDialog = {this.handleClose}*/}
+
+                        {/*/>*/}
                     </DialogContent>
 
                 </Dialog>
@@ -169,13 +203,15 @@ function mapStateToProps(state) {
         positions : state.positionReduicer.position,
         candidates : state.candidateReduicer.candidates ,
         isGettingCandidates: state.candidateReduicer.isGettingCandidates,
+        candidateResume: state.candidateReduicer.candidateResume,
         error : state.candidateReduicer.error
     }
 }
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({ getCandidates:getCandid.getCandidatesByPosition,
                                 getAllCandidate:getCandid.getCandidates,
-                                getPositions:APIPosition.getActivePosition
+                                getActivePosition:APIPosition.getActivePosition,
+                                getResumeById:getCandid.getResumeById
        }, dispatch)
 }
 

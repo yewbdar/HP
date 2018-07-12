@@ -133,7 +133,7 @@ class ViewCandidats extends Component {
                     dataset={this.props.candidates}
                     header={["first Name","Last Name","Gender","DOB","Action"]}
                     headerMapping={["firstName","lastName","gender","dob",]}
-                    actionNames={["View Detail","Give Feedback"]}
+                    actionNames={["View Resume","Give Feedback"]}
                     handleAction = {this.handleAction}
                 />
 

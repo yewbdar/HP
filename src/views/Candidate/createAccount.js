@@ -63,11 +63,6 @@ class  CreateAccount extends Component {
                 </div>
 
                 </div>
-
-
-            // {this is for displaying data in Pretty format of json , WE CANT show Object in one JSX Node}
-            //
-
         )
     }
 }

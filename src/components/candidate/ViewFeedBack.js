@@ -17,6 +17,7 @@ class ViewFeedBack extends Component {
         //after component loads bring data
         this.props.getAppliedPositionsStatusForCandidate(this.state.candidateId);
         this.setState({candidate:JSON.stringify(this.props.candidate)})
+        console.log(this.state.candidate)
     };
 
     handleAction=(event) =>{
@@ -32,9 +33,9 @@ class ViewFeedBack extends Component {
 
                 <Grid
                     dataset={this.props.candidateAppliedPositionsStatus}
-                    header={["Full Name","Applied Position ","Interview Type", "Result" , "Comment", "Action"]}
+                    header={["Full Name","Applied Position ","Interview Type", "Result" , "Comment"]}
                     headerMapping={["lastFirstName","positionTitle", "interviewType", "result","comment" ]}
-                    actionNames={["View Comment"]}
+                    actionNames={[]}
                     handleAction = {this.handleAction}
                 />
             </div>

@@ -18,7 +18,6 @@ export default {
             axios.get(`${url}/position`)
                 .then((res) => {
                     dispatch(getPositionSuccess(res.data));
-                    console.log(res.data);
                 }).catch((err) => {
                 dispatch(getPositionFailure(err));
                 console.log(err)

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Grid, Row, Col, Table } from "react-bootstrap";
-
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import Card from "../components/Card/Card.jsx";
 
 
@@ -66,5 +67,6 @@ class uploadFile extends Component {
         );
     }
 }
+export default (uploadFile)
 
-export default uploadFile;
+

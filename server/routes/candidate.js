@@ -21,13 +21,21 @@ module.exports = (router) => {
     router.get('/candidate',(req,res)=>{
         CandidateController.getById(req,res);
     });
+    router.get('/candidate-feedback',(req,res)=>{
+        CandidateController.getByIdFeedback(req,res);
+    });
 
-    router.post("/candidate",upload.single('resume'), (req, res) => {
+    router.get('/candidate-passed',(req,res)=>{
+        CandidateController.getAllPassedByPosition(req,res);
+    });
+    router.get("/candidateResumeById", (req, res) => {
+        CandidateController.getResumeById(req, res);
+    });
+    router.post("/candidate",upload.single('file'), (req, res) => {
         console.log("api save");
         //res.status(200).json();
         CandidateController.create(req, res);
     });
-
     router.delete('/candidate/:id',(req,res)=>{
         console.log("api remove");
         CandidateController.remove(req,res);

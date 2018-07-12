@@ -20,82 +20,97 @@ const dashboardRoutes = [
     path: "/home",
     name: "Dashboard",
     icon: "pe-7s-graph",
-    component: Dashboard
+    component: Dashboard,
+    displayFor : ["Candidate"]
   },
   {
     path: "/login",
     name: "Login",
     icon: "pe-7s-graph",
-    component: loginPage
+    component: loginPage,
+    displayFor : ["Candidate"]
   },
 
   {
     path: "/position",
     name: "Position",
     icon: "pe-7s-user",
-    component: PositionPage
+    component: PositionPage,
+    displayFor : ["Candidate"]
   },
   {
     path: "/viewOpenPosition",
     name: "view open Position",
     icon: "pe-7s-user",
-    component: viewOpenPosition
+    component: viewOpenPosition,
+    displayFor : ["Candidate"]
   },
   {
     path: "/ViewFeedBack",
     name: "View FeedBack",
     icon: "pe-7s-user",
-    component: ViewFeedBack
+    component: ViewFeedBack,
+    displayFor : ["Candidate"]
   },
   {
     path: "/Register",
     name: "Register",
     icon: "pe-7s-user",
-    component: Register
+    component: Register,
+    displayFor : ["Candidate"]
   },
   {
     path: "/viewCandidate",
     name: "view Candidate for Recruiter ",
     icon: "pe-7s-user",
-    component: viewCandidateForRecruiter
+    component: viewCandidateForRecruiter,
+    displayFor : ["Candidate"]
   },
   {
     path: "/viewCandidateForFEmployee",
     name: "view Candidate for Employee ",
     icon: "pe-7s-user",
-    component: viewCandidateForEmployee
+    component: viewCandidateForEmployee,
+    displayFor : ["Candidate"]
   },
   {
     path: "/uploadFile",
     name: "Upload File ",
     icon: "pe-7s-user",
-    component: uploadFile
+    component: uploadFile,
+    displayFor : ["Candidate"]
   },
   {
     path: "/user",
     name: "User Profile",
     icon: "pe-7s-user",
-    component: UserProfile
+    component: UserProfile,
+    displayFor : ["Candidate"]
   },
   {
     path: "/table",
     name: "Table List",
     icon: "pe-7s-note2",
-    component: TableList
+    component: TableList,
+    displayFor : ["Candidate"]
   },
   {
     path: "/typography",
     name: "Typography",
     icon: "pe-7s-news-paper",
-    component: Typography
+    component: Typography,
+    displayFor : ["Candidate"]
   },
-  { path: "/icons", name: "Icons", icon: "pe-7s-science", component: Icons },
-  { path: "/maps", name: "Find Us", icon: "pe-7s-map-marker", component: Maps },
+  { path: "/icons", name: "Icons", icon: "pe-7s-science", component: Icons ,
+    displayFor : ["Candidate"]},
+  { path: "/maps", name: "Find Us", icon: "pe-7s-map-marker", component: Maps ,
+    displayFor : ["Candidate"]},
   {
     path: "/notifications",
     name: "Notifications",
     icon: "pe-7s-bell",
-    component: Notifications
+    component: Notifications,
+    displayFor : ["Candidate","Recruiter"]
   },
 
   { redirect: true, path: "/", to: "/dashboard", name: "Dashboard" }

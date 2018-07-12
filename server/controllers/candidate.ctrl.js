@@ -39,14 +39,43 @@ module.exports = {
                     res.status(422).json(err);
                 });
     },
+    getAllPassedByPosition:function(req,res) {
+        console.log(req.query.id);
+        Candidate.find({})
+            .then((result) => {
+                let newRes = result.filter((candidate) => {
+                    if (candidate.appliedPositions) {
+                        if(candidate.appliedPositions.interview) {
+                            return candidate.appliedPositions.find(appliedPosition => {
+                                console.log(appliedPosition.position, appliedPosition.interview.passed,
+                                           appliedPosition.interview.comment,req.query.id,
+                                           appliedPosition.position == req.query.id, "<<---")
+                                return appliedPosition.position == req.query.id;
+                            })
+                        }
+                    } else {
+                        return false;
+                    }
+
+                });
+
+                return res.json(newRes);
+            })
+            .catch((err )=>{
+                res.status(422).json(err);
+            });
+    },
     create: function(req, res) {
         let candidateObj  = req.body;
-        var imgPath = '/Users/Yoni/Documents/Lab5.pdf';
+
+        const  {mimetype , originalname , buffer}= req.file;
+        let prefferedFileName = req.body.fileName;
+
 
         candidateObj.profile = {
                                     resume : {
-                                                data : fs.readFileSync(imgPath) ,
-                                                contentType : 'application/pdf'
+                                                data : (buffer) ,
+                                                contentType : mimetype
                                               }
                                 };
 
@@ -64,10 +93,55 @@ module.exports = {
             .populate('profile.qualifications')
             .populate('appliedPositions.interview.interviewedBy')
             .then((result) =>{
+                // res.contentType(result.profile.resume.contentType);
+                // res.send(result.profile.resume.data);
+                console.log(result);
+                 res.json(result)
+            }).catch((err )=>{
+            res.status(422).json(err);
+        });
+    },
+    getResumeById:function (req,res) {
+        console.log("getById cotroller");
+        Candidate.findById(req.query.id)
+            .populate('appliedPositions.position')
+            .populate('profile.qualifications')
+            .populate('appliedPositions.interview.interviewedBy')
+            .then((result) =>{
+                 res.contentType(result.profile.resume.contentType);
+                 res.send(result.profile.resume.data);
+                //console.log(result);
+                //res.json(result)
+            }).catch((err )=>{
+            res.status(422).json(err);
+        });
+    },
+    getResumeById:function (req,res) {
+        console.log("getById cotroller");
+        Candidate.findById(req.query.id)
+            .populate('appliedPositions.position')
+            .populate('profile.qualifications')
+            .populate('appliedPositions.interview.interviewedBy')
+            .then((result) =>{
                 res.contentType(result.profile.resume.contentType);
                 res.send(result.profile.resume.data);
                 // console.log(result);
-                // res.json(result)
+                //  res.json(result)
+            }).catch((err )=>{
+            res.status(422).json(err);
+        });
+    },
+    getByIdFeedback:function (req,res) {
+        console.log("getById cotroller");
+        Candidate.findById(req.query.id)
+            .populate('appliedPositions.position')
+            .populate('profile.qualifications')
+            .populate('appliedPositions.interview.interviewedBy')
+            .then((result) =>{
+                // res.contentType(result.profile.resume.contentType);
+                // res.send(result.profile.resume.data);
+                // console.log(result);
+                res.json(result)
             }).catch((err )=>{
             res.status(422).json(err);
         });

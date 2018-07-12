@@ -20,6 +20,7 @@ class PersonalInfo extends Component {
 
                 <div className="row">
                     <div className="col-lg-12 col-md-6 col-sm-12 float-left" >
+
                         <TextField
                             id="firstName"
                             label="First Name"

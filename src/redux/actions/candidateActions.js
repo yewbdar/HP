@@ -1,7 +1,6 @@
 /** */
-import axios from 'axios';
+import axios, { post } from 'axios';
 import * as types from './actionType';
-
 
 //This will be evaluated to const url = "http://localhost:5000/api/" for dev environment
 const url = process.env.NODE_ENV === 'production' ? "/api/" : "http://localhost:5000/hp-api";
@@ -23,10 +22,47 @@ export default {
             })
         }
     },
+    saveDocument: function(data){
+        return (dispatch)=> {
+            const formData = new FormData();
+            formData.append('file', data.file);
+            formData.append('fileName', data.fileName);
+            const config = {
+                headers: {
+                    'content-type': 'multipart/form-data'
+                }
+            }
+            return post(`${url}/candidate`, formData, config);
+
+
+        }
+
+
+
+
+
+
+        //
+        //     const fd = new FormData();
+        //
+        //     fd.append("hello", "world")
+        //     fd.append("file", fs.createReadStream(data.file));
+        //
+        //     fd.pipe(concat(data => {
+        //         axios.post(`${url}/candidate`, data , {
+        //             headers: fd.getHeaders()
+        //         })
+        //     }))
+        //         .then((res)=>{
+        //             // dispatch(postVacancySuccess(res.data))
+        //             console.log("saved data");
+        //         }).catch((err)=>{ console.log(err);});
+        // }
+    },
     getAppliedPositionsStatusForCandidate : function(candidateId){
         return (dispatch) => {
             dispatch(beginGetCandidateAppliedPositionStatus());
-            axios.get(`${url}/candidate?id=`+ candidateId)
+            axios.get(`${url}/candidate-feedback?id=`+ candidateId)
                 .then((res) => {
                     /**
                      * Parsing data to this format
@@ -121,6 +157,25 @@ export default {
             })
         }
     },
+    getResumeById: function (data) {
+        console.log("_>>>getting Candidates . . .");
+        return (dispatch) => {
+            dispatch(beginGetCandidates());
+            console.log(data.data);
+            axios(`${url}/candidateResumeById?id=` + data, {method:'GET', responseType : 'blob'})
+                .then((res) => {
+                    const file = new Blob( [res.data],{type: 'application/pdf'});
+                    const fileURL = URL.createObjectURL(file);
+                    dispatch(loadCandidateResumeSuccess(fileURL));
+
+
+                }).catch((err) => {
+                dispatch(getCandidatesFailure(err));
+                console.log(err)
+            })
+        }
+    },
+
 
      applyForPosition: function (data) {
             console.log("_>>>updating  Candidates . . .",data);
@@ -152,6 +207,15 @@ export default {
 
 }
 function beginGetCandidates (){ return { type: types.BEGIN_GET_CANDIDATE } }
+
+
+function loadCandidateResumeSuccess (candidateResume){
+    console.log("Resume",candidateResume)
+    return {
+        type : types.GET_CANDIDATE_RESUME_SUCCESS,
+        candidateResume :candidateResume
+    }
+}
 
 function getCandidatesSuccess (candidates){
     return {

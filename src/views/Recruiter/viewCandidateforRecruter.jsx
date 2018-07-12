@@ -4,7 +4,7 @@ import { Grid, Row, Col, Table } from "react-bootstrap";
 import Card from "../../components/Card/Card.jsx";
 import Position from "../../components/recruiter/Position";
 import ViewCandidate from "../../components/recruiter/ViewCandidats";
-
+import { Document, Page } from 'react-pdf';
 class Candidate extends Component {
     render() {
         var space = {

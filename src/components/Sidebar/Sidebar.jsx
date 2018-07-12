@@ -56,7 +56,8 @@ class Sidebar extends Component {
           <ul className="nav">
             {this.state.width <= 991 ? <HeaderLinks /> : null}
             {dashboardRoutes.map((prop, key) => {
-              if (!prop.redirect)
+              {/*&& prop.displayFor.indexOf('Recruiter') != -1*/}
+              if (!prop.redirect )
                 return (
 
                   <li
