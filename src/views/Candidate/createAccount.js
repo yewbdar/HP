@@ -52,7 +52,7 @@ class  CreateAccount extends Component {
                     <div className="col-lg-12 col-md-6 col-sm-12 float-left" >
                         <TextField
                             id="conformPassword"
-                            label="conformPassword"
+                            label="conform Password"
                             value={this.state.conformPassword}
                             onChange={this.handleChange}
                             margin="normal"

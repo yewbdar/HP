@@ -160,7 +160,13 @@ class ViewCandidats extends Component {
                         <DialogContentText>
                             Giving a feedback is a good thing ! Giving a feedback is a good thing !
                         </DialogContentText>
+                        <FeedBack
+                       id = {this.state.selectedCandidateId}
+                        fullName = {this.state.selectedCandidateFullName}
+                        positions = {this.state.selectedCandidateAppliedPositions}
+                        closeDialog = {this.handleClose}
 
+                        />
 
                     </DialogContent>
 
@@ -183,13 +189,7 @@ class ViewCandidats extends Component {
                         >
                             <Page pageNumber={this.state.pageNumber} />
                         </Document>
-                        {/*<FeedBack*/}
-                            {/*id = {this.state.selectedCandidateId}*/}
-                            {/*fullName = {this.state.selectedCandidateFullName}*/}
-                            {/*positions = {this.state.selectedCandidateAppliedPositions}*/}
-                            {/*closeDialog = {this.handleClose}*/}
 
-                        {/*/>*/}
                     </DialogContent>
 
                 </Dialog>

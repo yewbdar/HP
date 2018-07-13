@@ -36,12 +36,6 @@ export default {
 
 
         }
-
-
-
-
-
-
         //
         //     const fd = new FormData();
         //
@@ -95,7 +89,6 @@ export default {
                 console.log(err)
             })
         }
-
     },
     getCandidatesByPosition: function (data) {
         console.log("_>>>getting Candidates . . .");
@@ -110,39 +103,39 @@ export default {
             })
         }
     },
-    getCandidatesByPositionStatus: function (data) {
-        console.log("_>>>getting Candidates . . .");
-        return (dispatch) => {
-            dispatch(beginGetCandidates());
-            axios.get(`${url}/candidates-position-Status?id=` + data)
-                .then((res) => {
-                    let parsedData = [];
-                    let lastFirstName =  res.data.lastName + ", " + res.data.firstName;
-                    if(res.data.appliedPositions){
-
-                        res.data.appliedPositions.map((appliedPosition , index) =>{
-
-                            if(appliedPosition.interview){
-                                appliedPosition.interview.filter(interview => {
-                                    interview.passed ===true
-
-                                });
-                            }
-
-
-                        });
-                    }
-                    dispatch(getCandidateSuccessAppliedPositionStatus(parsedData));
-                }).catch((err) => {
-                dispatch(getCandidateFailureAppliedPositionStatus(err));
-                // console.log(err)
-                //     dispatch(getCandidatesSuccess(res.data));
-                // }).catch((err) => {
-                // dispatch(getCandidatesFailure(err));
-                // console.log(err)
-            })
-        }
-    },
+    // getCandidatesByPositionStatus: function (data) {
+    //     console.log("_>>>getting Candidates . . .");
+    //     return (dispatch) => {
+    //         dispatch(beginGetCandidates());
+    //         axios.get(`${url}/candidates-position-Status?id=` + data)
+    //             .then((res) => {
+    //                 let parsedData = [];
+    //                 let lastFirstName =  res.data.lastName + ", " + res.data.firstName;
+    //                 if(res.data.appliedPositions){
+    //
+    //                     res.data.appliedPositions.map((appliedPosition , index) =>{
+    //
+    //                         if(appliedPosition.interview){
+    //                             appliedPosition.interview.filter(interview => {
+    //                                 interview.passed ===true
+    //
+    //                             });
+    //                         }
+    //
+    //
+    //                     });
+    //                 }
+    //                 dispatch(getCandidateSuccessAppliedPositionStatus(parsedData));
+    //             }).catch((err) => {
+    //             dispatch(getCandidateFailureAppliedPositionStatus(err));
+    //             // console.log(err)
+    //             //     dispatch(getCandidatesSuccess(res.data));
+    //             // }).catch((err) => {
+    //             // dispatch(getCandidatesFailure(err));
+    //             // console.log(err)
+    //         })
+    //     }
+    // },
     getById: function (data) {
         console.log("_>>>getting Candidates . . .");
         return (dispatch) => {

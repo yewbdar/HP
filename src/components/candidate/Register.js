@@ -124,7 +124,7 @@ class  CandidateProfile extends Component {
         const { activeStep } = this.state;
         let { skipped } = this.state;
         if (this.isStepSkipped(activeStep)) {
-            skipped = new Set(skipped.values());
+            skipped = new Set(skipped.values()); //Hi Yewbdar!
             skipped.delete(activeStep);
         }
         this.setState({
@@ -237,6 +237,7 @@ class  CandidateProfile extends Component {
                                         </Button>
                                     )}
                                     <Button
+
                                         variant="contained"
                                         color="primary"
                                         onClick={this.handleNext}

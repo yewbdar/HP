@@ -45,14 +45,16 @@ module.exports = {
             .then((result) => {
                 let newRes = result.filter((candidate) => {
                     if (candidate.appliedPositions) {
-                        if(candidate.appliedPositions.interview) {
                             return candidate.appliedPositions.find(appliedPosition => {
+                                if(appliedPosition.interview){
+                                    console.log(appliedPosition.interview)
+                                }
                                 console.log(appliedPosition.position, appliedPosition.interview.passed,
                                            appliedPosition.interview.comment,req.query.id,
                                            appliedPosition.position == req.query.id, "<<---")
                                 return appliedPosition.position == req.query.id;
                             })
-                        }
+
                     } else {
                         return false;
                     }

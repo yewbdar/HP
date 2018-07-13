@@ -12,12 +12,12 @@ import  APIPosition  from '../../redux/actions/positionActions';
 import  APIQualification  from '../../redux/actions/qualificationAction';
 import red from '@material-ui/core/colors/red';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
+
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import ListItemText from '@material-ui/core/ListItemText';
-
+import Checkbox from '@material-ui/core/Checkbox';
 
 import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 
@@ -30,6 +30,7 @@ const style = {
     color: red300,
     position: 'absolute',
     marginTop: '-25px',
+
 };
 
 class  Position extends Component {
@@ -159,8 +160,10 @@ class  Position extends Component {
                                 renderValue={selected => this.handleSelectedQualifications(selected)}
                             >
                                 {this.props.qualifications.map(qualification => (
+
                                     <MenuItem key={qualification["_id"]} value={qualification["_id"]}>
                                         <Checkbox checked={this.props.selectedQualifications.indexOf(qualification["_id"]) > -1} />
+
                                         <ListItemText primary={qualification.name} />
                                     </MenuItem>
                                 ))}

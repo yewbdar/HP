@@ -5,7 +5,9 @@ const Qualification = require('./../models/Qualification');
 module.exports = {
     getAll:function(req,res){
         Qualification.find({})
-            .then((result) =>{ res.json(result) })
+            .then((result) =>{
+                console.log(result);
+                res.json(result) })
             .catch((err )=>{ res.status(422).json(err); });
     },
     create: function(req, res) {
