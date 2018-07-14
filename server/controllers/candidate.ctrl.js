@@ -2,7 +2,6 @@
 const mongoose = require('mongoose');
 const Candidate = require('./../models/Candidate');
 const bcrypt = require('bcrypt');
-var ObjectId = mongoose.Types.ObjectId;
 var fs = require('fs');
 
 
@@ -68,15 +67,32 @@ module.exports = {
             });
     },
     create: function(req, res) {
-        let candidateObj  = req.body;
-
+        const {firstName,lastName,DOB,
+            telephone,email,street,city,country,zip,
+            userName,password,gender,
+            yearsOfExperience, selectedQualifications} = req.body;
         const  {mimetype , originalname , buffer}= req.file;
-        let prefferedFileName = req.body.fileName;
+        let candidateObj = {};
+        candidateObj.account = {userName : userName ? userName : "" , password : password  ? password : ""};
+        candidateObj.firstName = firstName;
+        candidateObj.lastName  = lastName ;
+        candidateObj.gender    = gender ? gender : "M";
+        candidateObj.dob = DOB;
+        candidateObj.contact ={telephone:telephone,
+                               email:email,
+                                address:{
+                                         street:street,
+                                          city:city,
+                                          country:country,
+                                            zip:zip
+                                  }};
 
 
         candidateObj.profile = {
+                                   yearsOfExperience:yearsOfExperience,
+                                   qualifications:selectedQualifications,
                                     resume : {
-                                                data : (buffer) ,
+                                                data : buffer ,
                                                 contentType : mimetype
                                               }
                                 };

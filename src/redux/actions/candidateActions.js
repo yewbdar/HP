@@ -22,11 +22,28 @@ export default {
             })
         }
     },
-    saveDocument: function(data){
-        return (dispatch)=> {
+
+
+    saveCandidate: function(data) {
+        const { firstName, lastName, DOB, telephone, email,
+                street, city, country, zip, userName, password,
+                file, yearsOfExperience, selectedQualifications} = data;
+        return (dispatch) => {
             const formData = new FormData();
-            formData.append('file', data.file);
-            formData.append('fileName', data.fileName);
+            formData.append('file', file);
+            formData.append('yearsOfExperience', yearsOfExperience);
+            formData.append('firstName',firstName);
+            formData.append('lastName', lastName);
+            formData.append('DOB', DOB);
+            formData.append('telephone', telephone);
+            formData.append('email', email);
+            formData.append('street', street);
+            formData.append('city', city);
+            formData.append('country', country);
+            formData.append('zip', zip);
+            formData.append('userName', userName);
+            formData.append('password', password);
+            formData.append('selectedQualifications', selectedQualifications);
             const config = {
                 headers: {
                     'content-type': 'multipart/form-data'
@@ -34,24 +51,48 @@ export default {
             }
             return post(`${url}/candidate`, formData, config);
 
+            dispatch(beginGetCandidateAppliedPositionStatus());
+        };
+    },
+    saveDocument: function(data){
+        const {firstName,lastName,DOB,
+                telephone,email,street,city,country,zip,
+                userName,password,
+                file, yearsOfExperience, selectedQualifications} = data;
 
-        }
-        //
-        //     const fd = new FormData();
-        //
-        //     fd.append("hello", "world")
-        //     fd.append("file", fs.createReadStream(data.file));
-        //
-        //     fd.pipe(concat(data => {
-        //         axios.post(`${url}/candidate`, data , {
-        //             headers: fd.getHeaders()
-        //         })
-        //     }))
-        //         .then((res)=>{
-        //             // dispatch(postVacancySuccess(res.data))
-        //             console.log("saved data");
-        //         }).catch((err)=>{ console.log(err);});
-        // }
+        return (dispatch)=> {
+            dispatch(beginCandidateSave());
+            let formData = new FormData();
+            formData.append('file', file);
+            formData.append('yearsOfExperience', data.yearsOfExperience);
+            formData.append('firstName', data.firstName);
+            formData.append('lastName', data.lastName);
+            formData.append('DOB', data.DOB);
+            formData.append('telephone', data.telephone);
+            formData.append('email', data.email);
+            formData.append('street', data.street);
+            formData.append('city', data.city);
+            formData.append('country', data.country);
+            formData.append('zip', data.zip);
+            formData.append('userName', data.userName);
+            formData.append('password', data.password);
+            formData.append('gender', "F");
+            formData.append('selectedQualifications', data.selectedQualifications);
+            const config = {
+                headers: {
+                    'content-type': 'multipart/form-data'
+                }
+            };
+             post(`${url}/candidate`, formData, config)
+                 .then( ()=>{
+                     dispatch(candidateSaveSuccess());
+                }).catch( error =>{
+                      dispatch(candidateSaveFailure(error));
+             });
+
+
+        };
+
     },
     getAppliedPositionsStatusForCandidate : function(candidateId){
         return (dispatch) => {
@@ -224,6 +265,28 @@ function getCandidatesFailure (errMsg){
         errMsg
     }
 }
+
+
+function beginCandidateSave (){
+    return {
+        type : types.CANDIDATE_SAVE_BEGIN
+    }
+}
+
+function candidateSaveSuccess (){
+    return {
+        type : types.CANDIDATE_SAVE_SUCCESS
+    }
+}
+
+
+function candidateSaveFailure (errMsg){
+    return {
+        type: types.CANDIDATE_SAVE_FAILURE,
+        errMsg
+    }
+}
+
 
 function beginGetCandidateAppliedPositionStatus (){ return { type: types.BEGIN_GET_CANDIDATE_APPLIED_POSITION_STATUS } }
 

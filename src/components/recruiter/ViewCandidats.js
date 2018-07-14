@@ -62,7 +62,7 @@ class ViewCandidats extends Component {
         //after component loads bring data
           this.props.getAllCandidate();
          this.props.getActivePosition();
-        this.loadResume();
+        // this.loadResume();
 
     }
     handleOpen=(articleId)=>{
@@ -74,7 +74,9 @@ class ViewCandidats extends Component {
     // };
     handleViewResume=(candidateId)=>{
         this.setState({ openResume: true });
-    console.log(candidateId);
+        this.props.getResumeById(candidateId);
+
+        console.log(candidateId);
 
 };
     handleAction=(event) =>{

@@ -9,6 +9,7 @@ const fileUploadSample = require('./fileUploadSample');
 const login = require('./login');
 const qualification = require("./qualification");
 
+
 module.exports = (router) => {
     user(router);
     article(router);
@@ -20,6 +21,7 @@ module.exports = (router) => {
     employee(router);
     fileUploadSample(router);
     login(router);
+
 
 
 };

@@ -4,7 +4,8 @@ const initialState = {
     isGettingCandidates : false,
     error:"",
     candidateAppliedPositionsStatus : [],
-    candidateResume: null
+    candidateResume: null,
+
 
 }
 export default (state=initialState, action) => {
@@ -23,7 +24,6 @@ export default (state=initialState, action) => {
             return {...state, isGettingCandidateStatus: false, error: action.errMsg };
         case types.GET_CANDIDATE_RESUME_SUCCESS :
             return {...state, candidateResume:  action.candidateResume };
-
         default:
             return state
     }

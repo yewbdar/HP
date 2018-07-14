@@ -9,6 +9,10 @@ import Sidebar from "./../../components/Sidebar/Sidebar";
 import { style } from "../../variables/Variables.jsx";
 
 import dashboardRoutes from "./../../routes/dashboard.jsx";
+import { connect } from 'react-redux';
+import  currentUserActions  from '../../redux/actions/currentUserActions';
+import { bindActionCreators } from 'redux';
+
 
 class Dashboard extends Component {
   constructor(props) {
@@ -64,6 +68,7 @@ class Dashboard extends Component {
       position: "tr",
       autoDismiss: 15
     });
+    this.props.getCurrentUser();
   }
   componentDidUpdate(e) {
     if (
@@ -83,7 +88,10 @@ class Dashboard extends Component {
     return (
       <div className="wrapper">
         <NotificationSystem ref="notificationSystem" style={style} />
-        <Sidebar {...this.props} />
+
+        <Sidebar {...this.props}
+                 currentUser={this.props.currentUser}
+                 isGettingCurrentUser = {this.props.isGettingCurrentUser}/>
         <div id="main-panel" className="main-panel" ref="mainPanel">
           <Header {...this.props} />
           <Switch>
@@ -115,4 +123,18 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard;
+function mapStateToProps(state) {
+  return {
+    currentUser : state.currentUserReducer.currentUser,
+    isGettingCurrentUser: state.currentUserReducer.isGettingCurrentUser,
+    error : state.currentUserReducer.error
+  }
+}
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ getCurrentUser:currentUserActions.getCurrentUser,
+  }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard)
+
+

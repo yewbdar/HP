@@ -6,6 +6,7 @@ import HeaderLinks from "../Header/HeaderLinks.jsx";
 import imagine from "../../assets/img/sidebar-4.jpg";
 
 import dashboardRoutes from "../../routes/dashboard.jsx";
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 class Sidebar extends Component {
   constructor(props) {
@@ -29,7 +30,9 @@ class Sidebar extends Component {
       backgroundImage: "url(" + imagine + ")"
     };
     var pStyle = {
-     display:"inline"
+     display:"inline",
+      width:"100%"
+
     };
     var liStyle = {
       width:"100%"
@@ -49,39 +52,43 @@ class Sidebar extends Component {
             href="#"
             className="simple-text logo-normal"
           >
-            Hiring Portal- HP
+
           </a>
         </div>
         <div className="sidebar-wrapper">
           <ul className="nav">
+            {this.props.isGettingCurrentUser && <LinearProgress />}
             {this.state.width <= 991 ? <HeaderLinks /> : null}
             {dashboardRoutes.map((prop, key) => {
-              {/*&& prop.displayFor.indexOf('Recruiter') != -1*/}
-              if (!prop.redirect )
-                return (
+              /**
+               * Dont display side bar for other users depending on who the current logged in user is
+               */
+               if (!prop.redirect  &&  prop.displayFor.indexOf(this.props.currentUser.type) != -1 )
+               return (
 
-                  <li
-                      style={liStyle}
-                    className={
+               <li
+               style={liStyle}
+               className={
                       prop.upgrade
                         ? "active active-pro col-lg-12"
                         : this.activeRoute(prop.path)
                     }
-                    key={key}
-                  >
-                    <NavLink
-                      to={prop.path}
-                      className="nav-link"
-                      activeClassName="active"
-                    >
-                      <i className={prop.icon} />
-                      <p style={pStyle}>{prop.name}</p>
-                    </NavLink>
-                  </li>
+               key={key}
+               >
+               <NavLink
+               to={prop.path}
+               className="nav-link"
+               activeClassName="active"
+               >
+               <i className={prop.icon} />
+               <p style={pStyle}>{prop.name}</p>
+               </NavLink>
+               </li>
 
-                );
-              return null;
-            })}
+               );
+               return null;
+               })}
+
           </ul>
         </div>
       </div>

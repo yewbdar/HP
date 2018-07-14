@@ -12,5 +12,12 @@ module.exports = (router) => {
     router
         .route('/validateLogin')
         .get(loginController.validateLogin);
+    router
+        .route('/currentUser')
+        .get(loginController.currentUser);
+    router
+        .route('/logout')
+        .get(loginController.logout);
+
 
 };

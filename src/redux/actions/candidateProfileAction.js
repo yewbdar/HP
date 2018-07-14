@@ -41,6 +41,7 @@ export default {
     }
 
 }
+
 function beginPostposition (){
     console.log("beginPostPosition")
     return { type: types.BEGIN_POST_POSITION } }

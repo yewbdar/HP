@@ -32,8 +32,6 @@ module.exports = (router) => {
         CandidateController.getResumeById(req, res);
     });
     router.post("/candidate",upload.single('file'), (req, res) => {
-        console.log("api save");
-        //res.status(200).json();
         CandidateController.create(req, res);
     });
     router.delete('/candidate/:id',(req,res)=>{
