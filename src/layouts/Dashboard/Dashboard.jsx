@@ -7,6 +7,7 @@ import Footer from "./../../components/Footer/Footer";
 import Sidebar from "./../../components/Sidebar/Sidebar";
 import { style } from "../../variables/Variables.jsx";
 import dashboardRoutes from "./../../routes/dashboard.jsx";
+
 import loginAction from '../../redux/actions/loginActions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -65,7 +66,11 @@ class Dashboard extends Component {
       position: "tr",
       autoDismiss: 15
     });
+
+
     this.props.getCurrentUser();
+
+
   }
   componentDidUpdate(e) {
     if (

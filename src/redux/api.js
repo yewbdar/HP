@@ -1,1 +1,0 @@
-export default API = "https://powerful-sands-35272.herokuapp.com/hp-api";

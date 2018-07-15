@@ -4,20 +4,22 @@ import  candidateActions  from '../../redux/actions/candidateActions';
 import { bindActionCreators } from 'redux';
 import Grid from '../../components/common/Grid';
 import { Route, Redirect } from 'react-router'
+import loginAction from '../../redux/actions/loginActions';
 
 class ViewFeedBack extends Component {
     constructor(props){
         super(props);
         this.state = {
-            candidateId:"5b4a6c4d3b1cd3178fa35ff2",
+            // candidateId:"5b4a6c4d3b1cd3178fa35ff2",
             candidate:[],
             candidatesParsed: []
         }
     };
 
     componentDidMount() {
+        this.props.getCurrentUser();
         //after component loads bring data
-        this.props.getAppliedPositionsStatusForCandidate(this.state.candidateId);
+        this.props.getAppliedPositionsStatusForCandidate(this.props.userInfo.id);
         this.setState({candidate:JSON.stringify(this.props.candidate)})
         console.log(this.state.candidate)
     };
@@ -54,12 +56,14 @@ function mapStateToProps(state) {
         candidateAppliedPositionsStatus : state.candidateReduicer.candidateAppliedPositionsStatus ,
         isGettingCandidateStatus: state.candidateReduicer.isGettingCandidateStatus,
         error : state.candidateReduicer.error,
-        userInfo : state.loginReduicer.userInfo
+        userInfo : state.loginReduicer.userInfo,
+        isGettingUserInfo: state.loginReduicer.isGettingUserInfo,
+        error : state.loginReduicer.error
     }
 }
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({ getAppliedPositionsStatusForCandidate:candidateActions.getAppliedPositionsStatusForCandidate,
-
+        getCurrentUser:loginAction.getCurrentUser
         // getPositions:APIPosition.getActivePosition
     }, dispatch)
 }

@@ -18,14 +18,16 @@ import Select from '@material-ui/core/Select';
 import FormLabel from '@material-ui/core/FormLabel';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import loginAction from '../../redux/actions/loginActions';
+
 class  FeedBack extends Component {
     constructor(props){
         super(props);
         this.state = {
-            interviewType:"Technical",
+            interviewType:"",
             interviewedBy:"",
-            id:"",
-            position:"",
+            candidateId:"",
+            positions:"",
             comment:"",
             passed:"",
             result:"",
@@ -41,6 +43,7 @@ class  FeedBack extends Component {
 
     }
     componentDidMount() {
+        this.props.getCurrentUser();
         //after component loads bring data
         // this.setState({article:getArticles()})
 
@@ -60,47 +63,34 @@ class  FeedBack extends Component {
     handleOpen=(articleId)=>{
         console.log(articleId);
     };
-    handleGiveReview=(event)=>{
 
-    };
-    handleAction=(event) =>{
-        let clicked = event.target.getAttribute("name");
-        let articleId = event.target.getAttribute("data-article-id");
-        switch (clicked) {
-            case "Open" :
-                this.handleOpen(articleId);
-                break;
-            default :
-                break;
-        };
-
-    }
     handleSubmitButton=(event)=> {
+
+        if(this.props.userInfo.type === "Recruiter"){
+            this.setState({interviewType:"Behavioral"})
+        }
+        else {
+            this.setState({interviewType:"Technical"})
+        }
         event.preventDefault();
         this.setState((state) =>({
             ...state,
-                id:this.props.id,
-                interviewedBy: "5b3cfd4b410fa118837ba10d",
-                position:this.state.position,
+                candidateId:this.props.id,
+                interviewedBy: this.props.userInfo.id,
+                positions:this.props.positions,
                 comment: this.state.comment,
                 passed: this.state.passed,
                 interviewedOn:Date.now()
-
-
         }),() => {
-            this.props.feedbackForApplyedPosition({
-                                                    id: this.props.id,
-                                                    interviewedBy: "5b3cfd4b410fa118837ba10d",
-                                                    position: this.state.position,
+            this.props.saveFeedbackForAppliedPosition({
+                                                    interviewType:this.state.interviewType,
+                                                    candidateId: this.props.id,
+                                                    interviewedBy: this.props.userInfo.id,
+                                                     positions: this.props.positions,
                                                     comment: this.state.comment,
                                                     passed: this.state.passed,
                                                     interviewedOn: Date.now()
                                                   });
-
-            // this.props.getVacancy();
-            // console.log(this.state.dataForSave)
-            // this.props.getVacancy();
-
 
         });
     };
@@ -110,8 +100,6 @@ class  FeedBack extends Component {
         })
         console.log(this.state.position)
     };
-
-
 
     render() {
 
@@ -143,7 +131,7 @@ class  FeedBack extends Component {
                             value={this.props.fullName}
                             onChange={this.handleChange}
                             margin="normal"
-                            name="txtCandidateName"
+                            name="fullName"
                             validators={['required']}
                             errorMessages={['this field is required']}
                             fullWidth
@@ -181,7 +169,7 @@ class  FeedBack extends Component {
                             rows="4"
                             id="comment"
                             label="Feed Back"
-                            value={this.state.txtFeedBack}
+                            value={this.state.comment}
                             onChange={this.handleChange}
                             margin="normal"
                             name="comment"
@@ -238,15 +226,16 @@ function mapStateToProps(state) {
     return {
         feedback : state.feedBackReduicer.feedBack ,
         isGettingPosition: state.feedBackReduicer.isGettingPosition,
-        error : state.feedBackReduicer.error
+        error : state.feedBackReduicer.error,
+        userInfo : state.loginReduicer.userInfo,
+        isGettingUserInfo: state.loginReduicer.isGettingUserInfo,
+        error : state.loginReduicer.error
     }
 }
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-        // feedBack:APIFeedBack.getFeedBack ,
-
-        // postFeedBack:APIFeedBack.postFeedBack,
-        feedbackForApplyedPosition:APICandidate.feedbackForApplyedPosition
+        saveFeedbackForAppliedPosition:APICandidate.feedbackForApplyedPosition,
+        getCurrentUser:loginAction.getCurrentUser
     }, dispatch)
 }
 

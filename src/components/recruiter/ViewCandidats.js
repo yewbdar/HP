@@ -73,8 +73,9 @@ class ViewCandidats extends Component {
     //    // return( <FeedBack/>)
     // };
     handleViewResume=(candidateId)=>{
-        this.setState({ openResume: true });
+
         this.props.getResumeById(candidateId);
+        this.setState({ openResume: true });
 
         console.log(candidateId);
 
@@ -106,7 +107,7 @@ class ViewCandidats extends Component {
 
     };
     loadResume=()=>{
-       this.props.getResumeById('5b475a00738cf202f0eecac8');
+       // this.props.getResumeById('5b475a00738cf202f0eecac8');
 
     }
 
@@ -163,7 +164,7 @@ class ViewCandidats extends Component {
                             Giving a feedback is a good thing ! Giving a feedback is a good thing !
                         </DialogContentText>
                         <FeedBack
-                       id = {this.state.selectedCandidateId}
+                        candidateId = {this.state.selectedCandidateId}
                         fullName = {this.state.selectedCandidateFullName}
                         positions = {this.state.selectedCandidateAppliedPositions}
                         closeDialog = {this.handleClose}

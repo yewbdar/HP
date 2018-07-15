@@ -36,13 +36,13 @@ module.exports = {
                                         if (bcrypt.compareSync(password, result.account.password)) {
                                             user.firstName = result.firstName;
                                             user.lastName = result.lastName;
+
                                             if(result.position && result.position == "Recruiter"){
                                                 user.type = "Recruiter";
                                             } else {
                                                 user.type = "Employee";
                                             }
                                             user.id = result._id;
-
                                             req.session.userInfo = user;
                                             req.session.save(function(err) {
                                             });
@@ -54,10 +54,8 @@ module.exports = {
                                         res.end("User Not found");
                                     }
                                 });
-
                     }
                 });
-
     },
     validateLogin: function(req, res) {
         /**
@@ -86,6 +84,7 @@ module.exports = {
             user.type  = "NA";
             user.firstName = "NA";
             user.lastName = "NA";
+            user.id= "NA";
         if(req.session.userInfo) {
             res.send(req.session.userInfo);
         } else {

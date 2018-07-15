@@ -6,6 +6,8 @@ import PropTypes from 'prop-types';
 import Grid from '../../components/common/Grid';
 import  APIPostion  from '../../redux/actions/positionActions';
 import  APICandidate  from '../../redux/actions/candidateActions';
+import loginAction from '../../redux/actions/loginActions';
+
 class ViewOpenPosition extends Component {
     constructor () {
         super();
@@ -18,11 +20,12 @@ class ViewOpenPosition extends Component {
         //after component loads bring data
 
         this.props.getActivePosition();
+        this.props.getCurrentUser();
     }
     handleApply=(positionId)=>{
 
         this.props.applyForPosition({
-                                            id:"5b4a6c4d3b1cd3178fa35ff2",
+                                            id:this.props.userInfo.id,
                                             positionId : positionId
                                     });
     };
@@ -71,15 +74,20 @@ class ViewOpenPosition extends Component {
 
 function mapStateToProps(state) {
     return {
+
         positions:state.positionReduicer.position,
         isGettingPosition: state.positionReduicer.isGettingPosition,
-        error : state.positionReduicer.error
+        error : state.positionReduicer.error,
+        userInfo : state.loginReduicer.userInfo ,
+        isGettingUserInfo: state.loginReduicer.isGettingUserInfo,
+        error : state.loginReduicer.error
     }
 }
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         getActivePosition:APIPostion.getActivePosition,
-        applyForPosition:APICandidate.applyForPosition
+        applyForPosition:APICandidate.applyForPosition,
+        getCurrentUser:loginAction.getCurrentUser
        }, dispatch)
 }
 
