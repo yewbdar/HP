@@ -20,7 +20,6 @@ import "./assets/css/animate.min.css";
 import "./assets/sass/light-bootstrap-dashboard.css?v=1.2.0";
 import "./assets/css/demo.css";
 import "./assets/css/pe-icon-7-stroke.css";
-import Login from "./views/Login";
 
 if(localStorage.Auth) {
 
@@ -35,10 +34,6 @@ ReactDOM.render((
                     {indexRoutes.map((prop, key) => {
                         return <Route to={prop.path} component={prop.component} key={key} />;
                     })}
-                <Route to="/login" component={Login} key="login" />
-                <Redirect to="/login" />
-
-
             </Switch>
         </ConnectedRouter>
     </Provider>

@@ -3,11 +3,13 @@ import { connect } from 'react-redux';
 import  candidateActions  from '../../redux/actions/candidateActions';
 import { bindActionCreators } from 'redux';
 import Grid from '../../components/common/Grid';
+import { Route, Redirect } from 'react-router'
+
 class ViewFeedBack extends Component {
     constructor(props){
         super(props);
         this.state = {
-            candidateId:"5b444d07ec17bf3308573e53",
+            candidateId:"5b4a6c4d3b1cd3178fa35ff2",
             candidate:[],
             candidatesParsed: []
         }
@@ -26,6 +28,9 @@ class ViewFeedBack extends Component {
     };
 
     render() {
+        if (this.props.userInfo.type && this.props.userInfo.type != "Candidate" ) {
+            return <Redirect to='/dashboard' />
+        }
         return (
             <div>
                 {/* this is for displaying data in Pretty format of json , WE CANT show Object in one JSX Node*/}
@@ -48,7 +53,8 @@ function mapStateToProps(state) {
         // positions : state.positionReduicer.position,
         candidateAppliedPositionsStatus : state.candidateReduicer.candidateAppliedPositionsStatus ,
         isGettingCandidateStatus: state.candidateReduicer.isGettingCandidateStatus,
-        error : state.candidateReduicer.error
+        error : state.candidateReduicer.error,
+        userInfo : state.loginReduicer.userInfo
     }
 }
 function mapDispatchToProps(dispatch) {

@@ -5,14 +5,11 @@ import NotificationSystem from "react-notification-system";
 import Header from "./../../components/Header/Header";
 import Footer from "./../../components/Footer/Footer";
 import Sidebar from "./../../components/Sidebar/Sidebar";
-
 import { style } from "../../variables/Variables.jsx";
-
 import dashboardRoutes from "./../../routes/dashboard.jsx";
+import loginAction from '../../redux/actions/loginActions';
 import { connect } from 'react-redux';
-import  currentUserActions  from '../../redux/actions/currentUserActions';
 import { bindActionCreators } from 'redux';
-
 
 class Dashboard extends Component {
   constructor(props) {
@@ -90,9 +87,11 @@ class Dashboard extends Component {
         <NotificationSystem ref="notificationSystem" style={style} />
 
         <Sidebar {...this.props}
-                 currentUser={this.props.currentUser}
+                 userInfo={this.props.userInfo}
                  isGettingCurrentUser = {this.props.isGettingCurrentUser}/>
+
         <div id="main-panel" className="main-panel" ref="mainPanel">
+
           <Header {...this.props} />
           <Switch>
             {dashboardRoutes.map((prop, key) => {
@@ -125,16 +124,14 @@ class Dashboard extends Component {
 
 function mapStateToProps(state) {
   return {
-    currentUser : state.currentUserReducer.currentUser,
-    isGettingCurrentUser: state.currentUserReducer.isGettingCurrentUser,
-    error : state.currentUserReducer.error
+    userInfo : state.loginReduicer.userInfo ,
+    isGettingUserInfo: state.loginReduicer.isGettingUserInfo,
+    error : state.loginReduicer.error
   }
 }
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getCurrentUser:currentUserActions.getCurrentUser,
-  }, dispatch)
+  return bindActionCreators({ getCurrentUser:loginAction.getCurrentUser}, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard)
-
 

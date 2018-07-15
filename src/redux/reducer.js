@@ -8,6 +8,7 @@ import qualificationReduicer from './reducers/qualficationReduicer';
 import feedBackReduicer from './reducers/feedBackReduicer';
 import currentUserReducer from './reducers/currentUserReducer'
 import { routerReducer } from 'react-router-redux';
+import loginReduicer from './reducers/loginReducer';
 
 export default combineReducers({
   articles,
@@ -18,6 +19,7 @@ export default combineReducers({
   qualificationReduicer,
   feedBackReduicer,
   currentUserReducer,
+  loginReduicer,
 
   router: routerReducer
 });

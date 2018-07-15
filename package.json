@@ -12,7 +12,6 @@
     "body-parser": "^1.18.2",
     "bootstrap": "^4.1.1",
     "chartist": "0.10.1",
-    "client-sessions": "^0.8.0",
     "cloudinary": "^1.10.0",
     "compression": "^1.7.1",
     "connect-multiparty": "^2.1.0",

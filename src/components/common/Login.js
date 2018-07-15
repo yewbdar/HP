@@ -1,36 +1,44 @@
 import React ,{Component } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import loginAction from '../../redux/actions/loginActions';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Route, Redirect } from 'react-router'
+
 class  Login extends Component {
     constructor(props){
         super(props);
         this.state = {
             userName:"",
             password:""
-
         };
-
     }
-
     handleChange =(event)=>{
         const {name, value} = event.target;
         this.setState({[name] : value});
-        console.log(value)
-
     }
-    componentDidMount() {
-        //after component loads bring data
-        // this.setState({article:getArticles()})
-
-
-    }
-    handleSubmitButton=(event)=> {
+    handleLogin=(event)=> {
         event.preventDefault();
+        this.props.login({
+                            userName : this.state.userName,
+                            password :this.state.password
+                        });
 
+    };
+    componentWillReceiveProps(nextProps){
+        console.log("Reloading",nextProps)
+        if (nextProps.userInfo.type && nextProps.userInfo.type != "NA" ) {
+            window.location.reload();
+        }
     }
     render() {
+        if (this.props.userInfo.type && this.props.userInfo.type != "NA" ) {
+            return <Redirect to='/dashboard' />
+        }
         return (
             <div>
+
                 <div className="row">
                     <div className="col-lg-4 col-md-6 col-sm-12" >
                         <TextField
@@ -58,37 +66,27 @@ class  Login extends Component {
                 </div>
                 <div className="row">
                    <div class="col-lg-4 col-md-6 col-sm-12" >
-                        <Button variant="outlined" color="primary" onClick={this.handleSubmitButton}>
+                        <Button variant="outlined" color="primary" onClick={this.handleLogin}>
                             login
                         </Button>
                     </div>
                 </div>
 
-                {/*<pre>{JSON.stringify(this.props.articles.articles, null, 2) }</pre>
-
-                 <Grid
-
-                 dataset={this.props.articles.articles}
-                 header={["ID#","Title","Text","Action"]}
-                 headerMapping={["id","title","text"]}
-                 actionNames={["Open", "Give Review"]}
-                 handleAction = {this.handleAction}
-                 />*/}
             </div >
-
-
-            // {this is for displaying data in Pretty format of json , WE CANT show Object in one JSX Node}
-            //
 
         )
     }
 }
 
-export default Login;
+function mapStateToProps(state) {
+    return {
+        userInfo : state.loginReduicer.userInfo ,
+        isGettingUserInfo: state.loginReduicer.isGettingUserInfo,
+        error : state.loginReduicer.error
+    }
+}
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ login:loginAction.login}, dispatch)
+}
 
-
-
-
-
-
-
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

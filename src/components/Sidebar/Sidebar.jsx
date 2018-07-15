@@ -45,6 +45,7 @@ class Sidebar extends Component {
         data-color="black"
         data-image={imagine}
       >
+
         <div className="sidebar-background" style={sidebarBackground} />
         <div className="logo">
 
@@ -63,7 +64,7 @@ class Sidebar extends Component {
               /**
                * Dont display side bar for other users depending on who the current logged in user is
                */
-               if (!prop.redirect  &&  prop.displayFor.indexOf(this.props.currentUser.type) != -1 )
+               if (!prop.redirect  && this.props.userInfo  && prop.displayFor.indexOf(this.props.userInfo.type) != -1 )
                return (
 
                <li

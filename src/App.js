@@ -9,7 +9,7 @@ import CandidateProfile from './components/candidate/Register'
 import ViewOpenPosition from './components/candidate/ViewOpenPosition'
 import EmpViewCandidate from './components/employee/ViewCandidate'
 import ViewFeedBack from './components/candidate/ViewFeedBack'
-import Login from './components/common/login'
+import Login from './components/common/Login'
 // import Dashboard from "layouts/Dashboard/Dashboard";
 
 

@@ -1,15 +1,13 @@
 import React, { Component } from "react";
 import { Grid, Row, Col, Table } from "react-bootstrap";
-
 import Card from "../../components/Card/Card.jsx";
-import Position from "../../components/recruiter/Position";
-import ViewOpenPosition from "../../components/candidate/ViewOpenPosition";
-import Login from "../../components/common/login"
-class viewOpenPosition extends Component {
+import LoginComponent from "../../components/common/Login"
+class Login extends Component {
     render() {
         var space = {
             marginTop : "2rem"
         }
+
         return (
             <div className="content">
                 <Grid fluid>
@@ -22,7 +20,7 @@ class viewOpenPosition extends Component {
                                 ctTableResponsive
                                 content={
                                     <div >
-                                        <Login />
+                                        <LoginComponent />
                                     </div>
                                 }
                             />
@@ -35,4 +33,4 @@ class viewOpenPosition extends Component {
     }
 }
 
-export default viewOpenPosition;
+export default Login;

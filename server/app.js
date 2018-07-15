@@ -28,23 +28,31 @@ let port = 5000 || process.env.PORT;
 routes(router);
 
 /** set up middlewares */
-app.use(cors());
+app.use(cors({credentials: true, origin: true}));
 app.use(bodyParser.json());
 app.use(helmet());
 //app.use('/static',express.static(path.join(__dirname,'static')))
 /**
  * Login and session
  */
+var sessionStore = new session.MemoryStore();
+
 app.use(session({
-    secret: 'keyboard cat',
+    secret: 'new session key',
+    store: sessionStore,
     resave: true,
-    saveUninitialized: true
+    proxy: undefined,
+    saveUninitialized: false,
+    cookie: {
+                maxAge: 60000,
+                secure: false,
+                httpOnly: false
+            }
 }));
 
 app.use('/hp-api', router);
 
 
-var sess;
 
 // app.use(session({
 //     cookieName: 'session',

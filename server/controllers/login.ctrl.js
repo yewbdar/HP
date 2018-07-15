@@ -4,13 +4,13 @@ const Candidate = require('./../models/Candidate');
 const Employee = require('./../models/Employee');
 const bcrypt = require('bcrypt');
 const LOGIN_URL = "http://localhost:3000/login";
-const DASHBOARD_URL = "http://localhost:3000/dashboard";
+const HOME_URL = "http://localhost:3000/home";
 
 module.exports = {
 
     login:function(req,res){
+
         const {userName, password} = req.body;
-        let status  = true;
         let user = {};
         Candidate.findOne({ 'account.userName': userName},
                 (err, result) => {
@@ -21,42 +21,42 @@ module.exports = {
                             user.type = "Candidate";
                             user.id = result._id;
 
-                            req.session.user = "Yonatan";
-                            console.log(req.session);
+                            req.session.userInfo = user;
+                            req.session.save(function(err) {
+                            });
+                            res.send(user);
+                            // res.end("Found user- Candidate : setting user details at the session");
+
                         }//found account , register user info  in session and redirect to dashboard
                     } else {
-                        status = false;
+                        res.end("User Not found Checking in Employee's Collection");
+                            Employee.findOne({'account.userName': userName},
+                                (err, result) => {
+                                    if (result) {
+                                        if (bcrypt.compareSync(password, result.account.password)) {
+                                            user.firstName = result.firstName;
+                                            user.lastName = result.lastName;
+                                            if(result.position && result.position == "Recruiter"){
+                                                user.type = "Recruiter";
+                                            } else {
+                                                user.type = "Employee";
+                                            }
+                                            user.id = result._id;
+
+                                            req.session.userInfo = user;
+                                            req.session.save(function(err) {
+                                            });
+                                            res.send(user);
+                                            // res.end("Found user - Employee : setting user details at the session");
+
+                                        }//found account , register user info  in session and redirect to dashboard
+                                    } else {
+                                        res.end("User Not found");
+                                    }
+                                });
 
                     }
                 });
-        if(!status ) {
-            Employee.findOne({'account.userName': userName},
-                (err, result) => {
-                    if (result) {
-                        if (bcrypt.compareSync(password, result.account.password)) {
-                            user.firstName = result.firstName;
-                            user.lastName = result.lastName;
-                            if(result.position && result.position == "Recruiter"){
-                                user.type = "Recruiter";
-                            } else {
-                                user.type = "Employee";
-                            }
-                            user.id = result._id;
-
-                            req.session.user = user;
-                            console.log(req.session);
-                        }//found account , register user info  in session and redirect to dashboard
-                    } else {
-                        status = false;
-
-                    }
-                });
-        } // check if user is an employee
-        if(!status) {
-            res.end("User Not found");
-        } else {
-            res.end("set user details");
-        }
 
     },
     validateLogin: function(req, res) {
@@ -64,7 +64,6 @@ module.exports = {
          * Check if the Session have a user object if not redirect to login
          */
         sess = req.session;
-        console.log("Session",sess);
         // if(req.session) {
         //     if(req.session.user){
         //         return res.status(200).send(user);
@@ -87,11 +86,9 @@ module.exports = {
             user.type  = "NA";
             user.firstName = "NA";
             user.lastName = "NA";
-        if(req.session.user) {
-            console.log(req.session);
-            res.send(req.session.user);
+        if(req.session.userInfo) {
+            res.send(req.session.userInfo);
         } else {
-            console.log(req.session);
             res.send(user);
 
         }

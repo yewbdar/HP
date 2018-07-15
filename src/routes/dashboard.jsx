@@ -11,8 +11,8 @@ import Register from "../views/Candidate/register";
 import viewCandidateForRecruiter from "../views/Recruiter/viewCandidateforRecruter";
 import viewCandidateForEmployee from "../views/Employee/viewCandidates";
 import viewOpenPosition from "../views/Candidate/viewOpenPosition";
-import uploadFile from "../views/Login";
-import Login from "./../views/Login";
+import Login from "./../views/Common/Login";
+
 import ViewFeedBack from "../views/Candidate/viewFeedBack";
 const dashboardRoutes = [
   {
@@ -20,6 +20,13 @@ const dashboardRoutes = [
     name: "Dashboard",
     icon: "pe-7s-graph",
     component: Dashboard,
+    displayFor : ["Candidate","Recruiter","Employee"]
+  },
+  {
+    path: "/login",
+    name: "Dashboard",
+    icon: "pe-7s-graph",
+    component: Login,
     displayFor : ["Candidate","Recruiter","Employee"]
   },
   {
@@ -65,13 +72,6 @@ const dashboardRoutes = [
     displayFor : ["Candidate","Recruiter","Employee"]
   },
   {
-    path: "/uploadFile",
-    name: "Upload File ",
-    icon: "pe-7s-user",
-    component: uploadFile,
-    displayFor : ["Candidate","Recruiter","Employee"]
-  },
-  {
     path: "/user",
     name: "User Profile",
     icon: "pe-7s-user",
@@ -97,6 +97,13 @@ const dashboardRoutes = [
   },
   { path: "/maps", name: "Find Us", icon: "pe-7s-map-marker", component: Maps ,
     displayFor : ["Candidate","Recruiter","Employee"]},
+  {
+    path: "/notifications",
+    name: "Notifications",
+    icon: "pe-7s-bell",
+    component: Notifications,
+    displayFor : ["Candidate","Recruiter","Employee"]
+  },
   {
     path: "/notifications",
     name: "Notifications",
