@@ -53,16 +53,6 @@ app.use(session({
 
 app.use('/hp-api', router);
 
-
-
-// app.use(session({
-//     cookieName: 'session',
-//     secret: 'random_string_goes_here',
-//     duration: 30 * 60 * 1000,
-//     activeDuration: 5 * 60 * 1000,
-// }));
-
-// app.use(session({secret:"myencryptionkey", resave:false, saveUninitalized : true}) );
 /** start server */
 app.listen(port, () => {
     console.log(`HP-Server started at port: ${port} Lets get the party going`);
