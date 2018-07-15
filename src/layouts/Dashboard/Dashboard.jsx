@@ -86,11 +86,11 @@ class Dashboard extends Component {
       <div className="wrapper">
         <NotificationSystem ref="notificationSystem" style={style} />
 
-        <Sidebar {...this.props}
+        {this.props.userInfo.type !='NA' ?  <Sidebar {...this.props}
                  userInfo={this.props.userInfo}
-                 isGettingCurrentUser = {this.props.isGettingCurrentUser}/>
+                 isGettingCurrentUser = {this.props.isGettingCurrentUser}/> : ""}
 
-        <div id="main-panel" className="main-panel" ref="mainPanel">
+        <div id="main-panel" style={{width: this.props.userInfo !='NA'&& "100%"}}  className="main-panel" ref="mainPanel">
 
           <Header {...this.props} />
           <Switch>
@@ -115,7 +115,7 @@ class Dashboard extends Component {
               );
             })}
           </Switch>
-          <Footer />
+          {/*<Footer />*/}
         </div>
       </div>
     );

@@ -12,7 +12,7 @@ import viewCandidateForRecruiter from "../views/Recruiter/viewCandidateforRecrut
 import viewCandidateForEmployee from "../views/Employee/viewCandidates";
 import viewOpenPosition from "../views/Candidate/viewOpenPosition";
 import Login from "./../views/Common/Login";
-
+import Logout from "./../views/Common/Logout";
 import ViewFeedBack from "../views/Candidate/viewFeedBack";
 const dashboardRoutes = [
   {
@@ -24,9 +24,16 @@ const dashboardRoutes = [
   },
   {
     path: "/login",
-    name: "Dashboard",
+    name: "Login",
     icon: "pe-7s-graph",
     component: Login,
+    displayFor : ["Candidate","Recruiter","Employee"]
+  },
+  {
+    path: "/logout",
+    name: "Sign-out",
+    icon: "pe-7s-graph",
+    component: Logout,
     displayFor : ["Candidate","Recruiter","Employee"]
   },
   {
@@ -34,11 +41,11 @@ const dashboardRoutes = [
     name: "Position",
     icon: "pe-7s-user",
     component: PositionPage,
-    displayFor : ["Candidate","Recruiter","Employee"]
+    displayFor : ["Recruiter"]
   },
   {
     path: "/viewOpenPosition",
-    name: "view open Position",
+    name: " Open Position",
     icon: "pe-7s-user",
     component: viewOpenPosition,
     displayFor : ["Candidate","Recruiter","Employee"]
@@ -48,7 +55,7 @@ const dashboardRoutes = [
     name: "View FeedBack",
     icon: "pe-7s-user",
     component: ViewFeedBack,
-    displayFor : ["Candidate","Recruiter","Employee"]
+    displayFor : ["Candidate"]
   },
   {
     path: "/Register",

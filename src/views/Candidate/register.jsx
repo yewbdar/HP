@@ -5,11 +5,17 @@ import Card from "../../components/Card/Card.jsx";
 import Position from "../../components/recruiter/Position";
 import Register from "../../components/candidate/Register";
 
-
-class Candidate extends Component {
+import { Link } from 'react-router-dom';
+import { Route, Redirect } from 'react-router'
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+class RegisterPage extends Component {
     render() {
         var space = {
             marginTop : "2rem"
+        }
+        if (this.props.userInfo.type && this.props.userInfo.type != "NA" ) {
+            return <Redirect to='/dashboard' />
         }
         return (
             <div className="content">
@@ -22,7 +28,12 @@ class Candidate extends Component {
                                 ctTableFullWidth
                                 ctTableResponsive
                                 content={
-                                    <div >
+                                    <div>
+                                    <div  class="row justify-content-end">
+
+                                            Already Have an account ?, <Link to={`/login/`} >Login</Link>
+                                            </div>
+
                                         <Register />
                                     </div>
                                 }
@@ -36,4 +47,13 @@ class Candidate extends Component {
     }
 }
 
-export default Candidate;
+
+
+function mapStateToProps(state) {
+    return {
+        userInfo : state.loginReduicer.userInfo ,
+    }
+}
+
+
+export default connect(mapStateToProps)(RegisterPage)

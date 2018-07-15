@@ -39,8 +39,8 @@ class  Login extends Component {
         return (
             <div>
 
-                <div className="row">
-                    <div className="col-lg-4 col-md-6 col-sm-12" >
+                <div className="row justify-content-center">
+                    <div className="col-lg-12 col-md-12 col-sm-12" >
                         <TextField
                             id="userName"
                             label="User Name"
@@ -51,8 +51,8 @@ class  Login extends Component {
                             fullWidth
                         /> </div>
                 </div>
-                <div className="row">
-                    <div className="col-lg-4 col-md-6 col-sm-12 align-self-end" >
+                <div className="row justify-content-center">
+                    <div className="col-lg-12 col-md-6 col-sm-12 align-self-end" >
                         <TextField
                             id="password"
                             label="Password"
@@ -60,13 +60,14 @@ class  Login extends Component {
                             onChange={this.handleChange}
                             margin="normal"
                             name="password"
+                            type="password"
                             fullWidth
                         />
                     </div>
                 </div>
-                <div className="row">
-                   <div class="col-lg-4 col-md-6 col-sm-12" >
-                        <Button variant="outlined" color="primary" onClick={this.handleLogin}>
+                <div className="row justify-content-center" >
+                   <div class="col-lg-12 col-md-6 col-sm-12" >
+                        <Button className="col-lg-12" fullWidth variant="outlined" color="primary" onClick={this.handleLogin}>
                             login
                         </Button>
                     </div>

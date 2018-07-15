@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const Candidate = require('./../models/Candidate');
 const bcrypt = require('bcrypt');
 var fs = require('fs');
-
+var emailService = require('./emailService');
 
 module.exports = {
     getAll:function(req,res){
@@ -99,7 +99,11 @@ module.exports = {
 
         Candidate
             .create(candidateObj)
-            .then((result) => res.json(result))
+            .then((result) => {
+                                res.json(result);
+                                emailService.mailOptions.to = email;
+                                emailService.sendEmail();
+            })
             .catch(err => { console.log(err) ;
                 return res.status(422).json(err)});
 
@@ -399,3 +403,5 @@ module.exports = {
     //         });
     // },
 };
+
+

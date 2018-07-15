@@ -52,7 +52,7 @@ class  CreateAccount extends Component {
 
                 <div className="row">
                     <div className="col-lg-12 col-md-6 col-sm-12 float-left" >
-                        <TextValidator
+                        <TextField
                             id="userName"
                             label="User Name"
                             value={this.props.userName}
@@ -66,13 +66,14 @@ class  CreateAccount extends Component {
                 </div>
                 <div className="row">
                     <div className="col-lg-12 col-md-6 col-sm-12 float-left" >
-                        <TextValidator
+                        <TextField
                             id="password"
                             label="Password"
                             value={this.props.password}
                             onChange={this.props.handleChange}
                             margin="normal"
                             name="password"
+                            type="password"
                             fullWidth
                             validators={['required']}
                             errorMessages={['this field is required']}
@@ -81,13 +82,14 @@ class  CreateAccount extends Component {
                 </div>
                 <div className="row">
                     <div className="col-lg-12 col-md-6 col-sm-12 float-left" >
-                        <TextValidator
+                        <TextField
                             id="conformPassword"
                             label="conform Password"
                             value={this.props.conformPassword}
                             onChange={this.props.handleChange}
                             margin="normal"
                             name="conformPassword"
+                            type="password"
                             fullWidth
                             validators={['required','isPasswordMatch']}
                             errorMessages={['this field is required','password mismatch']}

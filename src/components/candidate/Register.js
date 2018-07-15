@@ -321,7 +321,7 @@ class  CandidateProfile extends Component {
                                             {/*All steps completed ...*/}
                                         {/*</h1>*/}
                                         <h1 className="align-center">
-                                            Thank you for Registering !
+                                            Thank you for Registering ! , Check Your Email For Details.
                                         </h1>
                                     </div>
 
