@@ -29,7 +29,6 @@ module.exports = {
 
                         }//found account , register user info  in session and redirect to dashboard
                     } else {
-                        res.end("User Not found Checking in Employee's Collection");
                             Employee.findOne({'account.userName': userName},
                                 (err, result) => {
                                     if (result) {

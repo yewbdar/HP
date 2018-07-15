@@ -14,28 +14,23 @@ import viewOpenPosition from "../views/Candidate/viewOpenPosition";
 import Login from "./../views/Common/Login";
 import Logout from "./../views/Common/Logout";
 import ViewFeedBack from "../views/Candidate/viewFeedBack";
+
 const dashboardRoutes = [
   {
     path: "/home",
     name: "Dashboard",
     icon: "pe-7s-graph",
     component: Dashboard,
-    displayFor : ["Candidate","Recruiter","Employee"]
+    displayFor : ["Logged In Users "]
   },
   {
     path: "/login",
     name: "Login",
     icon: "pe-7s-graph",
     component: Login,
-    displayFor : ["Candidate","Recruiter","Employee"]
+    displayFor : ["Logged out Users "]
   },
-  {
-    path: "/logout",
-    name: "Sign-out",
-    icon: "pe-7s-graph",
-    component: Logout,
-    displayFor : ["Candidate","Recruiter","Employee"]
-  },
+
   {
     path: "/position",
     name: "Position",
@@ -48,12 +43,12 @@ const dashboardRoutes = [
     name: " Open Position",
     icon: "pe-7s-user",
     component: viewOpenPosition,
-    displayFor : ["Candidate","Recruiter","Employee"]
+    displayFor : ["Candidate"]
   },
   {
     path: "/ViewFeedBack",
     name: "View FeedBack",
-    icon: "pe-7s-user",
+    icon: "pe-7s-note2",
     component: ViewFeedBack,
     displayFor : ["Candidate"]
   },
@@ -62,63 +57,57 @@ const dashboardRoutes = [
     name: "Register",
     icon: "pe-7s-user",
     component: Register,
-    displayFor : ["Candidate","Recruiter","Employee"]
+    displayFor : ["Logged out Users "]
   },
   {
     path: "/viewCandidate",
-    name: "view Candidate for Recruiter ",
+    name: "Candidate ",
     icon: "pe-7s-user",
     component: viewCandidateForRecruiter,
-    displayFor : ["Candidate","Recruiter","Employee"]
+    displayFor : ["Recruiter"]
   },
   {
     path: "/viewCandidateForFEmployee",
-    name: "view Candidate for Employee ",
+    name: "Candidates",
     icon: "pe-7s-user",
     component: viewCandidateForEmployee,
-    displayFor : ["Candidate","Recruiter","Employee"]
+    displayFor : ["Employee"]
   },
-  {
-    path: "/user",
-    name: "User Profile",
-    icon: "pe-7s-user",
-    component: UserProfile,
-    displayFor : ["Candidate","Recruiter","Employee"]
-  },
-  {
-    path: "/table",
-    name: "Table List",
-    icon: "pe-7s-note2",
-    component: TableList,
-    displayFor : ["Candidate","Recruiter","Employee"]
-  },
-  {
-    path: "/typography",
-    name: "Typography",
-    icon: "pe-7s-news-paper",
-    component: Typography,
-    displayFor : ["Candidate","Recruiter","Employee"]
-  },
+  // {
+  //   path: "/user",
+  //   name: "User Profile",
+  //   icon: "pe-7s-user",
+  //   component: UserProfile,
+  //   displayFor : ["Candidate","Recruiter","Employee"]
+  // },
+  // {
+  //   path: "/table",
+  //   name: "Table List",
+  //   icon: "pe-7s-note2",
+  //   component: TableList,
+  //   displayFor : ["Candidate","Recruiter","Employee"]
+  // },
+  // {
+  //   path: "/typography",
+  //   name: "Typography",
+  //   icon: "pe-7s-news-paper",
+  //   component: Typography,
+  //   displayFor : ["Candidate","Recruiter","Employee"]
+  // },
   { path: "/icons", name: "Icons", icon: "pe-7s-science", component: Icons ,
-    displayFor : ["Candidate","Recruiter","Employee"]
+    displayFor : ["No Users"]
   },
   { path: "/maps", name: "Find Us", icon: "pe-7s-map-marker", component: Maps ,
     displayFor : ["Candidate","Recruiter","Employee"]},
+
+  { redirect: true, path: "/", to: "/dashboard", name: "Dashboard" },
   {
-    path: "/notifications",
-    name: "Notifications",
-    icon: "pe-7s-bell",
-    component: Notifications,
+    path: "/logout",
+    name: "Sign-out",
+    icon: "pe-7s-power",
+    component: Logout,
     displayFor : ["Candidate","Recruiter","Employee"]
-  },
-  {
-    path: "/notifications",
-    name: "Notifications",
-    icon: "pe-7s-bell",
-    component: Notifications,
-    displayFor : ["Candidate","Recruiter","Employee"]
-  },
-  { redirect: true, path: "/", to: "/dashboard", name: "Dashboard" }
+  }
 
 
 ];

@@ -64,7 +64,7 @@ class Sidebar extends Component {
               /**
                * Dont display side bar for other users depending on who the current logged in user is
                */
-               if (!prop.redirect  && this.props.userInfo  && prop.displayFor.indexOf(this.props.userInfo.type) != -1 )
+               if (!prop.redirect  && this.props.userInfo  && prop.displayFor.indexOf(this.props.userInfo.type) !== -1 )
                return (
 
                <li

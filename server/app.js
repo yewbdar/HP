@@ -45,7 +45,7 @@ app.use(session({
     proxy: undefined,
     saveUninitialized: false,
     cookie: {
-                maxAge: 60000,
+                maxAge: Date.now() + (30 * 86400 * 1000),
                 secure: false,
                 httpOnly: false
             }

@@ -226,10 +226,10 @@ function mapStateToProps(state) {
     return {
         feedback : state.feedBackReduicer.feedBack ,
         isGettingPosition: state.feedBackReduicer.isGettingPosition,
-        error : state.feedBackReduicer.error,
+        errorFeedBack : state.feedBackReduicer.error,
         userInfo : state.loginReduicer.userInfo,
         isGettingUserInfo: state.loginReduicer.isGettingUserInfo,
-        error : state.loginReduicer.error
+        errorLogin : state.loginReduicer.error
     }
 }
 function mapDispatchToProps(dispatch) {

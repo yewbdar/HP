@@ -85,17 +85,20 @@ class Dashboard extends Component {
       document.scrollingElement.scrollTop = 0;
       this.refs.mainPanel.scrollTop = 0;
     }
+
   }
   render() {
+
     return (
+
       <div className="wrapper">
         <NotificationSystem ref="notificationSystem" style={style} />
 
-        {this.props.userInfo.type !='NA' ?  <Sidebar {...this.props}
+        {this.props.userInfo.type !== 'NA' ?  <Sidebar {...this.props}
                  userInfo={this.props.userInfo}
                  isGettingCurrentUser = {this.props.isGettingCurrentUser}/> : ""}
 
-        <div id="main-panel" style={{width: this.props.userInfo !='NA'&& "100%"}}  className="main-panel" ref="mainPanel">
+        <div id="main-panel" style={{width: this.props.userInfo !== 'NA'&& "100%"}}  className="main-panel" ref="mainPanel">
 
           <Header {...this.props} />
           <Switch>

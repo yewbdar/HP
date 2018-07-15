@@ -30,7 +30,7 @@ class ViewFeedBack extends Component {
     };
 
     render() {
-        if (this.props.userInfo.type && this.props.userInfo.type != "Candidate" ) {
+        if (this.props.userInfo.type && this.props.userInfo.type !== "Candidate" ) {
             return <Redirect to='/dashboard' />
         }
         return (
@@ -55,10 +55,10 @@ function mapStateToProps(state) {
         // positions : state.positionReduicer.position,
         candidateAppliedPositionsStatus : state.candidateReduicer.candidateAppliedPositionsStatus ,
         isGettingCandidateStatus: state.candidateReduicer.isGettingCandidateStatus,
-        error : state.candidateReduicer.error,
+        errorCandidate : state.candidateReduicer.error,
         userInfo : state.loginReduicer.userInfo,
         isGettingUserInfo: state.loginReduicer.isGettingUserInfo,
-        error : state.loginReduicer.error
+        errorLogin : state.loginReduicer.error
     }
 }
 function mapDispatchToProps(dispatch) {

@@ -28,7 +28,7 @@ class  Login extends Component {
     };
     componentWillReceiveProps(nextProps){
         console.log("Reloading",nextProps)
-        if (nextProps.userInfo.type && nextProps.userInfo.type != "NA" ) {
+        if (nextProps.userInfo.type && nextProps.userInfo.type !== "NA" ) {
             window.location.reload();
         }
     }
