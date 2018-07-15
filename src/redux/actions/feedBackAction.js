@@ -4,7 +4,7 @@ import * as types from './actionType';
 
 
 //This will be evaluated to const url = "http://localhost:5000/api/" for dev environment
-const url = process.env.NODE_ENV === 'production' ? "/api/" : "http://localhost:5000/hp-api";
+const url = process.env.NODE_ENV === 'production' ? "/hp-api/" : "http://localhost:5000/hp-api";
 /**
  * Get Position Begin >>
  * @returns {function(*)}
