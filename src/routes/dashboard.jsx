@@ -25,7 +25,7 @@ const dashboardRoutes = [
   },
   {
     path: "/login",
-    name: "Login",
+    name: "HP - Hiring Portal",
     icon: "pe-7s-graph",
     component: Login,
     displayFor : ["Logged out Users "]
