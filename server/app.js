@@ -23,7 +23,7 @@ try {
     
 }
 
-let port = 5000 || process.env.PORT;
+let port = process.env.PORT || 5000 ;
 
 /** set up routes {API Endpoints} */
 routes(router);
@@ -36,7 +36,7 @@ app.use(helmet());
 /**
  * Login and session
  */
-var sessionStore = new session.MemoryStore();
+// var sessionStore = new session.MemoryStore();
 
 app.use(session({
     secret: 'new session key',
