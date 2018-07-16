@@ -97,6 +97,8 @@ module.exports = {
         // return res.status(200).send();
     },
     logout : function(req, res){
+        console.log("logout controller")
+        debugger;
         req.session.destroy(function(err) {
             if(err) {
                 console.log(err);

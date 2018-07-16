@@ -61,14 +61,14 @@ const dashboardRoutes = [
   },
   {
     path: "/viewCandidate",
-    name: "Candidate ",
+    name: "View Candidate ",
     icon: "pe-7s-user",
     component: viewCandidateForRecruiter,
     displayFor : ["Recruiter"]
   },
   {
     path: "/viewCandidateForFEmployee",
-    name: "Candidates",
+    name: "View Candidates",
     icon: "pe-7s-user",
     component: viewCandidateForEmployee,
     displayFor : ["Employee"]
@@ -97,8 +97,8 @@ const dashboardRoutes = [
   { path: "/icons", name: "Icons", icon: "pe-7s-science", component: Icons ,
     displayFor : ["No Users"]
   },
-  { path: "/maps", name: "Find Us", icon: "pe-7s-map-marker", component: Maps ,
-    displayFor : ["Candidate","Recruiter","Employee"]},
+  // { path: "/maps", name: "Find Us", icon: "pe-7s-map-marker", component: Maps ,
+  //   displayFor : ["Candidate","Recruiter","Employee"]},
 
   { redirect: true, path: "/", to: "/dashboard", name: "Dashboard" },
   {

@@ -14,7 +14,7 @@ class RegisterPage extends Component {
         var space = {
             marginTop : "2rem"
         }
-        if (this.props.userInfo.type && this.props.userInfo.type != "NA" ) {
+        if (this.props.userInfo.type && this.props.userInfo.type !== "NA" ) {
             return <Redirect to='/dashboard' />
         }
         return (

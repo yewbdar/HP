@@ -33,7 +33,7 @@ class  Login extends Component {
         }
     }
     render() {
-        if (this.props.userInfo.type && this.props.userInfo.type != "NA" ) {
+        if (this.props.userInfo.type && this.props.userInfo.type !== "NA" ) {
             return <Redirect to='/dashboard' />
         }
         return (

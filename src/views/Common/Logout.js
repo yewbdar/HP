@@ -5,7 +5,7 @@ import loginAction from '../../redux/actions/loginActions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Route, Redirect } from 'react-router'
-
+import Login from "./Login"
 class  Logout extends Component {
     constructor(props){
         super(props);
@@ -13,17 +13,17 @@ class  Logout extends Component {
     }
     componentDidMount(){
         this.props.logout();
-        window.location.reload();
+        // window.location.reload();
     }
     componentWillReceiveProps(nextProps){
-        if (nextProps.userInfo.type && nextProps.userInfo.type == "NA" ) {
+        if (nextProps.userInfo.type && nextProps.userInfo.type === "NA" ) {
             window.location.reload();
         }
     }
     render() {
 
-        if (this.props.userInfo.type && this.props.userInfo.type == "NA" ) {
-            return <Redirect to='/login' />
+        if (this.props.userInfo.type && this.props.userInfo.type === "NA" ) {
+            return  <Redirect to='/login' />
         }
             return (<div>
                     Logging Out  . . .
