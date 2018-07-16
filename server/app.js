@@ -32,7 +32,7 @@ routes(router);
 app.use(cors({credentials: true, origin: true}));
 app.use(bodyParser.json());
 app.use(helmet());
-app.use('/static',express.static(path.join(__dirname,'static')))
+// app.use('/static',express.static(path.join(__dirname,'static')))
 /**
  * Login and session
  */
