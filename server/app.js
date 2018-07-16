@@ -53,6 +53,11 @@ app.use(session({
 
 app.use('/hp-api', router);
 
+app.get("*", function(req, res) {
+    res.sendFile(path.join(__dirname, "./build/index.html"));
+});
+
+
 /** start server */
 app.listen(port, () => {
     console.log(`HP-Server started at port: ${port} Lets get the party going`)});
