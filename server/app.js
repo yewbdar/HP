@@ -55,5 +55,4 @@ app.use('/hp-api', router);
 
 /** start server */
 app.listen(port, () => {
-    console.log(`HP-Server started at port: ${port} Lets get the party going`);
-});
+    console.log(`HP-Server started at port: ${port} Lets get the party going`)});
