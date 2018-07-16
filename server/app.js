@@ -32,11 +32,11 @@ routes(router);
 app.use(cors({credentials: true, origin: true}));
 app.use(bodyParser.json());
 app.use(helmet());
-//app.use('/static',express.static(path.join(__dirname,'static')))
+app.use('/static',express.static(path.join(__dirname,'static')))
 /**
  * Login and session
  */
-// var sessionStore = new session.MemoryStore();
+var sessionStore = new session.MemoryStore();
 
 app.use(session({
     secret: 'new session key',
