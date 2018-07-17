@@ -10,6 +10,7 @@ const path = require("path");
 const app = express();
 const router = express.Router();
 const url = process.env.MONGODB_URI || "mongodb://localhost:27017/hp";
+const mongoStore = require("connect-mongo")(session)
 
 // const url = process.env.MONGODB_URI || "mongodb://Yewbdar:1Hulet3@ds237641.mlab.com:37641/hp";
 
@@ -23,6 +24,7 @@ try {
 } catch (error) {
     
 }
+const conn = mongoose.connection;
 
 let port = process.env.PORT || 5000 ;
 
@@ -41,7 +43,7 @@ var sessionStore = new session.MemoryStore();
 
 app.use(session({
     secret: 'new session key',
-    store: sessionStore,
+    store: new mongoStore({mongooseConnection:conn}),
     resave: true,
     proxy: undefined,
     saveUninitialized: false,
