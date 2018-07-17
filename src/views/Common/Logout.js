@@ -16,11 +16,14 @@ class  Logout extends Component {
         // window.location.reload();
     }
     componentWillReceiveProps(nextProps){
+        alert('logout ');
+
         if (nextProps.userInfo.type && nextProps.userInfo.type === "NA" ) {
             window.location.reload();
         }
     }
     render() {
+        this.props.logout();
 
         if (this.props.userInfo.type && this.props.userInfo.type === "NA" ) {
             return  <Redirect to='/login' />

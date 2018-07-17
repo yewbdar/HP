@@ -101,13 +101,13 @@ const dashboardRoutes = [
   //   displayFor : ["Candidate","Recruiter","Employee"]},
 
   { redirect: true, path: "/", to: "/dashboard", name: "Dashboard" },
-  {
-    path: "/logout",
-    name: "Sign-out",
-    icon: "pe-7s-power",
-    component: Logout,
-    displayFor : ["Candidate","Recruiter","Employee"]
-  }
+  // {
+  //   path: "/logout",
+  //   name: "Sign-out",
+  //   icon: "pe-7s-power",
+  //   component: Logout,
+  //   displayFor : ["Candidate","Recruiter","Employee"]
+  // }
 
 
 ];

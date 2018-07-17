@@ -7,6 +7,13 @@ import imagine from "../../assets/img/sidebar-4.jpg";
 
 import dashboardRoutes from "../../routes/dashboard.jsx";
 import LinearProgress from '@material-ui/core/LinearProgress';
+import Button from '@material-ui/core/Button';
+import Power from '@material-ui/icons/PowerSettingsNew';
+
+import loginAction from '../../redux/actions/loginActions';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Route, Redirect } from 'react-router'
 
 class Sidebar extends Component {
   constructor(props) {
@@ -24,6 +31,10 @@ class Sidebar extends Component {
   componentDidMount() {
     this.updateDimensions();
     window.addEventListener("resize", this.updateDimensions.bind(this));
+  }
+  handleLogOut =() =>{
+    this.props.logout();
+    window.location.reload();
   }
   render() {
     const sidebarBackground = {
@@ -59,7 +70,6 @@ class Sidebar extends Component {
         <div className="sidebar-wrapper">
           <ul className="nav">
             {this.props.isGettingCurrentUser && <LinearProgress />}
-            {this.state.width <= 991 ? <HeaderLinks /> : null}
             {dashboardRoutes.map((prop, key) => {
               /**
                * Dont display side bar for other users depending on who the current logged in user is
@@ -91,10 +101,21 @@ class Sidebar extends Component {
                })}
 
           </ul>
+          {this.props.userInfo && this.props.userInfo.type != "NA" && <Button  style ={{color : "white" }}   onClick={this.handleLogOut}> <Power />  </Button>}
         </div>
       </div>
     );
   }
 }
 
-export default Sidebar;
+
+function mapStateToProps(state) {
+  return {
+    userInfo: state.loginReduicer.userInfo,
+  }
+}
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ logout:loginAction.logout}, dispatch)
+}
+
+export default connect( mapStateToProps,mapDispatchToProps)(Sidebar)

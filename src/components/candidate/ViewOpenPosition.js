@@ -7,7 +7,8 @@ import Grid from '../../components/common/Grid';
 import  APIPostion  from '../../redux/actions/positionActions';
 import  APICandidate  from '../../redux/actions/candidateActions';
 import loginAction from '../../redux/actions/loginActions';
-
+import NotificationSystem from "react-notification-system";
+import { style } from "../../variables/Variables.jsx";
 class ViewOpenPosition extends Component {
     constructor () {
         super();
@@ -28,6 +29,20 @@ class ViewOpenPosition extends Component {
                                             id:this.props.userInfo.id,
                                             positionId : positionId
                                     });
+
+
+        var _notificationSystem = this.refs.notificationSystem;
+        _notificationSystem.addNotification({
+            title: <span data-notify="icon" className="pe-7s-bell" />,
+            message: (
+                <div>
+                    You applied Successfully
+                </div>
+            ),
+            level: "success",
+            position: "tr",
+            autoDismiss: 15
+        });
     };
 
     handleViewdetail=(positionId)=>{
@@ -55,6 +70,7 @@ class ViewOpenPosition extends Component {
     render() {
         return (
             <div>
+                <NotificationSystem ref="notificationSystem" style={style}/>
                 {/* this is for displaying data in Pretty format of json , WE CANT show Object in one JSX Node*/}
                 {/*<pre>{JSON.stringify(this.props.positions , null, 2) }</pre>*/}
                 <Grid
@@ -63,7 +79,7 @@ class ViewOpenPosition extends Component {
 
                     header={["Title","Skill","Summary","Action"]}
                     headerMapping={["title","skill","summary"]}
-                    actionNames={["Apply","View detail"]}
+                    actionNames={["Apply"]}
                     handleAction = {this.handleAction}
 
                 />

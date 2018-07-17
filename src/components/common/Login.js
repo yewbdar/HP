@@ -5,6 +5,8 @@ import loginAction from '../../redux/actions/loginActions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Route, Redirect } from 'react-router'
+import { style } from "../../variables/Variables.jsx";
+import NotificationSystem from "react-notification-system";
 
 class  Login extends Component {
     constructor(props){
@@ -26,10 +28,30 @@ class  Login extends Component {
                         });
 
     };
+    displayMessage =(message,label, status) =>{
+        var _notificationSystem = this.refs.notificationSystem;
+        _notificationSystem.addNotification({
+            title: <span data-notify="icon" className="pe-7s-light" />,
+            message: (
+                <div>
+                    {label} : {message.split("\n").map((i,key) => {
+                    return <div key={key}>{i}</div>;
+                })}
+
+                </div>
+            ),
+            level: status,
+            position: "tr",
+            autoDismiss: 15
+        });
+    }
     componentWillReceiveProps(nextProps){
         console.log("Reloading",nextProps)
         if (nextProps.userInfo.type && nextProps.userInfo.type !== "NA" ) {
             window.location.reload();
+        }
+        if(nextProps.userNotFound && nextProps.userNotFound !== "") {
+            this.displayMessage("Account Not Found", "Error", "error");
         }
     }
     render() {
@@ -38,6 +60,7 @@ class  Login extends Component {
         }
         return (
             <div>
+                <NotificationSystem ref="notificationSystem" style={style}/>
 
                 <div className="row justify-content-center">
                     <div className="col-lg-12 col-md-12 col-sm-12" >
@@ -83,7 +106,8 @@ function mapStateToProps(state) {
     return {
         userInfo : state.loginReduicer.userInfo ,
         isGettingUserInfo: state.loginReduicer.isGettingUserInfo,
-        error : state.loginReduicer.error
+        error : state.loginReduicer.error,
+        userNotFound:state.loginReduicer.userNotFound
     }
 }
 function mapDispatchToProps(dispatch) {

@@ -50,7 +50,7 @@ module.exports = {
 
                                         }//found account , register user info  in session and redirect to dashboard
                                     } else {
-                                        res.end("User Not found");
+                                        res.end("User Not Found");
                                     }
                                 });
                     }

@@ -20,7 +20,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 
 import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
-
+import { styles } from "../../variables/Variables.jsx";
+import NotificationSystem from "react-notification-system";
 
 import Grid  from '../common/Grid';
 const red300 = red['500'];
@@ -75,6 +76,19 @@ class  Position extends Component {
                 summary: this.props.summary,
                 isActive: this.props.isActive
             });
+            var _notificationSystem = this.refs.notificationSystem;
+            _notificationSystem.addNotification({
+                title: <span data-notify="icon" className="pe-7s-bell" />,
+                message: (
+                    <div>
+                        position  Saved Successfully !
+                    </div>
+                ),
+                level: "success",
+                position: "tr",
+                autoDismiss: 15
+            });
+
 
         } else if (this.props.action === "Update") {
 
@@ -88,6 +102,20 @@ class  Position extends Component {
             });
             this.props.setAction("Create");
             this.props.getPosition();
+
+
+            var _notificationSystem = this.refs.notificationSystem;
+            _notificationSystem.addNotification({
+                title: <span data-notify="icon" className="pe-7s-bell" />,
+                message: (
+                    <div>
+                        position updated Successfully !
+                    </div>
+                ),
+                level: "success",
+                position: "tr",
+                autoDismiss: 15
+            });
         }
     };
     handleSelectedQualifications(selected){
@@ -128,6 +156,7 @@ class  Position extends Component {
             >
 
             <div style={margin}>
+                <NotificationSystem ref="notificationSystem" style={styles}/>
                 <div className="row">
                         <div className="col-lg-12 col-md-12 col-sm-12" >
                             <TextValidator
@@ -231,7 +260,7 @@ class  Position extends Component {
 
                 <div className="row">
                     <div class="col-lg-12 col-md-6 col-sm-12" >
-                        <Button   type="Submit"    className="pull-right" variant="outlined" data-action={this.props.action} color="primary" onClick={this.handleSubmitButton}>
+                        <Button   type="Submit"    className="pull-right" variant="outlined" data-action={this.props.action} color="primary" >
                             {this.props.action}
                         </Button>
                     </div>

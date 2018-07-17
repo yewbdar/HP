@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import { Grid, Row, Col, Table } from "react-bootstrap";
 import TextField from '@material-ui/core/TextField';
-
 import Button from '@material-ui/core/Button';
 import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import  candidateActions  from '../../redux/actions/candidateActions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import NotificationSystem from "react-notification-system";
+import { style } from "../../variables/Variables.jsx";
+
 
 class PersonalInfo extends Component {
     constructor () {
@@ -48,7 +50,7 @@ class PersonalInfo extends Component {
                 <div className="row">
                     <div className="col-lg-12 col-md-6 col-sm-12 float-left" >
 
-                        <TextValidator
+                        <TextField
                             id="firstName"
                             label="First Name"
                             value={this.props.firstName}
@@ -63,7 +65,7 @@ class PersonalInfo extends Component {
                 </div>
                 <div className="row">
                     <div className="col-lg-12 col-md-6 col-sm-12 float-right" >
-                        <TextValidator
+                        <TextField
                             id="lastName"
                             label="Last Name"
                             value={this.props.lastName}
@@ -78,9 +80,9 @@ class PersonalInfo extends Component {
                 </div>
                 <div className="row">
                     <div className="col-lg-12 col-md-6 col-sm-12" >
-                        <TextValidator
+                        <TextField
                             id="DOB"
-                            label="DOB"
+                            type="date"
                             value={this.props.DOB}
                             onChange={this.props.handleChange}
                             margin="normal"

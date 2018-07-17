@@ -6,6 +6,7 @@ import Card from "../../components/Card/Card.jsx";
 import Position from "../../components/recruiter/Position";
 import ViewPosition from "../../components/recruiter/ViewPosition";
 import  APIQualification  from '../../redux/actions/qualificationAction';
+import { Route, Redirect } from 'react-router'
 
 class PositionPage extends Component {
     constructor(props){
@@ -77,9 +78,11 @@ class PositionPage extends Component {
     render() {
         var space = {
             marginTop : "2rem"
-        }
+        };
         return (
             <div className="content">
+                { this.props.userInfo.type != "Recruiter"  &&  <Redirect to='/login' /> }
+
                 <Grid fluid>
                     <Row>
                         <Col md={12}>
@@ -122,6 +125,7 @@ class PositionPage extends Component {
 function mapStateToProps(state) {
     return {
         qualifications:state.qualificationReduicer.qualification,
+        userInfo : state.loginReduicer.userInfo
     }
 }
 function mapDispatchToProps(dispatch) {

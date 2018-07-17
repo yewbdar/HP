@@ -1,13 +1,11 @@
 import React, { Component } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import NotificationSystem from "react-notification-system";
-
+import { style } from "../../variables/Variables.jsx";
 import Header from "./../../components/Header/Header";
 import Footer from "./../../components/Footer/Footer";
 import Sidebar from "./../../components/Sidebar/Sidebar";
-import { style } from "../../variables/Variables.jsx";
 import dashboardRoutes from "./../../routes/dashboard.jsx";
-
 import loginAction from '../../redux/actions/loginActions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -41,7 +39,7 @@ class Dashboard extends Component {
         break;
     }
     this.state._notificationSystem.addNotification({
-      title: <span data-notify="icon" className="pe-7s-gift" />,
+      title: <span data-notify="icon" className="pe-7s-bell" />,
       message: (
         <div>
           Page Loaded Successfully
@@ -56,10 +54,10 @@ class Dashboard extends Component {
     this.setState({ _notificationSystem: this.refs.notificationSystem });
     var _notificationSystem = this.refs.notificationSystem;
      _notificationSystem.addNotification({
-      title: <span data-notify="icon" className="pe-7s-gift" />,
+      title: <span data-notify="icon" className="pe-7s-bell" />,
       message: (
         <div>
-          Page Loaded Successfully
+          HP Loaded Successfully
         </div>
       ),
       level: "success",
@@ -92,13 +90,14 @@ class Dashboard extends Component {
     return (
 
       <div className="wrapper">
+        {this.props.userInfo.type == "NA"  && <Redirect to='/login' /> }
         <NotificationSystem ref="notificationSystem" style={style} />
 
         {this.props.userInfo.type !== 'NA' ?  <Sidebar {...this.props}
                  userInfo={this.props.userInfo}
                  isGettingCurrentUser = {this.props.isGettingCurrentUser}/> : ""}
 
-        <div id="main-panel" style={{width: this.props.userInfo !== 'NA'&& "100%"}}  className="main-panel" ref="mainPanel">
+        <div id="main-panel"  className="main-panel" ref="mainPanel">
 
           <Header {...this.props} />
           <Switch>

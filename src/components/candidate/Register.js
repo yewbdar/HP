@@ -3,7 +3,8 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import  APICandidate  from '../../redux/actions/candidateProfileAction';
 import  candidateActions  from '../../redux/actions/candidateActions';
-
+import { style } from "../../variables/Variables.jsx";
+import NotificationSystem from "react-notification-system";
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -17,6 +18,7 @@ import UploadFile from "../../views/Candidate/uploadFile";
 import CreateAccount from "../../views/Candidate/createAccount";
 import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import  APIQualification  from '../../redux/actions/qualificationAction';
+
 
 class  CandidateProfile extends Component {
     constructor(props) {
@@ -56,6 +58,8 @@ class  CandidateProfile extends Component {
     };
     componentDidMount() {
         this.props.getQualification();
+
+        this.displayMessage("Registration Page Loaded","Success", "success");
     }
     handleOpen=(articleId)=>{
         console.log(articleId);
@@ -155,40 +159,62 @@ class  CandidateProfile extends Component {
         let personalInfoError = "";
         if (this.state.firstName === "") {
             status = false;
-            personalInfoError += "\n First Name Cannot be Empty";
+            personalInfoError += "\n >>First Name Cannot be Empty";
         }
         if (this.state.lastName === "") {
             status = false;
-            personalInfoError += "\n Last Name Cannot be Empty";
+            personalInfoError += "\n >>Last Name Cannot be Empty";
         }
         if (this.state.DOB === "") {
             status = false;
-            personalInfoError += "\n DOB  Cannot be Empty";
+            personalInfoError += "\n >>DOB  Cannot be Empty";
         }
-        this.setState({personalInfoError});
+        if (!status) {
+            this.displayMessage(personalInfoError, "Error", "error");
+        }
+        //this.setState({personalInfoError});
         return status;
     };
+    displayMessage =(message,label, status) =>{
+        var _notificationSystem = this.refs.notificationSystem;
+        _notificationSystem.addNotification({
+            title: <span data-notify="icon" className="pe-7s-light" />,
+            message: (
+                <div>
+                    {label} : {message.split("\n").map((i,key) => {
+                    return <div key={key}>{i}</div>;
+                })}
+
+                </div>
+            ),
+            level: status,
+            position: "tr",
+            autoDismiss: 15
+        });
+}
     validateFormAccountInfo =()=> {
-            let status = true;
-                let accountInfoError = "";
-                if (this.state.userName === "") {
-                    status = false;
-                    accountInfoError += "\n User Name Cannot be Empty";
-                }
-                if (this.state.password === "") {
-                    status = false;
-                    accountInfoError += "\n Password Cannot be Empty";
-                }
-                if (this.state.conformPassword === "") {
-                    status = false;
-                    accountInfoError += "\n conformPassword  Cannot be Empty";
-                }
-                if (this.state.conformPassword !== this.state.password) {
-                    status = false;
-                    accountInfoError += "\n Passwords did not match ";
-                }
-                this.setState({accountInfoError});
-                return status;
+        let status = true;
+        let accountInfoError = "";
+        if (this.state.userName === "") {
+            status = false;
+            accountInfoError += "\n User Name Cannot be Empty";
+        }
+        if (this.state.password === "") {
+            status = false;
+            accountInfoError += "\n Password Cannot be Empty";
+        }
+        if (this.state.conformPassword === "") {
+            status = false;
+            accountInfoError += "\n conformPassword  Cannot be Empty";
+        }
+        if (this.state.conformPassword !== this.state.password) {
+            status = false;
+            accountInfoError += "\n Passwords did not match ";
+        }
+        if (!status) {
+            this.displayMessage(accountInfoError, "Error", "error");
+        }
+             return status;
 
 
         };
@@ -229,7 +255,7 @@ class  CandidateProfile extends Component {
     handleNext = () => {
         const { activeStep } = this.state;
         let { skipped } = this.state;
-        console.log(activeStep === 0 , !this.validateFormPersonalInfo());
+
         if(activeStep === 0 && !this.validateFormPersonalInfo()){
              return;
         }
@@ -241,6 +267,18 @@ class  CandidateProfile extends Component {
         }
         if(activeStep === 3){
             this.props.saveCandidate(this.state);
+            var _notificationSystem = this.refs.notificationSystem;
+            _notificationSystem.addNotification({
+                title: <span data-notify="icon" className="pe-7s-bell" />,
+                message: (
+                    <div>
+                         Account is Saved Successfully
+                    </div>
+                ),
+                level: "success",
+                position: "tr",
+                autoDismiss: 15
+            });
         }
         this.setState({
             activeStep: activeStep + 1,
@@ -293,7 +331,7 @@ class  CandidateProfile extends Component {
         };
         return (
             <div style={margin}>
-
+                <NotificationSystem ref="notificationSystem" style={style}/>
                 <div >
                     <Stepper activeStep={activeStep}>
                         {steps.map((label, index) => {

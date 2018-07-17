@@ -21,8 +21,11 @@ export default {
                                     method: "post"
             })
             .then((result)=>{
-                console.log(result);
-                dispatch(loggingInSuccess(result.data));
+                if(result.data == "User Not Found"){
+                    dispatch(userNotFound("User Not Found"));
+                } else {
+                    dispatch(loggingInSuccess(result.data));
+                }
             }).catch((err)=>{
                 dispatch(loggingInFailure(err));
             });
@@ -69,6 +72,12 @@ function loggingInFailure (errMsg){
     return {
         type: types.LOGGING_IN_FAILURE,
         errMsg
+    }
+}
+function userNotFound (userNotFound){
+    return {
+        type: types.USER_NOT_FOUND,
+        userNotFound
     }
 }
 

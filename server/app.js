@@ -10,6 +10,7 @@ const path = require("path");
 const app = express();
 const router = express.Router();
 const url = process.env.MONGODB_URI || "mongodb://localhost:27017/hp";
+
 // const url = process.env.MONGODB_URI || "mongodb://Yewbdar:1Hulet3@ds237641.mlab.com:37641/hp";
 
 
@@ -45,7 +46,7 @@ app.use(session({
     proxy: undefined,
     saveUninitialized: false,
     cookie: {
-                maxAge: Date.now() + (30 * 86400 * 1000),
+                maxAge:  8640000 ,
                 secure: false,
                 httpOnly: false
             }

@@ -16,6 +16,7 @@ module.exports = {
             });
     },
     create: function(req, res) {
+
         console.log(req.body);
         Position
             .create(req.body)
@@ -40,8 +41,9 @@ module.exports = {
     },
 
     remove: function(req, res) {
+        console.log(req.body)
         Position
-            .findById({ _id: req.body.id })
+            .findById({ _id: req.params.id })
             .then(data => data.remove())
             .then(data => res.json(data))
             .catch(err => res.status(422).json(err));

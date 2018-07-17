@@ -97,16 +97,20 @@ module.exports = {
                                                 contentType : mimetype
                                               }
                                 };
-
-        Candidate
-            .create(candidateObj)
-            .then((result) => {
-                                res.json(result);
-                                emailService.mailOptions.to = email;
-                                emailService.sendEmail();
-            })
-            .catch(err => { console.log(err) ;
-                return res.status(422).json(err)});
+        bcrypt.hash(password, 10, function (err, saltPassword) {
+            candidateObj.account.password = saltPassword; // encrypting before Saving Data
+            Candidate
+                .create(candidateObj)
+                .then((result) => {
+                    res.json(result);
+                    emailService.mailOptions.to = email;
+                    emailService.sendEmail();
+                })
+                .catch(err => {
+                    console.log(err);
+                    return res.status(422).json(err)
+                });
+        });
 
     },
     getById:function (req,res) {
