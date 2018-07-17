@@ -153,6 +153,7 @@ class ViewCandidats extends Component {
                             id = {this.state.selectedCandidateId}
                             fullName = {this.state.selectedCandidateFullName}
                             positions = {this.state.selectedCandidateAppliedPositions}
+                            candidateId = {this.state.selectedCandidateId}
                             closeDialog = {this.handleClose}
 
                         />

@@ -234,36 +234,38 @@ module.exports = {
         //     .catch(err => res.status(422).json(err));
     },
     addFeedbackForPosition: function(req, res) {
-        console.log("am here ");
+
         const { candidateId , positionId, interviewedBy, interviewedOn, comment, passed, interviewType } = req.body;
         console.log(req.body);
+
         Candidate.findOne({_id: candidateId }, function (err, candidate) {
 
             if(candidate && candidate.appliedPositions) {
                 let appliedPositionIndex = -1;
                 let isAppliedfor = candidate.appliedPositions.find(
                     (appliedPosition, index) => {
+                        console.log(appliedPosition.position, positionId, "<<");
                         if( appliedPosition.position == positionId ){
                             appliedPositionIndex = index;
                             return true;
                         }
                     });
-
-                console.log(candidate.appliedPositions[appliedPositionIndex], "<<");
+                console.log(candidate.appliedPositions, appliedPositionIndex,positionId, "<<");
                 if (isAppliedfor && candidate.appliedPositions[appliedPositionIndex].interview ) {
                     //push and save
                     let interviewIndex = -1;
                     candidate.appliedPositions[appliedPositionIndex].interview.find( (interview, index) => {
-                        console.log(interview.interviewType == interviewType, interview.interviewType, interviewType);
-
+                        console.log(interview.interviewType,interviewType);
                         if (interview.interviewType == interviewType) {
                             interviewIndex = index;
                             return true;
                         }
                     });
-                    console.log(candidate.appliedPositions[appliedPositionIndex].interview.interviewType);
+                    console.log("interviewIndex", interviewIndex )
+
                     if( interviewIndex === -1 ) {
                         // this fed back doesnt exist so we add it, i.e. push
+                        console.log("Pushing" )
                         candidate.appliedPositions[appliedPositionIndex].interview.push({
                                                                                             interviewedBy,
                                                                                             interviewedOn,
@@ -284,7 +286,6 @@ module.exports = {
 
 
 
-                        console.log("Aleady commented for, try replacing that feedback");
                     //TODO:interview is already commented for , but we can still can update with the same results
                 }
                     //save in both cases

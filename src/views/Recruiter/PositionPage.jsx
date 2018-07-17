@@ -105,6 +105,7 @@ class PositionPage extends Component {
                                                   action={this.state.action}
                                                   setAction={this.setAction}
                                                   handleQualificationChange = {this.handleQualificationChange}
+                                                  reset={this.resetForm}
                                         />
                                         <div style={space}>
                                             <ViewPosition  handleEdit={this.handleEdit}/>

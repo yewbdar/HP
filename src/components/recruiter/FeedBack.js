@@ -33,7 +33,8 @@ class  FeedBack extends Component {
             comment:"",
             passed:"",
             result:"",
-            interviewedOn:Date.now()
+            interviewedOn:Date.now(),
+            selectedPosition : ""
         };
 
     }
@@ -54,7 +55,7 @@ class  FeedBack extends Component {
     handleFeedbackChange = (event)=>{
 
         this.setState({ result: event.target.value});
-        if(this.state.result === "Pass"){
+        if(event.target.value === "Pass"){
             this.setState({ passed:true});
         }else {
             this.setState({ passed:false});
@@ -67,14 +68,14 @@ class  FeedBack extends Component {
     };
 
     handleSubmitButton=(event)=> {
-
+        event.preventDefault();
         if(this.props.userInfo.type === "Recruiter"){
             this.setState({interviewType:"Behavioral"})
         }
         else {
             this.setState({interviewType:"Technical"})
         }
-        event.preventDefault();
+
         this.setState((state) =>({
             ...state,
                 candidateId:this.props.id,
@@ -83,12 +84,15 @@ class  FeedBack extends Component {
                 comment: this.state.comment,
                 passed: this.state.passed,
                 interviewedOn:Date.now()
-        }),() => {
+        })
+            ,() => {
+
+
             this.props.saveFeedbackForAppliedPosition({
                                                     interviewType:this.state.interviewType,
-                                                    candidateId: this.props.id,
+                                                    candidateId: this.props.candidateId,
                                                     interviewedBy: this.props.userInfo.id,
-                                                     positions: this.props.positions,
+                                                    positionId: this.state.selectedPosition,
                                                     comment: this.state.comment,
                                                     passed: this.state.passed,
                                                     interviewedOn: Date.now()
@@ -98,9 +102,9 @@ class  FeedBack extends Component {
     };
     handlePositionChange = (event) => {
         this.setState({
-            position:event.target.value
+            selectedPosition:event.target.value
         })
-        console.log(this.state.position)
+
     };
 
     render() {
@@ -144,10 +148,8 @@ class  FeedBack extends Component {
                     <div className="col-lg-12 col-md-6 col-sm-12" >
                         {/*<pre>Positions : {JSON.stringify(this.props.positions, null, 2) }</pre>*/}
                         <FormControl fullWidth >
-                                <InputLabel htmlFor="position">Position</InputLabel>
-
                                 <Select
-                                    value={this.state.position}
+                                    value={this.state.selectedPosition}
                                     onChange={this.handlePositionChange}
                                     input={<Input name="position" id="position" />}
                                 >

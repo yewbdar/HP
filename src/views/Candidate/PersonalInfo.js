@@ -111,8 +111,8 @@ class PersonalInfo extends Component {
 
                             <RadioGroup
                                 aria-label="Gender"
-                                name="gender"
-                                value={this.props.gender}
+                                name="Gender"
+                                value={this.state.gender}
                                 onChange={this.handleGenderChange}
                                 style={{display:"inline"}}
                             >

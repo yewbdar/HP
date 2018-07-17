@@ -20,12 +20,12 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 
 import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
-import { styles } from "../../variables/Variables.jsx";
+import { style } from "../../variables/Variables.jsx";
 import NotificationSystem from "react-notification-system";
 
 import Grid  from '../common/Grid';
 const red300 = red['500'];
-const style = {
+const styles = {
     right: 0,
     fontSize: '12px',
     color: red300,
@@ -47,6 +47,16 @@ class  Position extends Component {
         // ValidatorForm.addValidationRule('isTruthy', value => value);
         this.props.getPosition();
         this.props.getQualification();
+    }
+    reset(){
+       this.setSetate({
+            id:this.props.id,
+            title: this.props.title,
+            qualifications: this.props.selectedQualifications,
+            skill: this.props.skill,
+            summary: this.props.summary,
+            isActive: this.props.isActive
+        });
     }
 
     handleOpen=(articleId)=>{
@@ -117,6 +127,7 @@ class  Position extends Component {
                 autoDismiss: 15
             });
         }
+        this.props.reset;
     };
     handleSelectedQualifications(selected){
         let selectedQualificationForDisplay = [];
@@ -136,7 +147,7 @@ class  Position extends Component {
         }
 
         return (
-            <div style={style}>
+            <div style={styles}>
                 {this.getErrorMessage()}
             </div>
         );
@@ -156,7 +167,7 @@ class  Position extends Component {
             >
 
             <div style={margin}>
-                <NotificationSystem ref="notificationSystem" style={styles}/>
+                <NotificationSystem ref="notificationSystem" style={style}/>
                 <div className="row">
                         <div className="col-lg-12 col-md-12 col-sm-12" >
                             <TextValidator

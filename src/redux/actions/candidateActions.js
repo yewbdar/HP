@@ -54,46 +54,46 @@ export default {
             dispatch(beginGetCandidateAppliedPositionStatus());
         };
     },
-    saveDocument: function(data){
-        const {firstName,lastName,DOB,
-                telephone,email,street,city,country,zip,
-                userName,password,
-                file, yearsOfExperience, selectedQualifications} = data;
-
-        return (dispatch)=> {
-            dispatch(beginCandidateSave());
-            let formData = new FormData();
-            formData.append('file', file);
-            formData.append('yearsOfExperience', data.yearsOfExperience);
-            formData.append('firstName', data.firstName);
-            formData.append('lastName', data.lastName);
-            formData.append('DOB', data.DOB);
-            formData.append('telephone', data.telephone);
-            formData.append('email', data.email);
-            formData.append('street', data.street);
-            formData.append('city', data.city);
-            formData.append('country', data.country);
-            formData.append('zip', data.zip);
-            formData.append('userName', data.userName);
-            formData.append('password', data.password);
-            formData.append('gender', "F");
-            formData.append('selectedQualifications', data.selectedQualifications);
-            const config = {
-                headers: {
-                    'content-type': 'multipart/form-data'
-                }
-            };
-             post(`${url}/candidate`, formData, config)
-                 .then( ()=>{
-                     dispatch(candidateSaveSuccess());
-                }).catch( error =>{
-                      dispatch(candidateSaveFailure(error));
-             });
-
-
-        };
-
-    },
+    // saveDocument: function(data){
+    //     const {firstName,lastName,DOB,
+    //             telephone,email,street,city,country,zip,
+    //             userName,password,
+    //             file, yearsOfExperience, selectedQualifications} = data;
+    //
+    //     return (dispatch)=> {
+    //         dispatch(beginCandidateSave());
+    //         let formData = new FormData();
+    //         formData.append('file', file);
+    //         formData.append('yearsOfExperience',yearsOfExperience);
+    //         formData.append('firstName', firstName);
+    //         formData.append('lastName', lastName);
+    //         formData.append('DOB', DOB);
+    //         formData.append('telephone', telephone);
+    //         formData.append('email', email);
+    //         formData.append('street', street);
+    //         formData.append('city', city);
+    //         formData.append('country', country);
+    //         formData.append('zip', zip);
+    //         formData.append('userName', userName);
+    //         formData.append('password', password);
+    //         formData.append('gender', "F");
+    //         formData.append('selectedQualifications', selectedQualifications);
+    //         const config = {
+    //             headers: {
+    //                 'content-type': 'multipart/form-data'
+    //             }
+    //         };
+    //          post(`${url}/candidate`, formData, config)
+    //              .then( ()=>{
+    //                  dispatch(candidateSaveSuccess());
+    //             }).catch( error =>{
+    //                   dispatch(candidateSaveFailure(error));
+    //          });
+    //
+    //
+    //     };
+    //
+    // },
     getAppliedPositionsStatusForCandidate : function(candidateId){
         return (dispatch) => {
             dispatch(beginGetCandidateAppliedPositionStatus());
@@ -209,8 +209,6 @@ export default {
             })
         }
     },
-
-
      applyForPosition: function (data) {
             console.log("_>>>updating  Candidates . . .",data);
             return (dispatch) => {
