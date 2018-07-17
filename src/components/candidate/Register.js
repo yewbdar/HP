@@ -27,6 +27,7 @@ class  CandidateProfile extends Component {
             firstName: "",
             lastName: "",
             DOB: "",
+            gender:"",
             image: "",
             resume:"",
             coverPage: "",
@@ -120,7 +121,7 @@ class  CandidateProfile extends Component {
     getStepContent  = (step)=> {
        switch (step) {
            case 0:
-               return <PersonalInfo firstName={this.state.firstName} lastName={this.state.lastName} DOB={this.state.DOB}
+               return <PersonalInfo firstName={this.state.firstName} lastName={this.state.lastName} gender={this.state.gender} DOB={this.state.DOB}
                                     validationMsg={this.state.personalInfoError} handleChange={this.handleChange} />;
            case 1:
                return <CreateAccount  userName={this.state.userName} password={this.state.password} conformPassword={this.state.conformPassword}

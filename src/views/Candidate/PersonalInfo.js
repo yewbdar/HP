@@ -9,14 +9,19 @@ import { connect } from 'react-redux';
 import NotificationSystem from "react-notification-system";
 import { style } from "../../variables/Variables.jsx";
 
-
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
 class PersonalInfo extends Component {
     constructor () {
         super ();
         this.state = {
             firstName : "",
             lastName:"",
-            DOB: ""
+            DOB: "",
+            gender:""
         }
     }
     handleChange = (event) => {
@@ -32,6 +37,11 @@ class PersonalInfo extends Component {
             DOB: ""
         })
     };
+    handleGenderChange = (event)=> {
+
+        this.setState({gender: event.target.value});
+        console.log(this.state.gender)
+    }
 
     render() {
 
@@ -91,6 +101,28 @@ class PersonalInfo extends Component {
                             validators={['required']}
                             errorMessages={['this field is required']}
                         /> </div>
+                </div>
+
+                <div className="row">
+                    <div className="col-lg-12 col-md-6 col-sm-12" >
+                        <FormControl component="fieldset" required >
+
+                            <FormLabel component="legend">Gender</FormLabel>
+
+                            <RadioGroup
+                                aria-label="Gender"
+                                name="gender"
+                                value={this.props.gender}
+                                onChange={this.handleGenderChange}
+                                style={{display:"inline"}}
+                            >
+                                <FormControlLabel value="Male" control={<Radio  color="primary" />} label="Male" />
+                                <FormControlLabel value="Female" control={<Radio />} label="Female" />
+
+                            </RadioGroup>
+                        </FormControl>
+
+                    </div>
                 </div>
 
             </div>
